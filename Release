@@ -1,0 +1,12 @@
+Origin: Tuananhios
+Label: Tuananhios
+Suite: stable
+Version: 1.0
+Codename: ios
+Architectures: iphoneos-arm
+Components: main
+Description: Tuananhios
+MD5Sum:
+ 48589e7982c6c54fb416156e4b19d495 4096 Packages
+ 2ed52b54f0c8df202a1b18492c55c7ff 358 Packages.bz2
+ 3ef6e63dd00e279a832f2a0fd052fc38 307 Packages.gz
