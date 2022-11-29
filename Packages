@@ -1,0 +1,25 @@
+Package: com.tuananhios.napvi
+Name: Nap tuananhios
+Version: 2.1
+Architecture: iphoneos-arm
+Description: Nap tuananhios
+Author: Developer by Tuananhios
+Maintainer: Developer by Tuananhios
+Section: System
+Filename: ./Debs/com.tuananhios.napvi_2.1.deb
+Size: 130152
+MD5sum: 93756bea4ffc1c4d279be82955d33ee2
+Depends: com.rpetrich.rocketbootstrap
+
+Package: com.tuananhios.xavi
+Name: Xa tuananhios
+Version: 2.5
+Architecture: iphoneos-arm
+Description: Xa tuananhios
+Author: Developer by Tuananhios
+Maintainer: Developer by Tuananhios
+Section: System
+Filename: ./Debs/com.tuananhios.xavi_2.5.deb
+Size: 57344
+MD5sum: 1ffe7ea002d0bd6754ff6d482a025c3c
+Depends: com.rpetrich.rocketbootstrap
