@@ -3,8 +3,8 @@ Version: 2.1
 Section: 
 Maintainer: KingAkaz
 Architecture: iphoneos-arm
-Filename: ./Debs/com.tuananhios.napvi_2.1.deb
-Size: 130,152
+Filename: ./Debs/com.tuananhios.napvi.deb
+Size: 130152
 MD5sum: 93756bea4ffc1c4d279be82955d33ee2
 Description: ok
 Name: napvituananh	
