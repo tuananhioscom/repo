@@ -1,12 +1,11 @@
 Package: com.tuananhios.napvi
-Name: Nap tuananhios
 Version: 2.1
+Section: 
+Maintainer: KingAkaz
 Architecture: iphoneos-arm
-Description: Nap tuananhios
-Author: Developer by Tuananhios
-Maintainer: Developer by Tuananhios
-Section: System
 Filename: ./Debs/com.tuananhios.napvi_2.1.deb
-Size: 130152
+Size: 130,152
 MD5sum: 93756bea4ffc1c4d279be82955d33ee2
-Depends: com.rpetrich.rocketbootstrap
+Description: ok
+Name: napvituananh	
+Author: napvituananh
