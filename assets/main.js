@@ -10,6 +10,12 @@ const productModal = document.getElementById('productModal');
 const closeModalBtn = document.querySelector('.close-modal');
 const categoryButtons = document.querySelectorAll('.category-btn');
 const navLinks = document.querySelectorAll('.nav-link');
+const searchInput = document.getElementById('searchInput');
+const searchBtn = document.querySelector('.search-btn');
+const sortSelect = document.getElementById('sortSelect');
+const productCount = document.getElementById('productCount');
+const mobileMenuToggle = document.getElementById('mobileMenuToggle');
+const mainNav = document.getElementById('mainNav');
 
 // Initialize the website
 document.addEventListener('DOMContentLoaded', function() {
@@ -17,6 +23,9 @@ document.addEventListener('DOMContentLoaded', function() {
     initializeCategoryFilters();
     initializeNavigation();
     initializeModal();
+    initializeSearch();
+    initializeSort();
+    initializeMobileMenu();
 });
 
 // Load and display products
@@ -26,10 +35,15 @@ function initializeProducts() {
 
 // Display products in the grid
 function displayProducts(products) {
+    // Update product count
+    if (productCount) {
+        productCount.innerHTML = `Hiển thị <strong>${products.length}</strong> sản phẩm`;
+    }
+
     if (products.length === 0) {
         productsGrid.innerHTML = `
             <div style="grid-column: 1/-1; text-align: center; padding: 3rem;">
-                <h3 style="color: var(--text-light);">No products found in this category</h3>
+                <h3 style="color: var(--text-light);">Không tìm thấy sản phẩm nào</h3>
             </div>
         `;
         return;
@@ -43,7 +57,7 @@ function displayProducts(products) {
                 <span class="product-category">${product.categoryName}</span>
                 <p class="product-description">${product.shortDescription}</p>
                 <p class="product-price">${product.price}</p>
-                <button class="btn btn-primary" onclick="viewProductDetails(${product.id})">View Details</button>
+                <button class="btn btn-primary" onclick="viewProductDetails(${product.id})">Xem chi tiết</button>
             </div>
         </div>
     `).join('');
@@ -199,13 +213,129 @@ function updateActiveNavOnScroll() {
     });
 }
 
-// Contact form handling (placeholder)
+// Contact form handling
 const contactForm = document.querySelector('.contact-form form');
 if (contactForm) {
     contactForm.addEventListener('submit', function(e) {
         e.preventDefault();
-        alert('Thank you for your message! We will get back to you soon.');
+        alert('Cảm ơn bạn đã liên hệ! Chúng tôi sẽ phản hồi sớm nhất có thể.');
         this.reset();
+    });
+}
+
+// Initialize search functionality
+function initializeSearch() {
+    if (!searchInput || !searchBtn) return;
+
+    // Search on button click
+    searchBtn.addEventListener('click', performSearch);
+
+    // Search on Enter key
+    searchInput.addEventListener('keypress', function(e) {
+        if (e.key === 'Enter') {
+            performSearch();
+        }
+    });
+
+    // Real-time search (optional - debounced)
+    let searchTimeout;
+    searchInput.addEventListener('input', function() {
+        clearTimeout(searchTimeout);
+        searchTimeout = setTimeout(performSearch, 500);
+    });
+}
+
+function performSearch() {
+    const query = searchInput.value.trim();
+
+    if (query === '') {
+        filterByCategory(currentCategory);
+        return;
+    }
+
+    const filtered = allProducts.filter(product => {
+        const searchLower = query.toLowerCase();
+        return product.name.toLowerCase().includes(searchLower) ||
+               product.description.toLowerCase().includes(searchLower) ||
+               product.shortDescription.toLowerCase().includes(searchLower) ||
+               product.categoryName.toLowerCase().includes(searchLower);
+    });
+
+    displayProducts(filtered);
+}
+
+// Initialize sort functionality
+function initializeSort() {
+    if (!sortSelect) return;
+
+    sortSelect.addEventListener('change', function() {
+        const sortBy = this.value;
+        applySortAndFilter(sortBy);
+    });
+}
+
+function applySortAndFilter(sortBy) {
+    let products = [...allProducts];
+
+    // Apply current category filter
+    if (currentCategory !== 'all') {
+        products = products.filter(p => p.category === currentCategory);
+    }
+
+    // Apply search filter
+    const query = searchInput ? searchInput.value.trim() : '';
+    if (query !== '') {
+        const searchLower = query.toLowerCase();
+        products = products.filter(product =>
+            product.name.toLowerCase().includes(searchLower) ||
+            product.description.toLowerCase().includes(searchLower) ||
+            product.shortDescription.toLowerCase().includes(searchLower) ||
+            product.categoryName.toLowerCase().includes(searchLower)
+        );
+    }
+
+    // Apply sorting
+    switch(sortBy) {
+        case 'price-low':
+            products.sort((a, b) => a.priceValue - b.priceValue);
+            break;
+        case 'price-high':
+            products.sort((a, b) => b.priceValue - a.priceValue);
+            break;
+        case 'name':
+            products.sort((a, b) => a.name.localeCompare(b.name));
+            break;
+        default:
+            // Keep original order
+            break;
+    }
+
+    displayProducts(products);
+}
+
+// Initialize mobile menu
+function initializeMobileMenu() {
+    if (!mobileMenuToggle || !mainNav) return;
+
+    mobileMenuToggle.addEventListener('click', function() {
+        mainNav.classList.toggle('active');
+
+        // Change icon
+        if (mainNav.classList.contains('active')) {
+            this.textContent = '✕';
+        } else {
+            this.textContent = '☰';
+        }
+    });
+
+    // Close menu when clicking nav links
+    navLinks.forEach(link => {
+        link.addEventListener('click', function() {
+            if (window.innerWidth <= 768) {
+                mainNav.classList.remove('active');
+                mobileMenuToggle.textContent = '☰';
+            }
+        });
     });
 }
 
