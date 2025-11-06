@@ -1,55 +1,163 @@
-<html>
+<!DOCTYPE html>
+<html lang="en">
 <head>
-	<title>Tuananhios</title>
-<meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0"/>
-<base target="_blank"/> 
-
-<script type="text/javascript" src="./assets/menes.js"></script>
-<link rel="stylesheet" type="text/css" id="stylesheet">
-<script type="text/javascript">var agent=navigator.userAgent;var ios=agent.match(/.*; CPU (?:iPhone )?OS ([0-9_]*) like Mac OS X[;)]/);ios=ios==null?'7.0':ios[1].replace(/_/g,'.');var stylesheet=$("#stylesheet");if(ios.match(/^[78]($|\.)/)!=null){stylesheet.href("./assets/lotus.css")}else{stylesheet.href("./assets/legacy.css")}</script>
-
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PrintPro - Professional Printing Services</title>
+    <link rel="stylesheet" href="./assets/styles.css">
 </head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="logo">
+                <h1>🖨️ PrintPro</h1>
+                <p class="tagline">Professional Printing Solutions</p>
+            </div>
+            <nav class="nav">
+                <a href="#home" class="nav-link active">Home</a>
+                <a href="#products" class="nav-link">Products</a>
+                <a href="#about" class="nav-link">About</a>
+                <a href="#contact" class="nav-link">Contact</a>
+            </nav>
+        </div>
+    </header>
 
-	<script type="text/javascript">
-		if (navigator.userAgent.search(/Cydia/) != -1)
-			document.write('<style type="text/css"> body { background: none !important; } </style>');
-	</script>
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <h2>Premium Quality Printing Services</h2>
+                <p>From business cards to large format posters, we deliver exceptional printing solutions for all your needs.</p>
+                <a href="#products" class="btn btn-primary">Browse Products</a>
+            </div>
+        </div>
+    </section>
 
-<body class="pinstripe nolegacy">
-<panel>
-	
-	<block>
-		<p>Welcome to the Tuananhios!</p>
-</block>
-	
-<block>
-	<p>YOU'RE NOT CYDIA!</p>
-	<p>If you're seeing this you shouldn't be here!</p>
-	<p>To gain access to this repo you must add this repo!</p>
-	<p> You may add it to cydia by tapping below or adding manually </p>
-</block>
+    <!-- Category Filter -->
+    <section id="products" class="products-section">
+        <div class="container">
+            <h2 class="section-title">Our Products</h2>
 
-<fieldset>
-	<a href="cydia://cydia.saurik.com/api/share#?source=http://tuananhioscom.github.io/repo"><img src="./CydiaIcon.png" class="icon"><div><div><label><p>Add Source to Cydia</p></label><label class="url"><p></p></label></div></div></a>
-</fieldset>
-<script type="text/javascript"> 
-    var adfly_id = 10554431; 
-</script> 
-<script src="http://cdn.adf.ly/js/display.js"></script> 
-<block>
-	<p>If you have any issues like hash-sum mismatch contact the repo manager other wise contact the developer of the package!</p>
-</block>
+            <!-- Category Folders -->
+            <div class="categories">
+                <button class="category-btn active" data-category="all">
+                    📁 All Products
+                </button>
+                <button class="category-btn" data-category="business-cards">
+                    📁 Business Cards
+                </button>
+                <button class="category-btn" data-category="flyers">
+                    📁 Flyers & Leaflets
+                </button>
+                <button class="category-btn" data-category="brochures">
+                    📁 Brochures
+                </button>
+                <button class="category-btn" data-category="posters">
+                    📁 Posters & Banners
+                </button>
+                <button class="category-btn" data-category="stationery">
+                    📁 Stationery
+                </button>
+                <button class="category-btn" data-category="packaging">
+                    📁 Packaging
+                </button>
+            </div>
 
-<fieldset>
-	<a href="mailto:ipodnewebee234@icloud.com"><img src="http://cydia.saurik.com/ui/ios/1.1/package/email.png" class="icon"><div><div><label><p>Email Repo Manager</p></label></div></div></a>
-</fieldset>
+            <!-- Product Grid -->
+            <div class="products-grid" id="productsGrid">
+                <!-- Products will be dynamically loaded here -->
+            </div>
+        </div>
+    </section>
 
-<fieldset>
-	<a href="mailto:renouri@outlook.com"><img src="http://cydia.saurik.com/ui/ios/1.1/package/email.png" class="icon"><div><div><label><p>Email Theme Artist</p></label></div></div></a>
-</fieldset>
+    <!-- Product Detail Modal -->
+    <div id="productModal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <div class="modal-body">
+                <div class="product-image-section">
+                    <img id="modalImage" src="" alt="Product Image">
+                </div>
+                <div class="product-details-section">
+                    <h2 id="modalTitle"></h2>
+                    <p class="product-category" id="modalCategory"></p>
+                    <p class="product-price" id="modalPrice"></p>
+                    <div class="product-description">
+                        <h3>Description</h3>
+                        <p id="modalDescription"></p>
+                    </div>
+                    <div class="product-specs">
+                        <h3>Specifications</h3>
+                        <ul id="modalSpecs"></ul>
+                    </div>
+                    <div class="product-options">
+                        <h3>Available Options</h3>
+                        <div id="modalOptions"></div>
+                    </div>
+                    <div class="product-actions">
+                        <button class="btn btn-primary">Get Quote</button>
+                        <button class="btn btn-secondary">Contact Us</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
-<footer> &copy; 2015 iKilledAppl3 & Renouri All Rights Reserved.
+    <!-- About Section -->
+    <section id="about" class="about-section">
+        <div class="container">
+            <h2 class="section-title">About PrintPro</h2>
+            <div class="about-content">
+                <div class="about-card">
+                    <h3>🎯 Quality Guaranteed</h3>
+                    <p>We use state-of-the-art printing technology to ensure the highest quality output for all your printing needs.</p>
+                </div>
+                <div class="about-card">
+                    <h3>⚡ Fast Turnaround</h3>
+                    <p>Quick processing and delivery without compromising on quality. Most orders ship within 24-48 hours.</p>
+                </div>
+                <div class="about-card">
+                    <h3>💼 Professional Service</h3>
+                    <p>Our experienced team is dedicated to providing exceptional customer service and support throughout your order.</p>
+                </div>
+            </div>
+        </div>
+    </section>
 
-</panel>
+    <!-- Contact Section -->
+    <section id="contact" class="contact-section">
+        <div class="container">
+            <h2 class="section-title">Contact Us</h2>
+            <div class="contact-content">
+                <div class="contact-info">
+                    <h3>Get in Touch</h3>
+                    <p>📧 Email: info@printpro.com</p>
+                    <p>📞 Phone: +1 (555) 123-4567</p>
+                    <p>📍 Address: 123 Print Street, Design City, DC 12345</p>
+                </div>
+                <div class="contact-form">
+                    <h3>Send us a message</h3>
+                    <form>
+                        <input type="text" placeholder="Your Name" required>
+                        <input type="email" placeholder="Your Email" required>
+                        <textarea placeholder="Your Message" rows="5" required></textarea>
+                        <button type="submit" class="btn btn-primary">Send Message</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2024 PrintPro. All rights reserved.</p>
+            <p>Professional Printing Services | Quality You Can Trust</p>
+        </div>
+    </footer>
+
+    <script src="./assets/products.js"></script>
+    <script src="./assets/main.js"></script>
 </body>
 </html>
