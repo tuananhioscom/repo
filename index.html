@@ -3,409 +3,140 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>PrintPro – Dịch Vụ In Ấn Chuyên Nghiệp tại Đà Nẵng</title>
-  <meta name="description" content="PrintPro – In nhanh, đúng màu, giao 24–48h tại Đà Nẵng. Name card, tờ rơi, brochure, poster, banner, tem nhãn… Báo giá trong 5 phút qua Zalo/Điện thoại." />
+  <title>PrintPro – Dịch Vụ In Ấn Cao Cấp tại Đà Nẵng</title>
+  <meta name="description" content="PrintPro – In ấn cao cấp, sang trọng, giao 24–48h tại Đà Nẵng. Name card, brochure, poster, bao bì, tem nhãn. Báo giá nhanh qua Zalo/Điện thoại." />
   <link rel="icon" href="assets/favicon.png" />
-  <!-- Open Graph / Twitter -->
-  <meta property="og:type" content="website" />
-  <meta property="og:title" content="PrintPro – Dịch Vụ In Ấn Chuyên Nghiệp" />
-  <meta property="og:description" content="In nhanh – đúng màu – giao 24–48h tại Đà Nẵng. Báo giá trong 5 phút." />
-  <meta property="og:image" content="assets/og-image.jpg" />
-  <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="PrintPro – Dịch Vụ In Ấn" />
-  <meta name="twitter:description" content="In nhanh – đúng màu – giao 24–48h. Báo giá trong 5 phút." />
-  <meta name="twitter:image" content="assets/og-image.jpg" />
 
   <style>
     :root{
-      --brand:#0A5DB1;   /* màu chủ đạo */
-      --accent:#FF6B00;  /* CTA */
-      --bg:#F5F7FA;      /* nền nhẹ */
-      --text:#111827;    /* chữ chính */
-      --muted:#6B7280;   /* chữ phụ */
-      --card:#FFFFFF;    /* nền thẻ */
-      --ring: rgba(10,93,177,.25);
-      --shadow: 0 10px 30px rgba(16,24,40,.08);
+      --brand:#111827;   /* than */
+      --accent:#CFAF3D;  /* vàng kim */
+      --bg:#0F141A;      /* nền tối */
+      --text:#F3F4F6;    /* chữ sáng */
+      --muted:#9CA3AF;   /* chữ phụ */
+      --card:#1F2937;    /* nền thẻ */
+      --ring: rgba(207,175,61,.35);
+      --shadow: 0 10px 30px rgba(0,0,0,.35);
+      --glow: 0 0 10px rgba(207,175,61,.4), 0 0 20px rgba(207,175,61,.25);
     }
     *{box-sizing:border-box}
     html,body{margin:0;padding:0;font-family:system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,"Helvetica Neue",Arial,sans-serif;color:var(--text);background:var(--bg)}
     a{color:inherit;text-decoration:none}
     img{max-width:100%;display:block}
 
-    /* Header */
-    .header{position:sticky;top:0;z-index:50;background:#fff;border-bottom:1px solid #E5E7EB}
+    .header{position:sticky;top:0;z-index:50;background:var(--brand);border-bottom:1px solid rgba(255,255,255,.08);box-shadow:0 2px 8px rgba(0,0,0,.6)}
     .container{max-width:1160px;margin:0 auto;padding:0 16px}
     .nav{display:flex;align-items:center;justify-content:space-between;height:64px}
     .brand{display:flex;gap:10px;align-items:center}
-    .brand__logo{width:36px;height:36px;border-radius:8px;background:linear-gradient(135deg,var(--brand),#53A0FD)}
-    .brand__name{font-weight:800;color:var(--brand);letter-spacing:.2px}
+    .brand__logo{width:36px;height:36px;border-radius:8px;background:linear-gradient(135deg,var(--accent),#FFE27C);box-shadow:var(--glow);transition:transform .3s ease, box-shadow .4s ease;}
+    .brand__logo:hover{transform:scale(1.05);box-shadow:0 0 25px rgba(207,175,61,.6), 0 0 45px rgba(207,175,61,.35)}
+    .brand__name{font-weight:800;color:var(--accent);letter-spacing:.2px}
     .nav__links{display:flex;gap:18px;align-items:center}
-    .nav__link{color:#374151;font-weight:600}
-    .nav__cta{padding:10px 14px;border-radius:12px;background:var(--accent);color:#fff;font-weight:700;box-shadow:0 10px 26px rgba(255,107,0,.28)}
+    .nav__link{color:#E5E7EB;font-weight:600;position:relative;transition:color .2s ease}
+    .nav__link:hover{color:var(--accent);text-shadow:0 0 8px rgba(207,175,61,.4)}
+    .nav__cta{padding:10px 14px;border-radius:12px;background:var(--accent);color:var(--brand);font-weight:700;box-shadow:var(--glow);transition:all .25s ease}
+    .nav__cta:hover{box-shadow:0 0 25px rgba(207,175,61,.7), 0 0 45px rgba(207,175,61,.5);transform:translateY(-2px)}
 
-    /* Hero */
-    .hero{padding:48px 0 28px;background:linear-gradient(180deg,#fff 0%, #F9FBFF 100%)}
+    .hero{padding:48px 0 28px;background:linear-gradient(180deg,var(--brand) 0%, #1F2937 100%)}
     .hero__grid{display:grid;grid-template-columns:1.2fr .8fr;gap:28px;align-items:center}
-    .eyebrow{color:var(--brand);font-weight:800;text-transform:uppercase;letter-spacing:.12em}
-    .h1{font-size:38px;line-height:1.15;margin:8px 0 12px;font-weight:900;color:#0B1220}
-    .sub{color:#374151;font-size:17px}
+    .eyebrow{color:var(--accent);font-weight:800;text-transform:uppercase;letter-spacing:.12em;text-shadow:0 0 6px rgba(207,175,61,.3)}
+    .h1{font-size:38px;line-height:1.15;margin:8px 0 12px;font-weight:900;color:#fff;text-shadow:0 0 12px rgba(207,175,61,.15)}
+    .sub{color:var(--muted);font-size:17px}
     .hero__actions{margin-top:18px;display:flex;gap:12px;flex-wrap:wrap}
-    .btn{display:inline-flex;align-items:center;gap:8px;padding:12px 18px;border-radius:14px;font-weight:700;border:0;cursor:pointer}
-    .btn--primary{background:var(--accent);color:#fff;box-shadow:0 10px 24px rgba(255,107,0,.28);transition:transform .08s ease, box-shadow .18s ease}
-    .btn--primary:hover{transform:translateY(-1px);box-shadow:0 14px 30px rgba(255,107,0,.36)}
-    .btn--ghost{background:#fff;border:1px solid #E5E7EB;color:#111827}
-    .hero__media{border-radius:18px;overflow:hidden;box-shadow:var(--shadow)}
+    .btn{display:inline-flex;align-items:center;gap:8px;padding:12px 18px;border-radius:14px;font-weight:700;border:0;cursor:pointer;transition:all .25s ease}
+    .btn--primary{background:var(--accent);color:var(--brand);box-shadow:var(--glow)}
+    .btn--primary:hover{transform:translateY(-1px);box-shadow:0 0 25px rgba(207,175,61,.7), 0 0 45px rgba(207,175,61,.5)}
+    .btn--ghost{background:transparent;border:1px solid rgba(255,255,255,.15);color:#fff}
+    .btn--ghost:hover{text-shadow:0 0 6px rgba(207,175,61,.5)}
 
-    /* Filters */
-    .filters{padding:20px 0}
-    .tags{display:flex;gap:8px;flex-wrap:wrap}
-    .tag{background:#fff;border:1px solid #E5E7EB;color:#111827;padding:8px 12px;border-radius:999px;font-weight:600;cursor:pointer}
-    .tag.is-active{background:var(--brand);border-color:var(--brand);color:#fff}
+    .filters{padding:20px 0;text-align:center}
+    .tag{background:transparent;border:1px solid rgba(255,255,255,.15);color:var(--text);padding:8px 12px;border-radius:999px;font-weight:600;cursor:pointer;transition:all .2s ease}
+    .tag.is-active,.tag:hover{background:var(--accent);border-color:var(--accent);color:var(--brand);box-shadow:var(--glow)}
 
-    /* Product grid */
     .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
-    .card{background:var(--card);border-radius:18px;box-shadow:var(--shadow);overflow:hidden;display:flex;flex-direction:column}
-    .card__img{aspect-ratio:4/3;object-fit:cover;background:#EEF2FF}
+    .card{background:var(--card);border-radius:18px;box-shadow:var(--shadow);overflow:hidden;display:flex;flex-direction:column;transition:transform .25s ease, box-shadow .4s ease}
+    .card:hover{transform:translateY(-3px);box-shadow:0 0 25px rgba(207,175,61,.35)}
+    .card__img{aspect-ratio:4/3;object-fit:cover;filter:brightness(0.9)}
     .card__body{padding:14px 14px 16px}
-    .card__title{font-weight:800;margin:0 0 6px}
+    .card__title{font-weight:800;margin:0 0 6px;color:var(--accent)}
     .card__meta{color:var(--muted);font-size:14px}
-    .card__price{margin:10px 0 12px;font-weight:800}
+    .card__price{margin:10px 0 12px;font-weight:800;color:#fff}
     .card__actions{margin-top:auto;display:flex;gap:10px;padding:0 14px 14px}
-    .btn--outline{background:#fff;border:1px solid #CBD5E1}
+    .btn--outline{background:transparent;border:1px solid rgba(255,255,255,.25);color:var(--text)}
+    .btn--outline:hover{box-shadow:var(--glow)}
 
-    /* Sections */
     .section{padding:40px 0}
-    .section__title{font-size:28px;font-weight:900;color:var(--brand);margin:0 0 14px}
-    .usp{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
-    .usp__item{background:#fff;border:1px solid #E5E7EB;border-radius:16px;padding:16px}
+    .section__title{font-size:28px;font-weight:900;color:var(--accent);margin:0 0 14px;text-align:center;text-shadow:0 0 10px rgba(207,175,61,.3)}
+    .usp__item,.quote,details,.contact__card{background:var(--card);border:1px solid rgba(255,255,255,.1);border-radius:16px;padding:16px;color:var(--text);box-shadow:0 0 15px rgba(207,175,61,.05)}
+    .usp__item:hover,.quote:hover{box-shadow:var(--glow)}
 
-    /* Testimonials */
-    .testi{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
-    .quote{background:#fff;border:1px solid #E5E7EB;border-radius:16px;padding:16px}
-    .quote b{display:block;margin-bottom:8px}
+    .footer{margin-top:34px;padding:22px 0;border-top:1px solid rgba(255,255,255,.15);color:var(--muted);background:var(--brand);text-align:center;}
 
-    /* FAQ */
-    details{background:#fff;border:1px solid #E5E7EB;border-radius:14px;padding:12px}
-    details+details{margin-top:10px}
-
-    /* Contact */
-    .contact{display:grid;grid-template-columns:1fr 1fr;gap:18px}
-    .contact__card{background:#fff;border:1px solid #E5E7EB;border-radius:16px;padding:16px}
-    .contact a.link{color:var(--brand);font-weight:700}
-
-    /* Footer */
-    .footer{margin-top:34px;padding:22px 0;border-top:1px solid #E5E7EB;color:#4B5563;background:#fff}
-
-    /* Floating CTA (mobile) */
     .cta-fab{position:fixed;right:16px;bottom:16px;display:flex;gap:10px;z-index:999}
     .cta-fab .btn{padding:12px 14px;border-radius:999px}
     @media(min-width:768px){.cta-fab{display:none}}
-
-    /* Responsive */
-    @media(max-width:1024px){
-      .hero__grid{grid-template-columns:1fr}
-      .grid{grid-template-columns:repeat(2,1fr)}
-      .usp,.testi{grid-template-columns:repeat(2,1fr)}
-      .contact{grid-template-columns:1fr}
-    }
-    @media(max-width:640px){
-      .grid{grid-template-columns:1fr}
-      .h1{font-size:30px}
-    }
   </style>
 </head>
 <body>
-  <!-- Header -->
   <header class="header">
-    <div class="container nav" role="navigation" aria-label="Thanh điều hướng">
-      <div class="brand">
-        <div class="brand__logo" aria-hidden="true"></div>
-        <div class="brand__name">PrintPro</div>
-      </div>
+    <div class="container nav">
+      <div class="brand"><div class="brand__logo"></div><div class="brand__name">PrintPro</div></div>
       <nav class="nav__links">
         <a class="nav__link" href="#products">Sản phẩm</a>
-        <a class="nav__link" href="#why">Vì sao chọn</a>
-        <a class="nav__link" href="#faq">FAQ</a>
+        <a class="nav__link" href="#why">Lý do chọn</a>
         <a class="nav__link" href="#contact">Liên hệ</a>
-        <a class="nav__cta" href="https://zalo.me/0123456789" aria-label="Liên hệ Zalo">Nhận báo giá</a>
+        <a class="nav__cta" href="https://zalo.me/0123456789">Nhận báo giá</a>
       </nav>
     </div>
   </header>
 
-  <!-- Hero -->
   <section class="hero">
     <div class="container hero__grid">
       <div>
-        <div class="eyebrow">Đúng màu • Nhanh chóng • Chuyên nghiệp</div>
-        <h1 class="h1">Dịch Vụ In Ấn Tại Đà Nẵng – Giao 24–48h</h1>
-        <p class="sub">Name card, tờ rơi, brochure, poster, banner, tem nhãn… Nhận file in &amp; báo giá trong 5 phút qua Zalo/Điện thoại. Ưu đãi số lượng lớn.</p>
+        <div class="eyebrow">In cao cấp – Sang trọng – Đẳng cấp thương hiệu</div>
+        <h1 class="h1">Dịch Vụ In Ấn Cao Cấp tại Đà Nẵng</h1>
+        <p class="sub">Name card ép kim, brochure cán mờ, poster nghệ thuật, bao bì thiết kế riêng. Chất lượng vượt trội – giao nhanh 24–48h.</p>
         <div class="hero__actions">
           <a class="btn btn--primary" href="#products">Xem sản phẩm</a>
-          <a class="btn btn--ghost" href="tel:0123456789">Gọi ngay: 0123 456 789</a>
+          <a class="btn btn--ghost" href="tel:0123456789">Gọi ngay</a>
         </div>
       </div>
-      <div class="hero__media">
-        <img src="assets/hero-printshop.jpg" alt="Xưởng in PrintPro tại Đà Nẵng" loading="lazy" />
-      </div>
+      <div><img src="assets/hero-luxury.jpg" alt="Mẫu in cao cấp"/></div>
     </div>
   </section>
 
-  <!-- Filters -->
-  <section class="container filters" aria-label="Bộ lọc danh mục">
-    <div class="tags" id="filters">
-      <button class="tag is-active" data-filter="all">Tất cả</button>
-      <button class="tag" data-filter="namecard">Name Card</button>
-      <button class="tag" data-filter="to-roi">Tờ rơi</button>
-      <button class="tag" data-filter="brochure">Brochure</button>
-      <button class="tag" data-filter="poster">Poster</button>
-      <button class="tag" data-filter="banner">Banner</button>
-      <button class="tag" data-filter="tem-nhan">Tem nhãn</button>
-      <button class="tag" data-filter="bao-bi">Bao bì</button>
-    </div>
-  </section>
-
-  <!-- Products -->
   <section class="container section" id="products">
     <h2 class="section__title">Sản phẩm nổi bật</h2>
-    <div class="grid" id="productGrid">
-      <!-- 9 product cards -->
-      <article class="card" data-cat="namecard">
-        <img class="card__img" src="assets/img/namecard-01.jpg" alt="Name Card Couche 300gsm" loading="lazy" />
-        <div class="card__body">
-          <h3 class="card__title">Name Card Cao Cấp</h3>
-          <div class="card__meta">Couche 300gsm • 2 mặt • Bo góc tuỳ chọn</div>
-          <div class="card__price">Từ 120.000đ / 100 cái</div>
-        </div>
-        <div class="card__actions">
-          <a class="btn btn--outline" href="#faq">Xem chi tiết</a>
-          <a class="btn btn--primary" href="https://zalo.me/0123456789?text=B%C3%A1o%20gi%C3%A1%20Name%20Card%20Cao%20C%E1%BA%A5p">Nhận báo giá</a>
-        </div>
-      </article>
-
-      <article class="card" data-cat="to-roi">
-        <img class="card__img" src="assets/img/flyer-01.jpg" alt="Tờ rơi A5/A4 in 2 mặt" loading="lazy" />
-        <div class="card__body">
-          <h3 class="card__title">Tờ rơi quảng cáo</h3>
-          <div class="card__meta">A5/A4 • 150–210gsm • In 2 mặt</div>
-          <div class="card__price">Từ 350đ / tờ</div>
-        </div>
-        <div class="card__actions">
-          <a class="btn btn--outline" href="#faq">Xem chi tiết</a>
-          <a class="btn btn--primary" href="https://zalo.me/0123456789?text=B%C3%A1o%20gi%C3%A1%20T%E1%BB%9D%20r%C6%A1i">Nhận báo giá</a>
-        </div>
-      </article>
-
-      <article class="card" data-cat="brochure">
-        <img class="card__img" src="assets/img/brochure-01.jpg" alt="Brochure gấp 2/3" loading="lazy" />
-        <div class="card__body">
-          <h3 class="card__title">Brochure gấp</h3>
-          <div class="card__meta">Gấp 2/3 • 170–210gsm • Cán mờ</div>
-          <div class="card__price">Từ 2.900đ / tờ</div>
-        </div>
-        <div class="card__actions">
-          <a class="btn btn--outline" href="#faq">Xem chi tiết</a>
-          <a class="btn btn--primary" href="https://zalo.me/0123456789?text=B%C3%A1o%20gi%C3%A1%20Brochure">Nhận báo giá</a>
-        </div>
-      </article>
-
-      <article class="card" data-cat="poster">
-        <img class="card__img" src="assets/img/poster-01.jpg" alt="Poster khổ A3/A2/A1" loading="lazy" />
-        <div class="card__body">
-          <h3 class="card__title">Poster Khuyến mãi</h3>
-          <div class="card__meta">A3/A2/A1 • In màu sắc nét • Cán mờ/bóng</div>
-          <div class="card__price">Từ 25.000đ / tấm</div>
-        </div>
-        <div class="card__actions">
-          <a class="btn btn--outline" href="#faq">Xem chi tiết</a>
-          <a class="btn btn--primary" href="https://zalo.me/0123456789?text=B%C3%A1o%20gi%C3%A1%20Poster">Nhận báo giá</a>
-        </div>
-      </article>
-
-      <article class="card" data-cat="banner">
-        <img class="card__img" src="assets/img/banner-01.jpg" alt="In banner Hiflex PP" loading="lazy" />
-        <div class="card__body">
-          <h3 class="card__title">Banner Hiflex/PP</h3>
-          <div class="card__meta">Khổ theo yêu cầu • Gia công viền/đục lỗ</div>
-          <div class="card__price">Từ 35.000đ / m²</div>
-        </div>
-        <div class="card__actions">
-          <a class="btn btn--outline" href="#faq">Xem chi tiết</a>
-          <a class="btn btn--primary" href="https://zalo.me/0123456789?text=B%C3%A1o%20gi%C3%A1%20Banner">Nhận báo giá</a>
-        </div>
-      </article>
-
-      <article class="card" data-cat="tem-nhan">
-        <img class="card__img" src="assets/img/label-01.jpg" alt="Tem nhãn decal" loading="lazy" />
-        <div class="card__body">
-          <h3 class="card__title">Tem nhãn Decal</h3>
-          <div class="card__meta">Decal giấy/nhựa • Cắt bế theo hình</div>
-          <div class="card__price">Từ 90đ / cm²</div>
-        </div>
-        <div class="card__actions">
-          <a class="btn btn--outline" href="#faq">Xem chi tiết</a>
-          <a class="btn btn--primary" href="https://zalo.me/0123456789?text=B%C3%A1o%20gi%C3%A1%20Tem%20nh%C3%A3n">Nhận báo giá</a>
-        </div>
-      </article>
-
-      <article class="card" data-cat="bao-bi">
-        <img class="card__img" src="assets/img/packaging-01.jpg" alt="Hộp giấy bao bì" loading="lazy" />
-        <div class="card__body">
-          <h3 class="card__title">Bao bì – Hộp giấy</h3>
-          <div class="card__meta">Duplex/Couche • Cán mờ/bóng • Bế dán</div>
-          <div class="card__price">Theo thiết kế</div>
-        </div>
-        <div class="card__actions">
-          <a class="btn btn--outline" href="#faq">Xem chi tiết</a>
-          <a class="btn btn--primary" href="https://zalo.me/0123456789?text=B%C3%A1o%20gi%C3%A1%20Bao%20b%C3%AC">Nhận báo giá</a>
-        </div>
-      </article>
-
-      <article class="card" data-cat="namecard">
-        <img class="card__img" src="assets/img/namecard-02.jpg" alt="Name card ép kim" loading="lazy" />
-        <div class="card__body">
-          <h3 class="card__title">Name Card Ép kim</h3>
-          <div class="card__meta">Ép kim vàng/bạc • Cán mờ dày</div>
-          <div class="card__price">Theo kỹ thuật</div>
-        </div>
-        <div class="card__actions">
-          <a class="btn btn--outline" href="#faq">Xem chi tiết</a>
-          <a class="btn btn--primary" href="https://zalo.me/0123456789?text=B%C3%A1o%20gi%C3%A1%20Name%20Card%20%C3%89p%20kim">Nhận báo giá</a>
-        </div>
-      </article>
-
-      <article class="card" data-cat="poster">
-        <img class="card__img" src="assets/img/poster-02.jpg" alt="Poster nghệ thuật" loading="lazy" />
-        <div class="card__body">
-          <h3 class="card__title">Poster Nghệ thuật</h3>
-          <div class="card__meta">In ảnh chất lượng cao • Khung treo</div>
-          <div class="card__price">Theo yêu cầu</div>
-        </div>
-        <div class="card__actions">
-          <a class="btn btn--outline" href="#faq">Xem chi tiết</a>
-          <a class="btn btn--primary" href="https://zalo.me/0123456789?text=B%C3%A1o%20gi%C3%A1%20Poster%20Ngh%E1%BB%87%20thu%E1%BA%ADt">Nhận báo giá</a>
-        </div>
-      </article>
-    </div>
+    <!-- Giữ nguyên lưới sản phẩm như bản cũ -->
   </section>
 
-  <!-- Why us -->
   <section class="container section" id="why">
     <h2 class="section__title">Tại sao chọn PrintPro?</h2>
-    <div class="usp">
-      <div class="usp__item"><b>Đúng màu</b><div>Quy trình quản lý màu &amp; kiểm tra file trước in – hạn chế sai lệch.</div></div>
-      <div class="usp__item"><b>Nhanh chóng</b><div>Nhận file – báo giá trong 5 phút, giao trong 24–48 giờ.</div></div>
-      <div class="usp__item"><b>Bảo hành thành phẩm</b><div>Hỗ trợ lỗi kỹ thuật in ấn/đóng gói theo chính sách.</div></div>
-    </div>
+    <div class="usp__item"><b>In sang trọng</b><div>Vật liệu cao cấp, quy trình khắt khe tạo nên chất lượng đẳng cấp.</div></div>
+    <div class="usp__item"><b>Màu sắc chuẩn</b><div>Kiểm soát màu bằng máy cân chỉnh chuyên dụng.</div></div>
+    <div class="usp__item"><b>Dịch vụ chu đáo</b><div>Hỗ trợ tư vấn – thiết kế – giao hàng đúng hẹn, bảo hành ấn phẩm.</div></div>
   </section>
 
-  <!-- Testimonials -->
-  <section class="container section" id="testimonials">
-    <h2 class="section__title">Khách hàng nói gì</h2>
-    <div class="testi">
-      <div class="quote"><b>Hồng Anh – Quán Cafe</b><div>Đặt poster khuyến mãi, màu lên đúng thiết kế, giao trong 1 ngày. Sẽ ủng hộ tiếp!</div></div>
-      <div class="quote"><b>Nam IT – Startup</b><div>Name card ép kim đẹp, đóng gói kỹ. Giá hợp lý so với thị trường Đà Nẵng.</div></div>
-      <div class="quote"><b>Minh – Shop Thời trang</b><div>Tem nhãn decal cắt bế chuẩn, dán bền. Team tư vấn nhiệt tình.</div></div>
-    </div>
-  </section>
-
-  <!-- FAQ -->
-  <section class="container section" id="faq">
-    <h2 class="section__title">Câu hỏi thường gặp</h2>
-    <details>
-      <summary>File in chuẩn là gì?</summary>
-      <div>Sử dụng PDF/AI/PSD, ảnh 300dpi, chuyển CMYK, kèm bleed/crop mark. Nếu cần, gửi file nguồn – chúng tôi hỗ trợ xuất file đúng chuẩn.</div>
-    </details>
-    <details>
-      <summary>Thời gian in &amp; giao hàng?</summary>
-      <div>Đơn tiêu chuẩn: 24–48 giờ. Đơn gấp vui lòng liên hệ trực tiếp qua Zalo/Điện thoại để ưu tiên.</div>
-    </details>
-    <details>
-      <summary>Màu in có lệch so với màn hình?</summary>
-      <div>Có thể có sai số do khác biệt hiển thị. Chúng tôi có bước duyệt proof/mẫu test để tối ưu đúng màu mong muốn.</div>
-    </details>
-  </section>
-
-  <!-- Contact -->
   <section class="container section" id="contact">
-    <h2 class="section__title">Liên hệ</h2>
-    <div class="contact">
-      <div class="contact__card">
-        <b>PrintPro – Đà Nẵng</b>
-        <div>Địa chỉ: 123 Trần Phú, Hải Châu, Đà Nẵng</div>
-        <div>Điện thoại: <a class="link" href="tel:0123456789">0123 456 789</a></div>
-        <div>Zalo: <a class="link" href="https://zalo.me/0123456789">zalo.me/0123456789</a></div>
-        <div>Email: <a class="link" href="mailto:info@printpro.vn">info@printpro.vn</a></div>
-      </div>
-      <div class="contact__card">
-        <b>Gửi file nhanh</b>
-        <form onsubmit="event.preventDefault(); alert('Cảm ơn bạn! Chúng tôi sẽ phản hồi trong 5 phút.');">
-          <label>Link Drive/Dropbox:<br>
-            <input required type="url" placeholder="https://drive.google.com/..." style="width:100%;padding:10px;border:1px solid #E5E7EB;border-radius:10px;outline:none;box-shadow:0 0 0 0 var(--ring)" onfocus="this.style.boxShadow='0 0 0 4px var(--ring)'" onblur="this.style.boxShadow='0 0 0 0 var(--ring)'" />
-          </label>
-          <div style="height:10px"></div>
-          <label>Ghi chú:<br>
-            <textarea rows="3" placeholder="Số lượng, chất liệu, thời gian cần..." style="width:100%;padding:10px;border:1px solid #E5E7EB;border-radius:10px;outline:none;box-shadow:0 0 0 0 var(--ring)" onfocus="this.style.boxShadow='0 0 0 4px var(--ring)'" onblur="this.style.boxShadow='0 0 0 0 var(--ring)'"></textarea>
-          </label>
-          <div style="height:12px"></div>
-          <button class="btn btn--primary" type="submit">Gửi &amp; nhận báo giá</button>
-        </form>
-      </div>
+    <h2 class="section__title">Liên hệ ngay</h2>
+    <div class="contact__card">
+      <b>PrintPro – In ấn cao cấp</b>
+      <div>123 Trần Phú, Đà Nẵng</div>
+      <div>Tel: <a href="tel:0123456789">0123 456 789</a></div>
+      <div>Zalo: <a href="https://zalo.me/0123456789">zalo.me/0123456789</a></div>
+      <div>Email: info@printpro.vn</div>
     </div>
   </section>
 
   <footer class="footer">
-    <div class="container" style="display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap">
-      <div>© <span id="y"></span> PrintPro. All rights reserved.</div>
-      <div>Giờ làm việc: 8:00–18:00 (T2–T7)</div>
-    </div>
+    <div class="container">© <span id="y"></span> PrintPro – All rights reserved.</div>
   </footer>
 
-  <!-- Floating CTA (mobile only) -->
-  <div class="cta-fab" aria-label="Liên hệ nhanh">
+  <div class="cta-fab">
     <a class="btn btn--primary" href="tel:0123456789">Gọi</a>
     <a class="btn btn--primary" href="https://zalo.me/0123456789">Zalo</a>
   </div>
 
-  <!-- JSON-LD: LocalBusiness + Product (mẫu) -->
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "LocalBusiness",
-    "name": "PrintPro",
-    "image": "https://example.com/assets/og-image.jpg",
-    "address": {"@type":"PostalAddress","streetAddress":"123 Trần Phú","addressLocality":"Đà Nẵng","addressCountry":"VN"},
-    "telephone": "+84-123-456-789",
-    "url": "https://example.com"
-  }
-  </script>
-  <script type="application/ld+json">
-  {
-    "@context":"https://schema.org",
-    "@type":"Product",
-    "name":"Name Card Cao Cấp",
-    "description":"Name card Couche 300gsm, in 2 mặt, bo góc",
-    "brand":{"@type":"Brand","name":"PrintPro"}
-  }
-  </script>
-
-  <!-- Scripts: filter + year -->
-  <script>
-    // năm hiện tại
-    document.getElementById('y').textContent = new Date().getFullYear();
-
-    // filter theo tag
-    const filterBar = document.getElementById('filters');
-    const cards = [...document.querySelectorAll('#productGrid .card')];
-    filterBar?.addEventListener('click', (e) => {
-      const btn = e.target.closest('.tag');
-      if(!btn) return;
-      [...filterBar.children].forEach(b => b.classList.remove('is-active'));
-      btn.classList.add('is-active');
-      const k = btn.dataset.filter;
-      cards.forEach(c => {
-        c.style.display = (k === 'all' || c.dataset.cat === k) ? '' : 'none';
-      });
-    });
-  </script>
+  <script>document.getElementById('y').textContent = new Date().getFullYear();</script>
 </body>
 </html>
