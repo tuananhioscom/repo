@@ -378,6 +378,210 @@ const productsData = [
             "Nền trắng hoặc trong",
             "Hình dạng cắt tùy chỉnh"
         ]
+    },
+
+    // Danh mục Quà tặng doanh nghiệp
+    {
+        id: 16,
+        name: "Ly Thủy Tinh In Logo",
+        category: "corporate-gifts",
+        categoryName: "Quà tặng doanh nghiệp",
+        price: "800.000đ",
+        priceValue: 40.00,
+        shortDescription: "Ly thủy tinh cao cấp in logo thương hiệu",
+        description: "Ly thủy tinh in logo chuyên nghiệp, phù hợp cho quà tặng doanh nghiệp, sự kiện, hội nghị. In logo sắc nét, bền đẹp theo thời gian.",
+        image: "🥃",
+        specs: [
+            "Chất liệu: Thủy tinh cao cấp",
+            "Dung tích: 225ml - 350ml",
+            "In ấn: Logo 1-4 màu",
+            "Kỹ thuật: In lụa/Khắc laser",
+            "Số lượng tối thiểu: 50 chiếc"
+        ],
+        options: [
+            "Ly thủy tinh trụ",
+            "Ly thủy tinh côn",
+            "In logo 1 màu",
+            "In logo full màu",
+            "Khắc laser logo"
+        ]
+    },
+    {
+        id: 17,
+        name: "Cốc Sứ In Logo",
+        category: "corporate-gifts",
+        categoryName: "Quà tặng doanh nghiệp",
+        price: "1.200.000đ",
+        priceValue: 60.00,
+        shortDescription: "Cốc sứ cao cấp in logo doanh nghiệp",
+        description: "Cốc sứ in logo chất lượng cao, phù hợp làm quà tặng khách hàng, nhân viên. Logo in sắc nét, không phai màu khi sử dụng lâu dài.",
+        image: "☕",
+        specs: [
+            "Chất liệu: Sứ trắng cao cấp",
+            "Dung tích: 300ml - 400ml",
+            "In ấn: In nhiệt/In chuyển nhiệt",
+            "Màu sắc: Trắng hoặc Màu",
+            "Số lượng tối thiểu: 50 chiếc"
+        ],
+        options: [
+            "Cốc sứ trắng",
+            "Cốc sứ màu",
+            "In logo đơn giản",
+            "In ảnh/thiết kế phức tạp",
+            "Đóng hộp quà tặng"
+        ]
+    },
+    {
+        id: 18,
+        name: "Bình Giữ Nhiệt In Logo",
+        category: "corporate-gifts",
+        categoryName: "Quà tặng doanh nghiệp",
+        price: "2.500.000đ",
+        priceValue: 125.00,
+        shortDescription: "Bình giữ nhiệt inox in logo cao cấp",
+        description: "Bình giữ nhiệt inox 304 cao cấp, in logo doanh nghiệp bền đẹp. Giữ nhiệt hiệu quả 6-12 giờ, quà tặng ý nghĩa cho khách hàng và đối tác.",
+        image: "🍶",
+        specs: [
+            "Chất liệu: Inox 304 cao cấp",
+            "Dung tích: 500ml - 1000ml",
+            "Giữ nhiệt: 6-12 giờ",
+            "In ấn: Khắc laser/In UV",
+            "Số lượng tối thiểu: 30 chiếc"
+        ],
+        options: [
+            "Bình 500ml",
+            "Bình 750ml",
+            "Bình 1000ml",
+            "Khắc laser logo",
+            "In UV full màu"
+        ]
+    },
+    {
+        id: 19,
+        name: "Bộ Ấm Chén In Logo",
+        category: "corporate-gifts",
+        categoryName: "Quà tặng doanh nghiệp",
+        price: "3.500.000đ",
+        priceValue: 175.00,
+        shortDescription: "Bộ ấm trà sứ cao cấp in logo",
+        description: "Bộ ấm chén sứ cao cấp in logo thương hiệu, quà tặng sang trọng cho đối tác, khách hàng VIP. Thiết kế tinh tế, chất lượng bền bỉ.",
+        image: "🫖",
+        specs: [
+            "Chất liệu: Sứ cao cấp",
+            "Bộ gồm: 1 ấm + 4-6 chén",
+            "In ấn: In nhiệt cao cấp",
+            "Đóng gói: Hộp quà sang trọng",
+            "Số lượng tối thiểu: 20 bộ"
+        ],
+        options: [
+            "Bộ 1 ấm + 4 chén",
+            "Bộ 1 ấm + 6 chén",
+            "Sứ trắng truyền thống",
+            "Sứ màu hiện đại",
+            "In logo vàng kim"
+        ]
+    },
+
+    // Danh mục Sản phẩm quảng cáo
+    {
+        id: 20,
+        name: "Áo Mưa In Logo",
+        category: "promotional-products",
+        categoryName: "Sản phẩm quảng cáo",
+        price: "1.500.000đ",
+        priceValue: 75.00,
+        shortDescription: "Áo mưa quảng cáo in logo thương hiệu",
+        description: "Áo mưa in logo chất lượng cao, phù hợp cho sự kiện, marketing. Chất liệu PE/PVC dày dặn, chống thấm tốt, in logo sắc nét.",
+        image: "🧥",
+        specs: [
+            "Chất liệu: PE/PVC dày",
+            "Kích thước: Free size hoặc theo yêu cầu",
+            "In ấn: In lụa 1-4 màu",
+            "Đóng gói: Túi zip/Hộp nhựa",
+            "Số lượng tối thiểu: 200 chiếc"
+        ],
+        options: [
+            "Áo mưa cánh dơi",
+            "Áo mưa bộ (áo + quần)",
+            "In logo ngực",
+            "In logo lưng",
+            "Nhiều màu sắc"
+        ]
+    },
+    {
+        id: 21,
+        name: "Mũ Bảo Hiểm In Logo",
+        category: "promotional-products",
+        categoryName: "Sản phẩm quảng cáo",
+        price: "3.000.000đ",
+        priceValue: 150.00,
+        shortDescription: "Mũ bảo hiểm quảng cáo in logo",
+        description: "Mũ bảo hiểm quảng cáo chất lượng, đạt chuẩn an toàn. In logo thương hiệu nổi bật, phù hợp cho chiến dịch marketing, quà tặng khách hàng.",
+        image: "🪖",
+        specs: [
+            "Chất liệu: Nhựa ABS cao cấp",
+            "Tiêu chuẩn: CR/QCVN 2:2008",
+            "In ấn: Decal/In lụa",
+            "Màu sắc: Đa dạng",
+            "Số lượng tối thiểu: 100 chiếc"
+        ],
+        options: [
+            "Mũ 1/2 đầu",
+            "Mũ 3/4 đầu",
+            "In decal logo",
+            "In lụa logo",
+            "Nhiều màu sắc"
+        ]
+    },
+    {
+        id: 22,
+        name: "Ô Dù Cầm Tay In Logo",
+        category: "promotional-products",
+        categoryName: "Sản phẩm quảng cáo",
+        price: "2.200.000đ",
+        priceValue: 110.00,
+        shortDescription: "Ô dù quảng cáo in logo thương hiệu",
+        description: "Ô dù cầm tay in logo chuyên nghiệp, phù hợp cho quà tặng doanh nghiệp, sự kiện. Chất liệu bền, chống UV, in logo sắc nét trên vải.",
+        image: "☂️",
+        specs: [
+            "Loại: Ô dù cầm tay/tự động",
+            "Đường kính: 100cm - 120cm",
+            "Chất liệu vải: Polyester cao cấp",
+            "In ấn: In lụa/In nhiệt",
+            "Số lượng tối thiểu: 50 chiếc"
+        ],
+        options: [
+            "Ô dù gấp 3 tự động",
+            "Ô dù cầm tay thẳng",
+            "In logo 1 màu",
+            "In logo full màu",
+            "Nhiều màu vải"
+        ]
+    },
+    {
+        id: 23,
+        name: "Túi Vải Canvas In Logo",
+        category: "promotional-products",
+        categoryName: "Sản phẩm quảng cáo",
+        price: "1.800.000đ",
+        priceValue: 90.00,
+        shortDescription: "Túi vải canvas thân thiện môi trường",
+        description: "Túi vải canvas in logo chất lượng cao, thân thiện môi trường. Phù hợp cho chiến dịch marketing xanh, quà tặng doanh nghiệp bền vững.",
+        image: "👜",
+        specs: [
+            "Chất liệu: Canvas 100% cotton",
+            "Kích thước: 35x40cm (hoặc tùy chỉnh)",
+            "In ấn: In lụa/In nhiệt chuyển",
+            "Màu sắc: Trắng/Be/Màu",
+            "Số lượng tối thiểu: 100 chiếc"
+        ],
+        options: [
+            "Túi canvas trắng",
+            "Túi canvas màu be",
+            "In logo đơn giản",
+            "In thiết kế phức tạp",
+            "Có túi nhỏ bên trong"
+        ]
     }
 ];
 
@@ -389,5 +593,7 @@ const categories = {
     brochures: "Brochure",
     posters: "Poster & Banner",
     stationery: "Văn phòng phẩm",
-    packaging: "Bao bì"
+    packaging: "Bao bì",
+    "corporate-gifts": "Quà tặng doanh nghiệp",
+    "promotional-products": "Sản phẩm quảng cáo"
 };

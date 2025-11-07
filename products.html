@@ -483,6 +483,14 @@
                             <input type="radio" name="category" value="6" id="cat-6">
                             <label for="cat-6">Bao bì</label>
                         </div>
+                        <div class="filter-option">
+                            <input type="radio" name="category" value="7" id="cat-7">
+                            <label for="cat-7">Quà tặng doanh nghiệp</label>
+                        </div>
+                        <div class="filter-option">
+                            <input type="radio" name="category" value="8" id="cat-8">
+                            <label for="cat-8">Sản phẩm quảng cáo</label>
+                        </div>
                     </div>
 
                     <!-- Price Range Filter -->
@@ -711,12 +719,12 @@
                 container.className = 'products-grid';
                 container.innerHTML = pageProducts.map(product => `
                     <div class="product-card" onclick="showProductDetail(${product.id})">
-                        <div class="product-image">${product.icon || '🖨️'}</div>
+                        <div class="product-image">${product.image || product.icon || '🖨️'}</div>
                         <div class="product-info">
-                            <span class="product-category">${getCategoryName(product.category_id)}</span>
+                            <span class="product-category">${product.categoryName || getCategoryName(product.category_id)}</span>
                             <h3>${product.name}</h3>
-                            <p class="product-description">${product.description}</p>
-                            <p class="product-price">${formatPrice(product.price)}</p>
+                            <p class="product-description">${product.shortDescription || product.description}</p>
+                            <p class="product-price">${formatPrice(product.price || product.priceValue)}</p>
                             <button class="btn btn-primary" onclick="addToCart(event, ${product.id})">
                                 Thêm vào giỏ
                             </button>
@@ -728,15 +736,15 @@
                 container.innerHTML = pageProducts.map(product => `
                     <div class="product-list-item">
                         <div class="product-list-image" onclick="showProductDetail(${product.id})">
-                            ${product.icon || '🖨️'}
+                            ${product.image || product.icon || '🖨️'}
                         </div>
                         <div class="product-list-info">
                             <h3>${product.name}</h3>
-                            <span class="product-category">${getCategoryName(product.category_id)}</span>
-                            <p class="product-description">${product.description}</p>
+                            <span class="product-category">${product.categoryName || getCategoryName(product.category_id)}</span>
+                            <p class="product-description">${product.shortDescription || product.description}</p>
                         </div>
                         <div class="product-list-actions">
-                            <p class="product-price">${formatPrice(product.price)}</p>
+                            <p class="product-price">${formatPrice(product.price || product.priceValue)}</p>
                             <button class="btn btn-primary" onclick="addToCart(event, ${product.id})">
                                 Thêm vào giỏ
                             </button>
@@ -809,8 +817,19 @@
             const maxPrice = parseFloat(document.getElementById('maxPrice').value) || Infinity;
 
             filteredProducts = allProducts.filter(product => {
-                const matchCategory = category === 'all' || product.category_id == category;
-                const price = parseFloat(product.price);
+                // Handle both API products (category_id) and fallback products.js (category slug)
+                let matchCategory = category === 'all';
+                if (!matchCategory && product.category_id) {
+                    matchCategory = product.category_id == category;
+                } else if (!matchCategory && product.category) {
+                    // Map category ID to slug for fallback compatibility
+                    const categoryMap = { 1: 'business-cards', 2: 'flyers', 3: 'brochures',
+                                         4: 'posters', 5: 'stationery', 6: 'packaging',
+                                         7: 'corporate-gifts', 8: 'promotional-products' };
+                    matchCategory = product.category === categoryMap[category];
+                }
+
+                const price = parseFloat(product.price) || parseFloat(product.priceValue) || 0;
                 const matchPrice = price >= minPrice && price <= maxPrice;
                 return matchCategory && matchPrice;
             });
@@ -947,7 +966,9 @@
                 3: 'Brochure',
                 4: 'Poster & Banner',
                 5: 'Văn phòng phẩm',
-                6: 'Bao bì'
+                6: 'Bao bì',
+                7: 'Quà tặng doanh nghiệp',
+                8: 'Sản phẩm quảng cáo'
             };
             return categories[categoryId] || 'Khác';
         }
