@@ -1,393 +1,393 @@
-// Product Database with Categories (Folders)
+// Cơ sở dữ liệu sản phẩm với danh mục
 const productsData = [
-    // Business Cards Category
+    // Danh mục Name Card
     {
         id: 1,
-        name: "Premium Business Cards",
+        name: "Name Card Cao Cấp",
         category: "business-cards",
-        categoryName: "Business Cards",
-        price: "$49.99",
+        categoryName: "Name Card",
+        price: "1.000.000đ",
         priceValue: 49.99,
-        shortDescription: "Professional business cards with premium finish",
-        description: "Make a lasting impression with our premium business cards. Printed on high-quality cardstock with your choice of matte or glossy finish. Perfect for networking events and professional meetings.",
+        shortDescription: "Name card chuyên nghiệp với bề mặt hoàn thiện cao cấp",
+        description: "Tạo ấn tượng lâu dài với name card cao cấp của chúng tôi. In trên giấy couche chất lượng cao với lựa chọn bề mặt mờ hoặc bóng. Hoàn hảo cho các sự kiện networking và gặp gỡ chuyên nghiệp.",
         image: "📇",
         specs: [
-            "Size: 3.5\" x 2\" (Standard)",
-            "Material: 350gsm Premium Cardstock",
-            "Finish: Matte or Glossy",
-            "Printing: Full Color Both Sides",
-            "Minimum Order: 100 cards"
+            "Kích thước: 9cm x 5.4cm (Chuẩn)",
+            "Chất liệu: Giấy Couche 350gsm",
+            "Hoàn thiện: Mờ hoặc Bóng",
+            "In ấn: Màu đầy đủ 2 mặt",
+            "Số lượng tối thiểu: 100 card"
         ],
         options: [
-            "Matte Finish",
-            "Glossy Finish",
-            "Rounded Corners",
-            "Spot UV Coating",
-            "Metallic Foil"
+            "Bề mặt mờ",
+            "Bề mặt bóng",
+            "Bo góc tròn",
+            "Phủ UV cục bộ",
+            "Tráng kim loại"
         ]
     },
     {
         id: 2,
-        name: "Luxury Business Cards",
+        name: "Name Card Đẳng Cấp",
         category: "business-cards",
-        categoryName: "Business Cards",
-        price: "$89.99",
+        categoryName: "Name Card",
+        price: "1.800.000đ",
         priceValue: 89.99,
-        shortDescription: "Ultra-thick premium cards with special finishes",
-        description: "Stand out with our luxury business cards featuring ultra-thick cardstock and premium finishing options including metallic foil, embossing, and silk lamination.",
+        shortDescription: "Name card siêu dày với lớp hoàn thiện đặc biệt",
+        description: "Nổi bật với name card đẳng cấp của chúng tôi với giấy siêu dày và các tùy chọn hoàn thiện cao cấp bao gồm tráng kim loại, dập nổi và phủ lụa.",
         image: "💳",
         specs: [
-            "Size: 3.5\" x 2\" (Standard)",
-            "Material: 600gsm Ultra-thick Cardstock",
-            "Finish: Silk, Soft-touch, or Metallic",
-            "Printing: Full Color Both Sides",
-            "Minimum Order: 100 cards"
+            "Kích thước: 9cm x 5.4cm (Chuẩn)",
+            "Chất liệu: Giấy Couche 600gsm siêu dày",
+            "Hoàn thiện: Lụa, Mềm mại hoặc Kim loại",
+            "In ấn: Màu đầy đủ 2 mặt",
+            "Số lượng tối thiểu: 100 card"
         ],
         options: [
-            "Silk Lamination",
-            "Soft-touch Finish",
-            "Gold/Silver Foil",
-            "Embossing/Debossing",
-            "Edge Painting"
+            "Phủ lụa",
+            "Bề mặt mềm mại",
+            "Tráng vàng/bạc",
+            "Dập nổi/Dập lõm",
+            "Sơn viền màu"
         ]
     },
 
-    // Flyers & Leaflets Category
+    // Danh mục Tờ Rơi
     {
         id: 3,
-        name: "A5 Flyers",
+        name: "Tờ Rơi A5",
         category: "flyers",
-        categoryName: "Flyers & Leaflets",
-        price: "$79.99",
+        categoryName: "Tờ rơi",
+        price: "1.600.000đ",
         priceValue: 79.99,
-        shortDescription: "Eye-catching A5 promotional flyers",
-        description: "Perfect for promotions, events, and advertising. Our A5 flyers are printed on high-quality paper with vibrant colors that grab attention.",
+        shortDescription: "Tờ rơi khuyến mại A5 bắt mắt",
+        description: "Hoàn hảo cho khuyến mại, sự kiện và quảng cáo. Tờ rơi A5 của chúng tôi được in trên giấy chất lượng cao với màu sắc sống động thu hút sự chú ý.",
         image: "📄",
         specs: [
-            "Size: A5 (148mm x 210mm)",
-            "Material: 150gsm Gloss Art Paper",
-            "Printing: Full Color Single/Double Sided",
-            "Finish: Gloss or Matte",
-            "Minimum Order: 250 flyers"
+            "Kích thước: A5 (148mm x 210mm)",
+            "Chất liệu: Giấy Couche 150gsm",
+            "In ấn: Màu đầy đủ 1 mặt/2 mặt",
+            "Hoàn thiện: Bóng hoặc Mờ",
+            "Số lượng tối thiểu: 250 tờ"
         ],
         options: [
-            "Single Sided",
-            "Double Sided",
-            "Gloss Finish",
-            "Matte Finish",
-            "Premium 200gsm Paper"
+            "In 1 mặt",
+            "In 2 mặt",
+            "Bề mặt bóng",
+            "Bề mặt mờ",
+            "Giấy 200gsm cao cấp"
         ]
     },
     {
         id: 4,
-        name: "DL Leaflets",
+        name: "Tờ Gấp DL",
         category: "flyers",
-        categoryName: "Flyers & Leaflets",
-        price: "$59.99",
+        categoryName: "Tờ rơi",
+        price: "1.200.000đ",
         priceValue: 59.99,
-        shortDescription: "Compact DL size leaflets for direct mail",
-        description: "Ideal for direct mail campaigns and handouts. DL leaflets fit perfectly in standard envelopes and are easy to distribute.",
+        shortDescription: "Tờ gấp kích thước DL nhỏ gọn cho gửi thư trực tiếp",
+        description: "Lý tưởng cho các chiến dịch gửi thư trực tiếp và tài liệu phát tay. Tờ gấp DL vừa vặn trong phong bì tiêu chuẩn và dễ dàng phân phối.",
         image: "📃",
         specs: [
-            "Size: DL (99mm x 210mm)",
-            "Material: 150gsm Gloss Art Paper",
-            "Printing: Full Color Double Sided",
-            "Finish: Gloss or Matte",
-            "Minimum Order: 500 leaflets"
+            "Kích thước: DL (99mm x 210mm)",
+            "Chất liệu: Giấy Couche 150gsm",
+            "In ấn: Màu đầy đủ 2 mặt",
+            "Hoàn thiện: Bóng hoặc Mờ",
+            "Số lượng tối thiểu: 500 tờ"
         ],
         options: [
-            "Gloss Finish",
-            "Matte Finish",
-            "Silk Finish",
-            "Folded Options"
+            "Bề mặt bóng",
+            "Bề mặt mờ",
+            "Bề mặt lụa",
+            "Tùy chọn gấp"
         ]
     },
 
-    // Brochures Category
+    // Danh mục Brochure
     {
         id: 5,
-        name: "Tri-fold Brochures",
+        name: "Brochure Gấp 3",
         category: "brochures",
-        categoryName: "Brochures",
-        price: "$149.99",
+        categoryName: "Brochure",
+        price: "3.000.000đ",
         priceValue: 149.99,
-        shortDescription: "Professional tri-fold brochures",
-        description: "Showcase your business with elegant tri-fold brochures. Perfect for product catalogs, service menus, and corporate presentations.",
+        shortDescription: "Brochure gấp 3 chuyên nghiệp",
+        description: "Giới thiệu doanh nghiệp của bạn với brochure gấp 3 sang trọng. Hoàn hảo cho catalog sản phẩm, menu dịch vụ và bài thuyết trình công ty.",
         image: "📋",
         specs: [
-            "Size: A4 (folded to DL)",
-            "Material: 170gsm Gloss Art Paper",
-            "Printing: Full Color Both Sides",
-            "Folding: Tri-fold (2 creases)",
-            "Minimum Order: 100 brochures"
+            "Kích thước: A4 (gấp thành DL)",
+            "Chất liệu: Giấy Couche 170gsm",
+            "In ấn: Màu đầy đủ 2 mặt",
+            "Gấp: Gấp 3 (2 nếp gấp)",
+            "Số lượng tối thiểu: 100 brochure"
         ],
         options: [
-            "Gloss Finish",
-            "Matte Finish",
-            "Silk Finish",
-            "Premium 250gsm Paper",
-            "Custom Folding"
+            "Bề mặt bóng",
+            "Bề mặt mờ",
+            "Bề mặt lụa",
+            "Giấy 250gsm cao cấp",
+            "Gấp tùy chỉnh"
         ]
     },
     {
         id: 6,
-        name: "A4 Booklet Brochures",
+        name: "Brochure Dạng Sách A4",
         category: "brochures",
-        categoryName: "Brochures",
-        price: "$199.99",
+        categoryName: "Brochure",
+        price: "4.000.000đ",
         priceValue: 199.99,
-        shortDescription: "Multi-page A4 booklet style brochures",
-        description: "Comprehensive booklet brochures perfect for detailed product catalogs, company profiles, and extensive presentations. Professionally bound with saddle stitch.",
+        shortDescription: "Brochure dạng sách A4 nhiều trang",
+        description: "Brochure dạng sách toàn diện hoàn hảo cho catalog sản phẩm chi tiết, hồ sơ công ty và bài thuyết trình mở rộng. Đóng gáy chuyên nghiệp.",
         image: "📖",
         specs: [
-            "Size: A4 (210mm x 297mm)",
-            "Material: 150gsm inner, 250gsm cover",
-            "Pages: 8-48 pages",
-            "Binding: Saddle Stitch",
-            "Minimum Order: 50 brochures"
+            "Kích thước: A4 (210mm x 297mm)",
+            "Chất liệu: Ruột 150gsm, bìa 250gsm",
+            "Số trang: 8-48 trang",
+            "Đóng gáy: Gáy kẹp",
+            "Số lượng tối thiểu: 50 brochure"
         ],
         options: [
-            "8, 12, 16, 24, or 48 pages",
-            "Gloss or Matte Cover",
-            "Premium Paper Upgrade",
-            "Perfect Binding (for 48+ pages)"
+            "8, 12, 16, 24 hoặc 48 trang",
+            "Bìa bóng hoặc mờ",
+            "Nâng cấp giấy cao cấp",
+            "Đóng gáy hoàn hảo (từ 48+ trang)"
         ]
     },
 
-    // Posters & Banners Category
+    // Danh mục Poster & Banner
     {
         id: 7,
-        name: "A3 Posters",
+        name: "Poster A3",
         category: "posters",
-        categoryName: "Posters & Banners",
-        price: "$29.99",
+        categoryName: "Poster & Banner",
+        price: "600.000đ",
         priceValue: 29.99,
-        shortDescription: "High-quality A3 promotional posters",
-        description: "Make your message visible with vibrant A3 posters. Perfect for retail displays, event promotions, and office notices.",
+        shortDescription: "Poster khuyến mại A3 chất lượng cao",
+        description: "Làm nổi bật thông điệp của bạn với poster A3 sống động. Hoàn hảo cho trưng bày bán lẻ, khuyến mại sự kiện và thông báo văn phòng.",
         image: "🖼️",
         specs: [
-            "Size: A3 (297mm x 420mm)",
-            "Material: 170gsm Gloss Art Paper",
-            "Printing: Full Color",
-            "Finish: Gloss or Matte",
-            "Minimum Order: 10 posters"
+            "Kích thước: A3 (297mm x 420mm)",
+            "Chất liệu: Giấy Couche 170gsm",
+            "In ấn: Màu đầy đủ",
+            "Hoàn thiện: Bóng hoặc Mờ",
+            "Số lượng tối thiểu: 10 poster"
         ],
         options: [
-            "Gloss Finish",
-            "Matte Finish",
-            "A2/A1 Size Upgrade",
-            "Encapsulation",
-            "Foam Board Mounting"
+            "Bề mặt bóng",
+            "Bề mặt mờ",
+            "Nâng cấp kích thước A2/A1",
+            "Ép plastic",
+            "Dán foam"
         ]
     },
     {
         id: 8,
-        name: "Vinyl Banners",
+        name: "Banner Bạt Hiflex",
         category: "posters",
-        categoryName: "Posters & Banners",
-        price: "$119.99",
+        categoryName: "Poster & Banner",
+        price: "2.400.000đ",
         priceValue: 119.99,
-        shortDescription: "Durable outdoor vinyl banners",
-        description: "Weather-resistant vinyl banners perfect for outdoor advertising, events, and storefront displays. Includes eyelets for easy hanging.",
+        shortDescription: "Banner bạt hiflex bền bỉ ngoài trời",
+        description: "Banner bạt chống thời tiết hoàn hảo cho quảng cáo ngoài trời, sự kiện và trưng bày cửa hàng. Bao gồm khoen để dễ dàng treo.",
         image: "🏴",
         specs: [
-            "Size: Custom sizes available",
-            "Material: 440gsm PVC Vinyl",
-            "Printing: Full Color UV Resistant",
-            "Eyelets: Every 50cm",
-            "Minimum Order: 1 banner"
+            "Kích thước: Kích thước tùy chỉnh",
+            "Chất liệu: Bạt PVC 440gsm",
+            "In ấn: Màu đầy đủ chống UV",
+            "Khoen: Mỗi 50cm",
+            "Số lượng tối thiểu: 1 banner"
         ],
         options: [
-            "Standard Vinyl",
-            "Mesh Vinyl (wind-resistant)",
-            "Pole Pockets",
-            "Additional Eyelets",
-            "Hemmed Edges"
+            "Bạt tiêu chuẩn",
+            "Bạt lưới (chống gió)",
+            "Túi cắm cột",
+            "Khoen bổ sung",
+            "Viền may"
         ]
     },
     {
         id: 9,
-        name: "Pull-up Banners",
+        name: "Banner Cuốn",
         category: "posters",
-        categoryName: "Posters & Banners",
-        price: "$159.99",
+        categoryName: "Poster & Banner",
+        price: "3.200.000đ",
         priceValue: 159.99,
-        shortDescription: "Portable retractable banner stands",
-        description: "Professional pull-up banners with retractable mechanism and carry case. Perfect for trade shows, exhibitions, and presentations.",
+        shortDescription: "Giá đỡ banner cuốn di động",
+        description: "Banner cuốn chuyên nghiệp với cơ chế cuốn lại và túi đựng. Hoàn hảo cho hội chợ thương mại, triển lãm và thuyết trình.",
         image: "📊",
         specs: [
-            "Size: 800mm x 2000mm",
-            "Material: 280gsm PVC Banner",
-            "Stand: Premium Aluminum Base",
-            "Weight: Lightweight & Portable",
-            "Includes: Carry Case"
+            "Kích thước: 800mm x 2000mm",
+            "Chất liệu: Banner PVC 280gsm",
+            "Giá đỡ: Đế nhôm cao cấp",
+            "Trọng lượng: Nhẹ & Di động",
+            "Bao gồm: Túi đựng"
         ],
         options: [
-            "Standard Size (800mm)",
-            "Wide Size (1000mm)",
-            "Premium Plus Base",
-            "Double-sided Printing"
+            "Kích thước tiêu chuẩn (800mm)",
+            "Kích thước rộng (1000mm)",
+            "Đế cao cấp Plus",
+            "In 2 mặt"
         ]
     },
 
-    // Stationery Category
+    // Danh mục Văn Phòng Phẩm
     {
         id: 10,
-        name: "Letterheads",
+        name: "Giấy Tiêu Đề",
         category: "stationery",
-        categoryName: "Stationery",
-        price: "$69.99",
+        categoryName: "Văn phòng phẩm",
+        price: "1.400.000đ",
         priceValue: 69.99,
-        shortDescription: "Professional branded letterheads",
-        description: "Establish your brand identity with custom letterheads. Perfect for official correspondence and business communication.",
+        shortDescription: "Giấy tiêu đề có thương hiệu chuyên nghiệp",
+        description: "Thiết lập bản sắc thương hiệu của bạn với giấy tiêu đề tùy chỉnh. Hoàn hảo cho thư từ chính thức và giao tiếp kinh doanh.",
         image: "📝",
         specs: [
-            "Size: A4 (210mm x 297mm)",
-            "Material: 100gsm Premium Bond Paper",
-            "Printing: Full Color",
-            "Finish: Smooth",
-            "Minimum Order: 250 sheets"
+            "Kích thước: A4 (210mm x 297mm)",
+            "Chất liệu: Giấy Bond 100gsm cao cấp",
+            "In ấn: Màu đầy đủ",
+            "Hoàn thiện: Mịn",
+            "Số lượng tối thiểu: 250 tờ"
         ],
         options: [
-            "Single Sided",
-            "Double Sided",
-            "120gsm Upgrade",
-            "Watermark Paper"
+            "In 1 mặt",
+            "In 2 mặt",
+            "Nâng cấp 120gsm",
+            "Giấy có watermark"
         ]
     },
     {
         id: 11,
-        name: "Compliment Slips",
+        name: "Phiếu Kèm Theo",
         category: "stationery",
-        categoryName: "Stationery",
-        price: "$39.99",
+        categoryName: "Văn phòng phẩm",
+        price: "800.000đ",
         priceValue: 39.99,
-        shortDescription: "Branded compliment slips",
-        description: "Small but impactful, compliment slips add a professional touch to your packages and correspondence.",
+        shortDescription: "Phiếu kèm theo có thương hiệu",
+        description: "Nhỏ nhưng có tác động lớn, phiếu kèm theo tạo điểm chạm chuyên nghiệp cho gói hàng và thư từ của bạn.",
         image: "🎫",
         specs: [
-            "Size: DL (99mm x 210mm)",
-            "Material: 120gsm Premium Paper",
-            "Printing: Full Color Single Sided",
-            "Finish: Smooth",
-            "Minimum Order: 500 slips"
+            "Kích thước: DL (99mm x 210mm)",
+            "Chất liệu: Giấy cao cấp 120gsm",
+            "In ấn: Màu đầy đủ 1 mặt",
+            "Hoàn thiện: Mịn",
+            "Số lượng tối thiểu: 500 phiếu"
         ],
         options: [
-            "Gloss Finish",
-            "Matte Finish",
-            "Perforated Edge"
+            "Bề mặt bóng",
+            "Bề mặt mờ",
+            "Viền đục lỗ"
         ]
     },
     {
         id: 12,
-        name: "Notepads",
+        name: "Sổ Tay",
         category: "stationery",
-        categoryName: "Stationery",
-        price: "$89.99",
+        categoryName: "Văn phòng phẩm",
+        price: "1.800.000đ",
         priceValue: 89.99,
-        shortDescription: "Custom branded notepads",
-        description: "Keep your brand top-of-mind with custom notepads. Perfect for desk use and customer giveaways.",
+        shortDescription: "Sổ tay có thương hiệu tùy chỉnh",
+        description: "Giữ thương hiệu của bạn luôn được nhớ đến với sổ tay tùy chỉnh. Hoàn hảo để sử dụng trên bàn làm việc và quà tặng khách hàng.",
         image: "📒",
         specs: [
-            "Size: A5 or A4",
-            "Material: 80gsm Offset Paper",
-            "Pages: 50 sheets per pad",
-            "Binding: Glued top edge",
-            "Minimum Order: 10 pads"
+            "Kích thước: A5 hoặc A4",
+            "Chất liệu: Giấy Offset 80gsm",
+            "Số trang: 50 tờ mỗi cuốn",
+            "Đóng gáy: Dán cạnh trên",
+            "Số lượng tối thiểu: 10 cuốn"
         ],
         options: [
-            "A5 or A4 Size",
-            "50 or 100 sheets",
-            "Cardboard Backing",
-            "Full Color Header"
+            "Kích thước A5 hoặc A4",
+            "50 hoặc 100 tờ",
+            "Lót bìa cứng",
+            "Header màu đầy đủ"
         ]
     },
 
-    // Packaging Category
+    // Danh mục Bao Bì
     {
         id: 13,
-        name: "Custom Boxes",
+        name: "Hộp Tùy Chỉnh",
         category: "packaging",
-        categoryName: "Packaging",
-        price: "$299.99",
+        categoryName: "Bao bì",
+        price: "6.000.000đ",
         priceValue: 299.99,
-        shortDescription: "Branded product packaging boxes",
-        description: "Elevate your product presentation with custom printed boxes. Perfect for retail products, gifts, and e-commerce packaging.",
+        shortDescription: "Hộp đóng gói sản phẩm có thương hiệu",
+        description: "Nâng cao cách trình bày sản phẩm của bạn với hộp in tùy chỉnh. Hoàn hảo cho sản phẩm bán lẻ, quà tặng và bao bì thương mại điện tử.",
         image: "📦",
         specs: [
-            "Size: Custom sizes available",
-            "Material: E-flute Corrugated Board",
-            "Printing: Full Color CMYK",
-            "Style: Tuck-end, Mailer, or Custom",
-            "Minimum Order: 100 boxes"
+            "Kích thước: Kích thước tùy chỉnh",
+            "Chất liệu: Bìa sóng E-flute",
+            "In ấn: Màu đầy đủ CMYK",
+            "Kiểu dáng: Hộp cài, Hộp thư hoặc Tùy chỉnh",
+            "Số lượng tối thiểu: 100 hộp"
         ],
         options: [
-            "Matte Lamination",
-            "Gloss Lamination",
-            "Spot UV",
-            "Foil Stamping",
-            "Die-cut Windows"
+            "Phủ mờ",
+            "Phủ bóng",
+            "UV cục bộ",
+            "Dập kim loại",
+            "Cửa sổ cắt"
         ]
     },
     {
         id: 14,
-        name: "Product Labels",
+        name: "Nhãn Sản Phẩm",
         category: "packaging",
-        categoryName: "Packaging",
-        price: "$79.99",
+        categoryName: "Bao bì",
+        price: "1.600.000đ",
         priceValue: 79.99,
-        shortDescription: "Custom printed product labels",
-        description: "Professional product labels for branding, ingredients, warnings, and more. Available in various shapes and sizes.",
+        shortDescription: "Nhãn sản phẩm in tùy chỉnh",
+        description: "Nhãn sản phẩm chuyên nghiệp cho thương hiệu, thành phần, cảnh báo và nhiều hơn nữa. Có sẵn nhiều hình dạng và kích thước.",
         image: "🏷️",
         specs: [
-            "Size: Custom (from 25mm x 25mm)",
-            "Material: Gloss or Matte Label Stock",
-            "Printing: Full Color",
-            "Finish: Various options",
-            "Minimum Order: 500 labels"
+            "Kích thước: Tùy chỉnh (từ 25mm x 25mm)",
+            "Chất liệu: Giấy nhãn bóng hoặc mờ",
+            "In ấn: Màu đầy đủ",
+            "Hoàn thiện: Nhiều tùy chọn",
+            "Số lượng tối thiểu: 500 nhãn"
         ],
         options: [
-            "Circle, Square, or Custom Shape",
-            "Gloss Finish",
-            "Matte Finish",
-            "Clear Labels",
-            "Waterproof Material"
+            "Tròn, Vuông hoặc Hình dạng tùy chỉnh",
+            "Bề mặt bóng",
+            "Bề mặt mờ",
+            "Nhãn trong suốt",
+            "Chất liệu chống nước"
         ]
     },
     {
         id: 15,
-        name: "Sticker Sheets",
+        name: "Tấm Decal",
         category: "packaging",
-        categoryName: "Packaging",
-        price: "$59.99",
+        categoryName: "Bao bì",
+        price: "1.200.000đ",
         priceValue: 59.99,
-        shortDescription: "Custom sticker sheets for branding",
-        description: "Fun and versatile sticker sheets perfect for branding, promotions, and packaging seals. Kiss-cut for easy peeling.",
+        shortDescription: "Tấm decal tùy chỉnh cho thương hiệu",
+        description: "Tấm decal thú vị và linh hoạt hoàn hảo cho thương hiệu, khuyến mại và tem niêm phong bao bì. Cắt kiss dễ bóc.",
         image: "✨",
         specs: [
-            "Size: A6 sheets",
-            "Material: Vinyl Sticker Stock",
-            "Printing: Full Color",
-            "Finish: Gloss or Matte",
-            "Minimum Order: 50 sheets"
+            "Kích thước: Tấm A6",
+            "Chất liệu: Decal Vinyl",
+            "In ấn: Màu đầy đủ",
+            "Hoàn thiện: Bóng hoặc Mờ",
+            "Số lượng tối thiểu: 50 tấm"
         ],
         options: [
-            "Gloss Vinyl",
-            "Matte Vinyl",
-            "Weatherproof",
-            "White or Clear Base",
-            "Custom Die-cut Shapes"
+            "Vinyl bóng",
+            "Vinyl mờ",
+            "Chống thời tiết",
+            "Nền trắng hoặc trong",
+            "Hình dạng cắt tùy chỉnh"
         ]
     }
 ];
 
-// Category mapping for easy access
+// Bản đồ danh mục để truy cập dễ dàng
 const categories = {
-    all: "All Products",
-    "business-cards": "Business Cards",
-    flyers: "Flyers & Leaflets",
-    brochures: "Brochures",
-    posters: "Posters & Banners",
-    stationery: "Stationery",
-    packaging: "Packaging"
+    all: "Tất cả sản phẩm",
+    "business-cards": "Name Card",
+    flyers: "Tờ rơi",
+    brochures: "Brochure",
+    posters: "Poster & Banner",
+    stationery: "Văn phòng phẩm",
+    packaging: "Bao bì"
 };
