@@ -332,7 +332,7 @@
         // Add "Thêm vào giỏ" button functionality
         function viewProductDetails(productId) {
             if (!api.isAuthenticated()) {
-                if (confirm('Bạn cần đăng nhập để thêm sản phẩm vào giỏ hàng. Đăng nhập ngay?')) {
+                if (confirm('Bạn cần đăng nhập để thêm sản phẩm vào giỏ hàng. Đăng nhập ngay')) {
                     window.location.href = 'login.html';
                 }
                 return;
