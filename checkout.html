@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thanh toán - PrintPro</title>
+    <link rel="stylesheet" href="./assets/styles.css">
+    <style>
+        body {
+            padding-top: 80px;
+        }
+
+        .checkout-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 3rem 2rem;
+        }
+
+        .checkout-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .checkout-header h1 {
+            font-size: 2.5rem;
+            color: var(--primary-color);
+            font-weight: 800;
+            margin-bottom: 0.5rem;
+        }
+
+        .checkout-content {
+            display: grid;
+            grid-template-columns: 1.5fr 1fr;
+            gap: 2rem;
+        }
+
+        .checkout-form {
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 2rem;
+            box-shadow: var(--shadow-md);
+        }
+
+        .form-section {
+            margin-bottom: 2rem;
+        }
+
+        .form-section h2 {
+            font-size: 1.3rem;
+            color: var(--text-dark);
+            margin-bottom: 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--border-color);
+        }
+
+        .form-group {
+            margin-bottom: 1.2rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: var(--text-dark);
+            font-weight: 600;
+            font-size: 0.95rem;
+        }
+
+        .required {
+            color: var(--primary-color);
+        }
+
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
+            width: 100%;
+            padding: 0.9rem 1.2rem;
+            border: 2px solid var(--border-color);
+            border-radius: 12px;
+            font-size: 1rem;
+            font-family: inherit;
+            transition: all 0.3s ease;
+            background: white;
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 100px;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 2px 8px rgba(218, 41, 28, 0.1);
+        }
+
+        .order-summary {
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 2rem;
+            box-shadow: var(--shadow-md);
+            height: fit-content;
+            position: sticky;
+            top: 100px;
+        }
+
+        .order-summary h2 {
+            font-size: 1.3rem;
+            margin-bottom: 1.5rem;
+            color: var(--text-dark);
+        }
+
+        .order-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 1rem 0;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .order-item:last-child {
+            border-bottom: none;
+        }
+
+        .item-info {
+            flex: 1;
+        }
+
+        .item-name {
+            font-weight: 600;
+            color: var(--text-dark);
+        }
+
+        .item-quantity {
+            color: var(--text-light);
+            font-size: 0.9rem;
+        }
+
+        .item-price {
+            color: var(--primary-color);
+            font-weight: 600;
+        }
+
+        .summary-total {
+            display: flex;
+            justify-content: space-between;
+            padding-top: 1rem;
+            margin-top: 1rem;
+            border-top: 2px solid var(--primary-color);
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--primary-color);
+        }
+
+        .alert {
+            padding: 1rem;
+            border-radius: 12px;
+            margin-bottom: 1.5rem;
+            display: none;
+        }
+
+        .alert-error {
+            background: rgba(218, 41, 28, 0.1);
+            color: var(--primary-color);
+            border: 1px solid rgba(218, 41, 28, 0.2);
+        }
+
+        .alert-success {
+            background: rgba(16, 185, 129, 0.1);
+            color: var(--success-color);
+            border: 1px solid rgba(16, 185, 129, 0.2);
+        }
+
+        @media (max-width: 768px) {
+            .checkout-content {
+                grid-template-columns: 1fr;
+            }
+
+            .order-summary {
+                position: static;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <h1>🖨️ PrintPro</h1>
+                    <p class="tagline">Xưởng In Chuyên Nghiệp</p>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <div class="checkout-container">
+        <div class="checkout-header">
+            <h1>💳 Thanh Toán</h1>
+            <p>Hoàn tất đơn hàng của bạn</p>
+        </div>
+
+        <div id="alertBox" class="alert"></div>
+
+        <div class="checkout-content">
+            <div class="checkout-form">
+                <form id="checkoutForm">
+                    <div class="form-section">
+                        <h2>Thông tin giao hàng</h2>
+
+                        <div class="form-group">
+                            <label>Họ và tên <span class="required">*</span></label>
+                            <input type="text" id="shipping_name" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Số điện thoại <span class="required">*</span></label>
+                            <input type="tel" id="shipping_phone" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Địa chỉ giao hàng <span class="required">*</span></label>
+                            <textarea id="shipping_address" required placeholder="Số nhà, tên đường, phường/xã, quận/huyện, tỉnh/thành phố"></textarea>
+                        </div>
+                    </div>
+
+                    <div class="form-section">
+                        <h2>Phương thức thanh toán</h2>
+
+                        <div class="form-group">
+                            <select id="payment_method">
+                                <option value="cod">Thanh toán khi nhận hàng (COD)</option>
+                                <option value="bank">Chuyển khoản ngân hàng</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-section">
+                        <h2>Ghi chú</h2>
+
+                        <div class="form-group">
+                            <textarea id="notes" placeholder="Ghi chú thêm về đơn hàng (tùy chọn)"></textarea>
+                        </div>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary" id="checkoutBtn" style="width: 100%;">
+                        Đặt hàng
+                    </button>
+
+                    <a href="cart.html" class="btn btn-secondary" style="width: 100%; margin-top: 1rem; display: inline-block; text-align: center; text-decoration: none;">
+                        Quay lại giỏ hàng
+                    </a>
+                </form>
+            </div>
+
+            <div class="order-summary">
+                <h2>Đơn hàng của bạn</h2>
+                <div id="orderItems"></div>
+                <div class="summary-total">
+                    <span>Tổng cộng:</span>
+                    <span id="totalAmount">0đ</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="./assets/api.js"></script>
+    <script>
+        const checkoutForm = document.getElementById('checkoutForm');
+        const checkoutBtn = document.getElementById('checkoutBtn');
+        const alertBox = document.getElementById('alertBox');
+        const orderItems = document.getElementById('orderItems');
+        const totalAmount = document.getElementById('totalAmount');
+
+        let cartData = null;
+
+        function showAlert(message, type = 'error') {
+            alertBox.textContent = message;
+            alertBox.className = `alert alert-${type}`;
+            alertBox.style.display = 'block';
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+
+            if (type === 'success') {
+                setTimeout(() => {
+                    alertBox.style.display = 'none';
+                }, 5000);
+            }
+        }
+
+        async function loadCartData() {
+            if (!api.isAuthenticated()) {
+                window.location.href = 'login.html';
+                return;
+            }
+
+            const result = await api.cart.get();
+
+            if (result.success && result.data.success) {
+                cartData = result.data.data;
+
+                if (cartData.items.length === 0) {
+                    alert('Giỏ hàng trống!');
+                    window.location.href = 'cart.html';
+                    return;
+                }
+
+                displayOrderSummary();
+                loadUserProfile();
+            } else {
+                showAlert('Lỗi tải giỏ hàng: ' + result.data.message);
+            }
+        }
+
+        function displayOrderSummary() {
+            orderItems.innerHTML = cartData.items.map(item => `
+                <div class="order-item">
+                    <div class="item-info">
+                        <div class="item-name">${item.name}</div>
+                        <div class="item-quantity">Số lượng: ${item.quantity}</div>
+                    </div>
+                    <div class="item-price">${formatPrice(item.price * item.quantity)}</div>
+                </div>
+            `).join('');
+
+            totalAmount.textContent = formatPrice(cartData.total);
+        }
+
+        async function loadUserProfile() {
+            const result = await api.auth.getProfile();
+            if (result.success && result.data.success) {
+                const user = result.data.data;
+                document.getElementById('shipping_name').value = user.full_name || '';
+                document.getElementById('shipping_phone').value = user.phone || '';
+                document.getElementById('shipping_address').value = user.address || '';
+            }
+        }
+
+        checkoutForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+
+            const orderData = {
+                shipping_name: document.getElementById('shipping_name').value,
+                shipping_phone: document.getElementById('shipping_phone').value,
+                shipping_address: document.getElementById('shipping_address').value,
+                payment_method: document.getElementById('payment_method').value,
+                notes: document.getElementById('notes').value
+            };
+
+            checkoutBtn.disabled = true;
+            checkoutBtn.textContent = 'Đang xử lý...';
+
+            try {
+                const result = await api.orders.create(orderData);
+
+                if (result.success && result.data.success) {
+                    showAlert(`Đặt hàng thành công! Mã đơn hàng: ${result.data.data.order_number}`, 'success');
+
+                    setTimeout(() => {
+                        window.location.href = 'orders.html';
+                    }, 2000);
+                } else {
+                    showAlert(result.data.message || 'Đặt hàng thất bại');
+                    checkoutBtn.disabled = false;
+                    checkoutBtn.textContent = 'Đặt hàng';
+                }
+            } catch (error) {
+                showAlert('Lỗi kết nối. Vui lòng thử lại.');
+                checkoutBtn.disabled = false;
+                checkoutBtn.textContent = 'Đặt hàng';
+            }
+        });
+
+        function formatPrice(price) {
+            return new Intl.NumberFormat('vi-VN', {
+                style: 'currency',
+                currency: 'VND'
+            }).format(price);
+        }
+
+        loadCartData();
+    </script>
+</body>
+</html>

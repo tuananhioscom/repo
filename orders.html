@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Đơn hàng của tôi - PrintPro</title>
+    <link rel="stylesheet" href="./assets/styles.css">
+    <style>
+        body {
+            padding-top: 80px;
+        }
+
+        .orders-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 3rem 2rem;
+            min-height: 60vh;
+        }
+
+        .orders-header {
+            margin-bottom: 2rem;
+        }
+
+        .orders-header h1 {
+            font-size: 2.5rem;
+            color: var(--primary-color);
+            font-weight: 800;
+        }
+
+        .order-card {
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 2rem;
+            margin-bottom: 1.5rem;
+            box-shadow: var(--shadow-md);
+            border-left: 4px solid var(--primary-color);
+        }
+
+        .order-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+            padding-bottom: 1rem;
+            border-bottom: 2px solid var(--border-color);
+        }
+
+        .order-number {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: var(--text-dark);
+        }
+
+        .order-date {
+            color: var(--text-light);
+            font-size: 0.95rem;
+        }
+
+        .order-status {
+            display: inline-block;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 600;
+        }
+
+        .status-pending {
+            background: rgba(255, 193, 7, 0.2);
+            color: #f57c00;
+        }
+
+        .status-confirmed {
+            background: rgba(33, 150, 243, 0.2);
+            color: #1976d2;
+        }
+
+        .status-processing {
+            background: rgba(156, 39, 176, 0.2);
+            color: #7b1fa2;
+        }
+
+        .status-shipping {
+            background: rgba(3, 169, 244, 0.2);
+            color: #0277bd;
+        }
+
+        .status-completed {
+            background: rgba(76, 175, 80, 0.2);
+            color: #388e3c;
+        }
+
+        .status-cancelled {
+            background: rgba(244, 67, 54, 0.2);
+            color: #d32f2f;
+        }
+
+        .order-info {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .info-item {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .info-label {
+            color: var(--text-light);
+            font-size: 0.9rem;
+            margin-bottom: 0.25rem;
+        }
+
+        .info-value {
+            color: var(--text-dark);
+            font-weight: 600;
+        }
+
+        .order-items {
+            margin-bottom: 1.5rem;
+        }
+
+        .order-items h3 {
+            font-size: 1.1rem;
+            margin-bottom: 1rem;
+            color: var(--text-dark);
+        }
+
+        .order-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 0.75rem 0;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .order-item:last-child {
+            border-bottom: none;
+        }
+
+        .item-name {
+            font-weight: 600;
+        }
+
+        .item-quantity {
+            color: var(--text-light);
+            font-size: 0.9rem;
+        }
+
+        .order-actions {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .empty-orders {
+            text-align: center;
+            padding: 4rem 2rem;
+        }
+
+        .empty-orders-icon {
+            font-size: 5rem;
+            margin-bottom: 1rem;
+        }
+
+        @media (max-width: 768px) {
+            .order-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 1rem;
+            }
+
+            .order-actions {
+                width: 100%;
+            }
+
+            .order-actions button {
+                flex: 1;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <h1>🖨️ PrintPro</h1>
+                    <p class="tagline">Xưởng In Chuyên Nghiệp</p>
+                </div>
+
+                <div class="header-actions">
+                    <a href="cart.html" class="quick-contact-btn phone-btn">🛒 Giỏ hàng</a>
+                    <a href="orders.html" class="quick-contact-btn zalo-btn">📦 Đơn hàng</a>
+                    <a href="#" id="authBtn" class="quick-contact-btn phone-btn">👤 Đăng nhập</a>
+                </div>
+            </div>
+
+            <nav class="nav">
+                <a href="index.html" class="nav-link">Trang chủ</a>
+                <a href="index.html#products" class="nav-link">Sản phẩm</a>
+                <a href="index.html#about" class="nav-link">Về chúng tôi</a>
+                <a href="index.html#contact" class="nav-link">Liên hệ</a>
+            </nav>
+        </div>
+    </header>
+
+    <div class="orders-container">
+        <div class="orders-header">
+            <h1>📦 Đơn Hàng Của Tôi</h1>
+        </div>
+
+        <div id="ordersContent"></div>
+    </div>
+
+    <script src="./assets/api.js"></script>
+    <script>
+        const ordersContent = document.getElementById('ordersContent');
+        const authBtn = document.getElementById('authBtn');
+
+        function updateAuthButton() {
+            if (api.isAuthenticated()) {
+                const user = api.getCurrentUser();
+                authBtn.textContent = `👤 ${user.full_name}`;
+                authBtn.href = '#';
+                authBtn.onclick = (e) => {
+                    e.preventDefault();
+                    if (confirm('Bạn có muốn đăng xuất?')) {
+                        api.auth.logout();
+                    }
+                };
+            } else {
+                authBtn.textContent = '👤 Đăng nhập';
+                authBtn.href = 'login.html';
+            }
+        }
+
+        async function loadOrders() {
+            if (!api.isAuthenticated()) {
+                ordersContent.innerHTML = `
+                    <div class="empty-orders">
+                        <div class="empty-orders-icon">🔒</div>
+                        <h2>Vui lòng đăng nhập</h2>
+                        <p style="margin-bottom: 2rem;">Bạn cần đăng nhập để xem đơn hàng</p>
+                        <a href="login.html" class="btn btn-primary">Đăng nhập ngay</a>
+                    </div>
+                `;
+                return;
+            }
+
+            const result = await api.orders.getMyOrders();
+
+            if (result.success && result.data.success) {
+                const orders = result.data.data.orders;
+
+                if (orders.length === 0) {
+                    ordersContent.innerHTML = `
+                        <div class="empty-orders">
+                            <div class="empty-orders-icon">📦</div>
+                            <h2>Chưa có đơn hàng</h2>
+                            <p style="margin-bottom: 2rem;">Bạn chưa có đơn hàng nào</p>
+                            <a href="index.html#products" class="btn btn-primary">Mua sắm ngay</a>
+                        </div>
+                    `;
+                } else {
+                    displayOrders(orders);
+                }
+            } else {
+                ordersContent.innerHTML = `
+                    <div class="empty-orders">
+                        <h2>Lỗi tải đơn hàng</h2>
+                        <p>${result.data.message}</p>
+                    </div>
+                `;
+            }
+        }
+
+        function displayOrders(orders) {
+            ordersContent.innerHTML = orders.map(order => `
+                <div class="order-card">
+                    <div class="order-header">
+                        <div>
+                            <div class="order-number">Đơn hàng #${order.order_number}</div>
+                            <div class="order-date">${formatDate(order.created_at)}</div>
+                        </div>
+                        <div>
+                            <span class="order-status status-${order.status}">${getStatusText(order.status)}</span>
+                        </div>
+                    </div>
+
+                    <div class="order-info">
+                        <div class="info-item">
+                            <span class="info-label">Người nhận</span>
+                            <span class="info-value">${order.shipping_name}</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="info-label">Số điện thoại</span>
+                            <span class="info-value">${order.shipping_phone}</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="info-label">Tổng tiền</span>
+                            <span class="info-value">${formatPrice(order.total_amount)}</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="info-label">Thanh toán</span>
+                            <span class="info-value">${getPaymentStatusText(order.payment_status)}</span>
+                        </div>
+                    </div>
+
+                    <div class="order-actions">
+                        <button class="btn btn-secondary" onclick="viewOrderDetail(${order.id})">Xem chi tiết</button>
+                        ${order.status === 'pending' || order.status === 'confirmed' ?
+                            `<button class="btn btn-primary" onclick="cancelOrder(${order.id})" style="background: var(--primary-color);">Hủy đơn</button>`
+                            : ''}
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        async function viewOrderDetail(id) {
+            const result = await api.orders.getOne(id);
+            if (result.success && result.data.success) {
+                const order = result.data.data;
+                alert(`Chi tiết đơn hàng:\n\nMã: ${order.order_number}\nTổng tiền: ${formatPrice(order.total_amount)}\nTrạng thái: ${getStatusText(order.status)}\n\nĐịa chỉ: ${order.shipping_address}\n\nGhi chú: ${order.notes || 'Không có'}`);
+            }
+        }
+
+        async function cancelOrder(id) {
+            if (!confirm('Bạn có chắc muốn hủy đơn hàng này?')) return;
+
+            const result = await api.orders.cancel(id);
+            if (result.success) {
+                alert('Đã hủy đơn hàng thành công');
+                loadOrders();
+            } else {
+                alert(result.data.message || 'Lỗi hủy đơn hàng');
+            }
+        }
+
+        function getStatusText(status) {
+            const statusMap = {
+                'pending': 'Chờ xác nhận',
+                'confirmed': 'Đã xác nhận',
+                'processing': 'Đang xử lý',
+                'shipping': 'Đang giao',
+                'completed': 'Hoàn thành',
+                'cancelled': 'Đã hủy'
+            };
+            return statusMap[status] || status;
+        }
+
+        function getPaymentStatusText(status) {
+            const statusMap = {
+                'unpaid': 'Chưa thanh toán',
+                'paid': 'Đã thanh toán',
+                'refunded': 'Đã hoàn tiền'
+            };
+            return statusMap[status] || status;
+        }
+
+        function formatPrice(price) {
+            return new Intl.NumberFormat('vi-VN', {
+                style: 'currency',
+                currency: 'VND'
+            }).format(price);
+        }
+
+        function formatDate(dateString) {
+            const date = new Date(dateString);
+            return date.toLocaleString('vi-VN');
+        }
+
+        updateAuthButton();
+        loadOrders();
+    </script>
+</body>
+</html>
