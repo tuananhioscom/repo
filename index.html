@@ -1,352 +1,411 @@
 <!DOCTYPE html>
 <html lang="vi">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PrintPro - Professional Printing Services</title>
-    <link rel="stylesheet" href="./assets/styles.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>PrintPro – Dịch Vụ In Ấn Chuyên Nghiệp tại Đà Nẵng</title>
+  <meta name="description" content="PrintPro – In nhanh, đúng màu, giao 24–48h tại Đà Nẵng. Name card, tờ rơi, brochure, poster, banner, tem nhãn… Báo giá trong 5 phút qua Zalo/Điện thoại." />
+  <link rel="icon" href="assets/favicon.png" />
+  <!-- Open Graph / Twitter -->
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="PrintPro – Dịch Vụ In Ấn Chuyên Nghiệp" />
+  <meta property="og:description" content="In nhanh – đúng màu – giao 24–48h tại Đà Nẵng. Báo giá trong 5 phút." />
+  <meta property="og:image" content="assets/og-image.jpg" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="PrintPro – Dịch Vụ In Ấn" />
+  <meta name="twitter:description" content="In nhanh – đúng màu – giao 24–48h. Báo giá trong 5 phút." />
+  <meta name="twitter:image" content="assets/og-image.jpg" />
+
+  <style>
+    :root{
+      --brand:#0A5DB1;   /* màu chủ đạo */
+      --accent:#FF6B00;  /* CTA */
+      --bg:#F5F7FA;      /* nền nhẹ */
+      --text:#111827;    /* chữ chính */
+      --muted:#6B7280;   /* chữ phụ */
+      --card:#FFFFFF;    /* nền thẻ */
+      --ring: rgba(10,93,177,.25);
+      --shadow: 0 10px 30px rgba(16,24,40,.08);
+    }
+    *{box-sizing:border-box}
+    html,body{margin:0;padding:0;font-family:system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,"Helvetica Neue",Arial,sans-serif;color:var(--text);background:var(--bg)}
+    a{color:inherit;text-decoration:none}
+    img{max-width:100%;display:block}
+
+    /* Header */
+    .header{position:sticky;top:0;z-index:50;background:#fff;border-bottom:1px solid #E5E7EB}
+    .container{max-width:1160px;margin:0 auto;padding:0 16px}
+    .nav{display:flex;align-items:center;justify-content:space-between;height:64px}
+    .brand{display:flex;gap:10px;align-items:center}
+    .brand__logo{width:36px;height:36px;border-radius:8px;background:linear-gradient(135deg,var(--brand),#53A0FD)}
+    .brand__name{font-weight:800;color:var(--brand);letter-spacing:.2px}
+    .nav__links{display:flex;gap:18px;align-items:center}
+    .nav__link{color:#374151;font-weight:600}
+    .nav__cta{padding:10px 14px;border-radius:12px;background:var(--accent);color:#fff;font-weight:700;box-shadow:0 10px 26px rgba(255,107,0,.28)}
+
+    /* Hero */
+    .hero{padding:48px 0 28px;background:linear-gradient(180deg,#fff 0%, #F9FBFF 100%)}
+    .hero__grid{display:grid;grid-template-columns:1.2fr .8fr;gap:28px;align-items:center}
+    .eyebrow{color:var(--brand);font-weight:800;text-transform:uppercase;letter-spacing:.12em}
+    .h1{font-size:38px;line-height:1.15;margin:8px 0 12px;font-weight:900;color:#0B1220}
+    .sub{color:#374151;font-size:17px}
+    .hero__actions{margin-top:18px;display:flex;gap:12px;flex-wrap:wrap}
+    .btn{display:inline-flex;align-items:center;gap:8px;padding:12px 18px;border-radius:14px;font-weight:700;border:0;cursor:pointer}
+    .btn--primary{background:var(--accent);color:#fff;box-shadow:0 10px 24px rgba(255,107,0,.28);transition:transform .08s ease, box-shadow .18s ease}
+    .btn--primary:hover{transform:translateY(-1px);box-shadow:0 14px 30px rgba(255,107,0,.36)}
+    .btn--ghost{background:#fff;border:1px solid #E5E7EB;color:#111827}
+    .hero__media{border-radius:18px;overflow:hidden;box-shadow:var(--shadow)}
+
+    /* Filters */
+    .filters{padding:20px 0}
+    .tags{display:flex;gap:8px;flex-wrap:wrap}
+    .tag{background:#fff;border:1px solid #E5E7EB;color:#111827;padding:8px 12px;border-radius:999px;font-weight:600;cursor:pointer}
+    .tag.is-active{background:var(--brand);border-color:var(--brand);color:#fff}
+
+    /* Product grid */
+    .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+    .card{background:var(--card);border-radius:18px;box-shadow:var(--shadow);overflow:hidden;display:flex;flex-direction:column}
+    .card__img{aspect-ratio:4/3;object-fit:cover;background:#EEF2FF}
+    .card__body{padding:14px 14px 16px}
+    .card__title{font-weight:800;margin:0 0 6px}
+    .card__meta{color:var(--muted);font-size:14px}
+    .card__price{margin:10px 0 12px;font-weight:800}
+    .card__actions{margin-top:auto;display:flex;gap:10px;padding:0 14px 14px}
+    .btn--outline{background:#fff;border:1px solid #CBD5E1}
+
+    /* Sections */
+    .section{padding:40px 0}
+    .section__title{font-size:28px;font-weight:900;color:var(--brand);margin:0 0 14px}
+    .usp{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+    .usp__item{background:#fff;border:1px solid #E5E7EB;border-radius:16px;padding:16px}
+
+    /* Testimonials */
+    .testi{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+    .quote{background:#fff;border:1px solid #E5E7EB;border-radius:16px;padding:16px}
+    .quote b{display:block;margin-bottom:8px}
+
+    /* FAQ */
+    details{background:#fff;border:1px solid #E5E7EB;border-radius:14px;padding:12px}
+    details+details{margin-top:10px}
+
+    /* Contact */
+    .contact{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+    .contact__card{background:#fff;border:1px solid #E5E7EB;border-radius:16px;padding:16px}
+    .contact a.link{color:var(--brand);font-weight:700}
+
+    /* Footer */
+    .footer{margin-top:34px;padding:22px 0;border-top:1px solid #E5E7EB;color:#4B5563;background:#fff}
+
+    /* Floating CTA (mobile) */
+    .cta-fab{position:fixed;right:16px;bottom:16px;display:flex;gap:10px;z-index:999}
+    .cta-fab .btn{padding:12px 14px;border-radius:999px}
+    @media(min-width:768px){.cta-fab{display:none}}
+
+    /* Responsive */
+    @media(max-width:1024px){
+      .hero__grid{grid-template-columns:1fr}
+      .grid{grid-template-columns:repeat(2,1fr)}
+      .usp,.testi{grid-template-columns:repeat(2,1fr)}
+      .contact{grid-template-columns:1fr}
+    }
+    @media(max-width:640px){
+      .grid{grid-template-columns:1fr}
+      .h1{font-size:30px}
+    }
+  </style>
 </head>
 <body>
-    <!-- Header -->
-    <header class="header">
-        <div class="container">
-            <div class="header-content">
-                <div class="logo">
-                    <h1>🖨️ PrintPro</h1>
-                    <p class="tagline">Xưởng In Chuyên Nghiệp</p>
-                </div>
-
-                <div class="header-search">
-                    <input type="text" id="searchInput" placeholder="Tìm kiếm sản phẩm..." class="search-input">
-                    <button class="search-btn">🔍</button>
-                </div>
-
-                <div class="header-actions">
-                    <a href="cart.html" class="quick-contact-btn phone-btn">
-                        🛒 Giỏ hàng
-                    </a>
-                    <a href="orders.html" class="quick-contact-btn zalo-btn">
-                        📦 Đơn hàng
-                    </a>
-                    <a href="login.html" id="authBtn" class="quick-contact-btn phone-btn">
-                        👤 Đăng nhập
-                    </a>
-                </div>
-
-                <button class="mobile-menu-toggle" id="mobileMenuToggle">
-                    ☰
-                </button>
-            </div>
-
-            <nav class="nav" id="mainNav">
-                <a href="#home" class="nav-link active">Trang chủ</a>
-                <a href="#products" class="nav-link">Sản phẩm</a>
-                <a href="#about" class="nav-link">Về chúng tôi</a>
-                <a href="#contact" class="nav-link">Liên hệ</a>
-            </nav>
-        </div>
-    </header>
-
-    <!-- Hero Section -->
-    <section id="home" class="hero">
-        <div class="container">
-            <div class="hero-content">
-                <div class="hero-badge">✨ Uy tín - Chất lượng - Nhanh chóng</div>
-                <h2>Dịch Vụ In Ấn Chuyên Nghiệp</h2>
-                <p>In name card, tờ rơi, brochure, banner và nhiều hơn nữa. Chúng tôi cam kết mang đến giải pháp in ấn hoàn hảo cho mọi nhu cầu của bạn.</p>
-                <div class="hero-buttons">
-                    <a href="#products" class="btn btn-primary">Xem sản phẩm</a>
-                    <a href="#contact" class="btn btn-secondary">Liên hệ báo giá</a>
-                </div>
-                <div class="hero-features">
-                    <div class="feature-item">
-                        <span class="feature-icon">🎯</span>
-                        <span class="feature-text">Chất lượng cao</span>
-                    </div>
-                    <div class="feature-item">
-                        <span class="feature-icon">⚡</span>
-                        <span class="feature-text">Giao hàng nhanh</span>
-                    </div>
-                    <div class="feature-item">
-                        <span class="feature-icon">💰</span>
-                        <span class="feature-text">Giá cạnh tranh</span>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Category Filter -->
-    <section id="products" class="products-section">
-        <div class="container">
-            <h2 class="section-title">Sản Phẩm Của Chúng Tôi</h2>
-
-            <!-- Category Folders -->
-            <div class="categories">
-                <button class="category-btn active" data-category="all">
-                    📁 Tất cả
-                </button>
-                <button class="category-btn" data-category="business-cards">
-                    📁 Name Card
-                </button>
-                <button class="category-btn" data-category="flyers">
-                    📁 Tờ rơi
-                </button>
-                <button class="category-btn" data-category="brochures">
-                    📁 Brochure
-                </button>
-                <button class="category-btn" data-category="posters">
-                    📁 Poster & Banner
-                </button>
-                <button class="category-btn" data-category="stationery">
-                    📁 Văn phòng phẩm
-                </button>
-                <button class="category-btn" data-category="packaging">
-                    📁 Bao bì
-                </button>
-            </div>
-
-            <!-- Product Controls -->
-            <div class="product-controls">
-                <div class="product-count" id="productCount">
-                    Hiển thị <strong>15</strong> sản phẩm
-                </div>
-                <div class="sort-controls">
-                    <label for="sortSelect">Sắp xếp:</label>
-                    <select id="sortSelect" class="sort-select">
-                        <option value="default">Mặc định</option>
-                        <option value="name">Tên A-Z</option>
-                        <option value="price-low">Giá thấp đến cao</option>
-                        <option value="price-high">Giá cao đến thấp</option>
-                    </select>
-                </div>
-            </div>
-
-            <!-- Product Grid -->
-            <div class="products-grid" id="productsGrid">
-                <!-- Products will be dynamically loaded here -->
-            </div>
-        </div>
-    </section>
-
-    <!-- Product Detail Modal -->
-    <div id="productModal" class="modal">
-        <div class="modal-content">
-            <span class="close-modal">&times;</span>
-            <div class="modal-body">
-                <div class="product-image-section">
-                    <img id="modalImage" src="" alt="Product Image">
-                </div>
-                <div class="product-details-section">
-                    <h2 id="modalTitle"></h2>
-                    <p class="product-category" id="modalCategory"></p>
-                    <p class="product-price" id="modalPrice"></p>
-                    <div class="product-description">
-                        <h3>Mô tả</h3>
-                        <p id="modalDescription"></p>
-                    </div>
-                    <div class="product-specs">
-                        <h3>Thông số kỹ thuật</h3>
-                        <ul id="modalSpecs"></ul>
-                    </div>
-                    <div class="product-options">
-                        <h3>Tùy chọn có sẵn</h3>
-                        <div id="modalOptions"></div>
-                    </div>
-                    <div class="product-actions">
-                        <button class="btn btn-primary">Nhận báo giá</button>
-                        <button class="btn btn-secondary">Liên hệ</button>
-                    </div>
-                </div>
-            </div>
-        </div>
+  <!-- Header -->
+  <header class="header">
+    <div class="container nav" role="navigation" aria-label="Thanh điều hướng">
+      <div class="brand">
+        <div class="brand__logo" aria-hidden="true"></div>
+        <div class="brand__name">PrintPro</div>
+      </div>
+      <nav class="nav__links">
+        <a class="nav__link" href="#products">Sản phẩm</a>
+        <a class="nav__link" href="#why">Vì sao chọn</a>
+        <a class="nav__link" href="#faq">FAQ</a>
+        <a class="nav__link" href="#contact">Liên hệ</a>
+        <a class="nav__cta" href="https://zalo.me/0123456789" aria-label="Liên hệ Zalo">Nhận báo giá</a>
+      </nav>
     </div>
+  </header>
 
-    <!-- About Section -->
-    <section id="about" class="about-section">
-        <div class="container">
-            <h2 class="section-title">Tại Sao Chọn Chúng Tôi</h2>
-            <div class="about-content">
-                <div class="about-card">
-                    <h3>🎯 Chất Lượng Đảm Bảo</h3>
-                    <p>Sử dụng công nghệ in ấn hiện đại, máy móc tiên tiến cùng nguyên liệu cao cấp để đảm bảo chất lượng sản phẩm tốt nhất.</p>
-                </div>
-                <div class="about-card">
-                    <h3>⚡ Giao Hàng Nhanh Chóng</h3>
-                    <p>Xử lý đơn hàng nhanh và giao hàng đúng hẹn. Hầu hết đơn hàng được hoàn thành trong 24-48 giờ.</p>
-                </div>
-                <div class="about-card">
-                    <h3>💼 Dịch Vụ Chuyên Nghiệp</h3>
-                    <p>Đội ngũ nhân viên giàu kinh nghiệm, tận tâm hỗ trợ và tư vấn khách hàng trong suốt quá trình đặt hàng.</p>
-                </div>
-                <div class="about-card">
-                    <h3>💰 Giá Cả Cạnh Tranh</h3>
-                    <p>Cam kết mang đến giá cả tốt nhất thị trường với nhiều ưu đãi hấp dẫn cho khách hàng thân thiết.</p>
-                </div>
-            </div>
+  <!-- Hero -->
+  <section class="hero">
+    <div class="container hero__grid">
+      <div>
+        <div class="eyebrow">Đúng màu • Nhanh chóng • Chuyên nghiệp</div>
+        <h1 class="h1">Dịch Vụ In Ấn Tại Đà Nẵng – Giao 24–48h</h1>
+        <p class="sub">Name card, tờ rơi, brochure, poster, banner, tem nhãn… Nhận file in &amp; báo giá trong 5 phút qua Zalo/Điện thoại. Ưu đãi số lượng lớn.</p>
+        <div class="hero__actions">
+          <a class="btn btn--primary" href="#products">Xem sản phẩm</a>
+          <a class="btn btn--ghost" href="tel:0123456789">Gọi ngay: 0123 456 789</a>
         </div>
-    </section>
+      </div>
+      <div class="hero__media">
+        <img src="assets/hero-printshop.jpg" alt="Xưởng in PrintPro tại Đà Nẵng" loading="lazy" />
+      </div>
+    </div>
+  </section>
 
-    <!-- Contact Section -->
-    <section id="contact" class="contact-section">
-        <div class="container">
-            <h2 class="section-title">Liên Hệ Với Chúng Tôi</h2>
-            <div class="contact-content">
-                <div class="contact-info">
-                    <h3>Thông Tin Liên Hệ</h3>
-                    <div class="contact-item">
-                        <span class="contact-icon">📧</span>
-                        <div>
-                            <strong>Email:</strong>
-                            <p>info@printpro.vn</p>
-                        </div>
-                    </div>
-                    <div class="contact-item">
-                        <span class="contact-icon">📞</span>
-                        <div>
-                            <strong>Hotline:</strong>
-                            <p>0123 456 789</p>
-                        </div>
-                    </div>
-                    <div class="contact-item">
-                        <span class="contact-icon">💬</span>
-                        <div>
-                            <strong>Zalo:</strong>
-                            <p>0123 456 789</p>
-                        </div>
-                    </div>
-                    <div class="contact-item">
-                        <span class="contact-icon">📍</span>
-                        <div>
-                            <strong>Địa chỉ:</strong>
-                            <p>123 Đường In Ấn, Quận Thanh Khê, TP. Đà Nẵng</p>
-                        </div>
-                    </div>
-                    <div class="contact-item">
-                        <span class="contact-icon">🕐</span>
-                        <div>
-                            <strong>Giờ làm việc:</strong>
-                            <p>Thứ 2 - Thứ 7: 8:00 - 18:00<br>Chủ nhật: 8:00 - 12:00</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="contact-form">
-                    <h3>Gửi Tin Nhắn</h3>
-                    <form>
-                        <input type="text" placeholder="Họ và tên *" required>
-                        <input type="tel" placeholder="Số điện thoại *" required>
-                        <input type="email" placeholder="Email">
-                        <textarea placeholder="Nội dung tin nhắn *" rows="5" required></textarea>
-                        <button type="submit" class="btn btn-primary">Gửi tin nhắn</button>
-                    </form>
-                </div>
-            </div>
+  <!-- Filters -->
+  <section class="container filters" aria-label="Bộ lọc danh mục">
+    <div class="tags" id="filters">
+      <button class="tag is-active" data-filter="all">Tất cả</button>
+      <button class="tag" data-filter="namecard">Name Card</button>
+      <button class="tag" data-filter="to-roi">Tờ rơi</button>
+      <button class="tag" data-filter="brochure">Brochure</button>
+      <button class="tag" data-filter="poster">Poster</button>
+      <button class="tag" data-filter="banner">Banner</button>
+      <button class="tag" data-filter="tem-nhan">Tem nhãn</button>
+      <button class="tag" data-filter="bao-bi">Bao bì</button>
+    </div>
+  </section>
+
+  <!-- Products -->
+  <section class="container section" id="products">
+    <h2 class="section__title">Sản phẩm nổi bật</h2>
+    <div class="grid" id="productGrid">
+      <!-- 9 product cards -->
+      <article class="card" data-cat="namecard">
+        <img class="card__img" src="assets/img/namecard-01.jpg" alt="Name Card Couche 300gsm" loading="lazy" />
+        <div class="card__body">
+          <h3 class="card__title">Name Card Cao Cấp</h3>
+          <div class="card__meta">Couche 300gsm • 2 mặt • Bo góc tuỳ chọn</div>
+          <div class="card__price">Từ 120.000đ / 100 cái</div>
         </div>
-    </section>
-
-    <!-- Footer -->
-    <footer class="footer">
-        <div class="container">
-            <div class="footer-content">
-                <div class="footer-section">
-                    <h3>🖨️ PrintPro</h3>
-                    <p>Xưởng in ấn chuyên nghiệp tại Đà Nẵng. Chúng tôi cam kết mang đến sản phẩm chất lượng cao với giá cả cạnh tranh.</p>
-                </div>
-                <div class="footer-section">
-                    <h4>Liên kết nhanh</h4>
-                    <ul class="footer-links">
-                        <li><a href="#home">Trang chủ</a></li>
-                        <li><a href="#products">Sản phẩm</a></li>
-                        <li><a href="#about">Về chúng tôi</a></li>
-                        <li><a href="#contact">Liên hệ</a></li>
-                    </ul>
-                </div>
-                <div class="footer-section">
-                    <h4>Sản phẩm</h4>
-                    <ul class="footer-links">
-                        <li><a href="#products">Name Card</a></li>
-                        <li><a href="#products">Tờ rơi</a></li>
-                        <li><a href="#products">Brochure</a></li>
-                        <li><a href="#products">Banner</a></li>
-                    </ul>
-                </div>
-                <div class="footer-section">
-                    <h4>Liên hệ</h4>
-                    <ul class="footer-links">
-                        <li>📞 0123 456 789</li>
-                        <li>📧 info@printpro.vn</li>
-                        <li>📍 Đà Nẵng, Việt Nam</li>
-                    </ul>
-                </div>
-            </div>
-            <div class="footer-bottom">
-                <p>&copy; 2024 PrintPro. Bản quyền được bảo lưu.</p>
-                <p>Dịch vụ in ấn chuyên nghiệp | Chất lượng - Uy tín - Nhanh chóng</p>
-            </div>
+        <div class="card__actions">
+          <a class="btn btn--outline" href="#faq">Xem chi tiết</a>
+          <a class="btn btn--primary" href="https://zalo.me/0123456789?text=B%C3%A1o%20gi%C3%A1%20Name%20Card%20Cao%20C%E1%BA%A5p">Nhận báo giá</a>
         </div>
-    </footer>
+      </article>
 
-    <!-- Floating Zalo Button -->
-    <a href="https://zalo.me/84123456789" target="_blank" class="floating-zalo" title="Chat với chúng tôi qua Zalo">
-        <img src="https://page.widget.zalo.me/static/images/2.0/Logo.svg" alt="Zalo">
-    </a>
+      <article class="card" data-cat="to-roi">
+        <img class="card__img" src="assets/img/flyer-01.jpg" alt="Tờ rơi A5/A4 in 2 mặt" loading="lazy" />
+        <div class="card__body">
+          <h3 class="card__title">Tờ rơi quảng cáo</h3>
+          <div class="card__meta">A5/A4 • 150–210gsm • In 2 mặt</div>
+          <div class="card__price">Từ 350đ / tờ</div>
+        </div>
+        <div class="card__actions">
+          <a class="btn btn--outline" href="#faq">Xem chi tiết</a>
+          <a class="btn btn--primary" href="https://zalo.me/0123456789?text=B%C3%A1o%20gi%C3%A1%20T%E1%BB%9D%20r%C6%A1i">Nhận báo giá</a>
+        </div>
+      </article>
 
-    <!-- Floating Phone Button -->
-    <a href="tel:+84123456789" class="floating-phone" title="Gọi ngay">
-        📞
-    </a>
+      <article class="card" data-cat="brochure">
+        <img class="card__img" src="assets/img/brochure-01.jpg" alt="Brochure gấp 2/3" loading="lazy" />
+        <div class="card__body">
+          <h3 class="card__title">Brochure gấp</h3>
+          <div class="card__meta">Gấp 2/3 • 170–210gsm • Cán mờ</div>
+          <div class="card__price">Từ 2.900đ / tờ</div>
+        </div>
+        <div class="card__actions">
+          <a class="btn btn--outline" href="#faq">Xem chi tiết</a>
+          <a class="btn btn--primary" href="https://zalo.me/0123456789?text=B%C3%A1o%20gi%C3%A1%20Brochure">Nhận báo giá</a>
+        </div>
+      </article>
 
-    <script src="./assets/api.js"></script>
-    <script src="./assets/products.js"></script>
-    <script src="./assets/main.js"></script>
+      <article class="card" data-cat="poster">
+        <img class="card__img" src="assets/img/poster-01.jpg" alt="Poster khổ A3/A2/A1" loading="lazy" />
+        <div class="card__body">
+          <h3 class="card__title">Poster Khuyến mãi</h3>
+          <div class="card__meta">A3/A2/A1 • In màu sắc nét • Cán mờ/bóng</div>
+          <div class="card__price">Từ 25.000đ / tấm</div>
+        </div>
+        <div class="card__actions">
+          <a class="btn btn--outline" href="#faq">Xem chi tiết</a>
+          <a class="btn btn--primary" href="https://zalo.me/0123456789?text=B%C3%A1o%20gi%C3%A1%20Poster">Nhận báo giá</a>
+        </div>
+      </article>
 
-    <script>
-        // Update auth button based on login status
-        const authBtn = document.getElementById('authBtn');
+      <article class="card" data-cat="banner">
+        <img class="card__img" src="assets/img/banner-01.jpg" alt="In banner Hiflex PP" loading="lazy" />
+        <div class="card__body">
+          <h3 class="card__title">Banner Hiflex/PP</h3>
+          <div class="card__meta">Khổ theo yêu cầu • Gia công viền/đục lỗ</div>
+          <div class="card__price">Từ 35.000đ / m²</div>
+        </div>
+        <div class="card__actions">
+          <a class="btn btn--outline" href="#faq">Xem chi tiết</a>
+          <a class="btn btn--primary" href="https://zalo.me/0123456789?text=B%C3%A1o%20gi%C3%A1%20Banner">Nhận báo giá</a>
+        </div>
+      </article>
 
-        if (api.isAuthenticated()) {
-            const user = api.getCurrentUser();
-            authBtn.textContent = `👤 ${user.full_name}`;
-            authBtn.href = '#';
-            authBtn.onclick = (e) => {
-                e.preventDefault();
-                const isAdmin = user.role === 'admin';
-                const options = isAdmin ?
-                    'Admin Dashboard\nHồ sơ\nĐăng xuất' :
-                    'Hồ sơ\nĐơn hàng\nĐăng xuất';
+      <article class="card" data-cat="tem-nhan">
+        <img class="card__img" src="assets/img/label-01.jpg" alt="Tem nhãn decal" loading="lazy" />
+        <div class="card__body">
+          <h3 class="card__title">Tem nhãn Decal</h3>
+          <div class="card__meta">Decal giấy/nhựa • Cắt bế theo hình</div>
+          <div class="card__price">Từ 90đ / cm²</div>
+        </div>
+        <div class="card__actions">
+          <a class="btn btn--outline" href="#faq">Xem chi tiết</a>
+          <a class="btn btn--primary" href="https://zalo.me/0123456789?text=B%C3%A1o%20gi%C3%A1%20Tem%20nh%C3%A3n">Nhận báo giá</a>
+        </div>
+      </article>
 
-                const choice = prompt(`Xin chào ${user.full_name}!\n\n${options}\n\nNhập lựa chọn của bạn:`);
+      <article class="card" data-cat="bao-bi">
+        <img class="card__img" src="assets/img/packaging-01.jpg" alt="Hộp giấy bao bì" loading="lazy" />
+        <div class="card__body">
+          <h3 class="card__title">Bao bì – Hộp giấy</h3>
+          <div class="card__meta">Duplex/Couche • Cán mờ/bóng • Bế dán</div>
+          <div class="card__price">Theo thiết kế</div>
+        </div>
+        <div class="card__actions">
+          <a class="btn btn--outline" href="#faq">Xem chi tiết</a>
+          <a class="btn btn--primary" href="https://zalo.me/0123456789?text=B%C3%A1o%20gi%C3%A1%20Bao%20b%C3%AC">Nhận báo giá</a>
+        </div>
+      </article>
 
-                if (choice && choice.toLowerCase().includes('đăng xuất')) {
-                    if (confirm('Bạn có muốn đăng xuất?')) {
-                        api.auth.logout();
-                    }
-                } else if (choice && choice.toLowerCase().includes('dashboard') && isAdmin) {
-                    window.location.href = 'admin/index.html';
-                } else if (choice && choice.toLowerCase().includes('đơn')) {
-                    window.location.href = 'orders.html';
-                }
-            };
-        }
+      <article class="card" data-cat="namecard">
+        <img class="card__img" src="assets/img/namecard-02.jpg" alt="Name card ép kim" loading="lazy" />
+        <div class="card__body">
+          <h3 class="card__title">Name Card Ép kim</h3>
+          <div class="card__meta">Ép kim vàng/bạc • Cán mờ dày</div>
+          <div class="card__price">Theo kỹ thuật</div>
+        </div>
+        <div class="card__actions">
+          <a class="btn btn--outline" href="#faq">Xem chi tiết</a>
+          <a class="btn btn--primary" href="https://zalo.me/0123456789?text=B%C3%A1o%20gi%C3%A1%20Name%20Card%20%C3%89p%20kim">Nhận báo giá</a>
+        </div>
+      </article>
 
-        // Add "Thêm vào giỏ" button functionality
-        function viewProductDetails(productId) {
-            if (!api.isAuthenticated()) {
-                if (confirm('Bạn cần đăng nhập để thêm sản phẩm vào giỏ hàng. Đăng nhập ngay?')) {
-                    window.location.href = 'login.html';
-                }
-                return;
-            }
+      <article class="card" data-cat="poster">
+        <img class="card__img" src="assets/img/poster-02.jpg" alt="Poster nghệ thuật" loading="lazy" />
+        <div class="card__body">
+          <h3 class="card__title">Poster Nghệ thuật</h3>
+          <div class="card__meta">In ảnh chất lượng cao • Khung treo</div>
+          <div class="card__price">Theo yêu cầu</div>
+        </div>
+        <div class="card__actions">
+          <a class="btn btn--outline" href="#faq">Xem chi tiết</a>
+          <a class="btn btn--primary" href="https://zalo.me/0123456789?text=B%C3%A1o%20gi%C3%A1%20Poster%20Ngh%E1%BB%87%20thu%E1%BA%ADt">Nhận báo giá</a>
+        </div>
+      </article>
+    </div>
+  </section>
 
-            // Add to cart
-            api.cart.add(productId, 1).then(result => {
-                if (result.success) {
-                    alert('✅ Đã thêm vào giỏ hàng!');
-                } else {
-                    alert('Lỗi: ' + result.data.message);
-                }
-            });
-        }
-    </script>
+  <!-- Why us -->
+  <section class="container section" id="why">
+    <h2 class="section__title">Tại sao chọn PrintPro?</h2>
+    <div class="usp">
+      <div class="usp__item"><b>Đúng màu</b><div>Quy trình quản lý màu &amp; kiểm tra file trước in – hạn chế sai lệch.</div></div>
+      <div class="usp__item"><b>Nhanh chóng</b><div>Nhận file – báo giá trong 5 phút, giao trong 24–48 giờ.</div></div>
+      <div class="usp__item"><b>Bảo hành thành phẩm</b><div>Hỗ trợ lỗi kỹ thuật in ấn/đóng gói theo chính sách.</div></div>
+    </div>
+  </section>
+
+  <!-- Testimonials -->
+  <section class="container section" id="testimonials">
+    <h2 class="section__title">Khách hàng nói gì</h2>
+    <div class="testi">
+      <div class="quote"><b>Hồng Anh – Quán Cafe</b><div>Đặt poster khuyến mãi, màu lên đúng thiết kế, giao trong 1 ngày. Sẽ ủng hộ tiếp!</div></div>
+      <div class="quote"><b>Nam IT – Startup</b><div>Name card ép kim đẹp, đóng gói kỹ. Giá hợp lý so với thị trường Đà Nẵng.</div></div>
+      <div class="quote"><b>Minh – Shop Thời trang</b><div>Tem nhãn decal cắt bế chuẩn, dán bền. Team tư vấn nhiệt tình.</div></div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="container section" id="faq">
+    <h2 class="section__title">Câu hỏi thường gặp</h2>
+    <details>
+      <summary>File in chuẩn là gì?</summary>
+      <div>Sử dụng PDF/AI/PSD, ảnh 300dpi, chuyển CMYK, kèm bleed/crop mark. Nếu cần, gửi file nguồn – chúng tôi hỗ trợ xuất file đúng chuẩn.</div>
+    </details>
+    <details>
+      <summary>Thời gian in &amp; giao hàng?</summary>
+      <div>Đơn tiêu chuẩn: 24–48 giờ. Đơn gấp vui lòng liên hệ trực tiếp qua Zalo/Điện thoại để ưu tiên.</div>
+    </details>
+    <details>
+      <summary>Màu in có lệch so với màn hình?</summary>
+      <div>Có thể có sai số do khác biệt hiển thị. Chúng tôi có bước duyệt proof/mẫu test để tối ưu đúng màu mong muốn.</div>
+    </details>
+  </section>
+
+  <!-- Contact -->
+  <section class="container section" id="contact">
+    <h2 class="section__title">Liên hệ</h2>
+    <div class="contact">
+      <div class="contact__card">
+        <b>PrintPro – Đà Nẵng</b>
+        <div>Địa chỉ: 123 Trần Phú, Hải Châu, Đà Nẵng</div>
+        <div>Điện thoại: <a class="link" href="tel:0123456789">0123 456 789</a></div>
+        <div>Zalo: <a class="link" href="https://zalo.me/0123456789">zalo.me/0123456789</a></div>
+        <div>Email: <a class="link" href="mailto:info@printpro.vn">info@printpro.vn</a></div>
+      </div>
+      <div class="contact__card">
+        <b>Gửi file nhanh</b>
+        <form onsubmit="event.preventDefault(); alert('Cảm ơn bạn! Chúng tôi sẽ phản hồi trong 5 phút.');">
+          <label>Link Drive/Dropbox:<br>
+            <input required type="url" placeholder="https://drive.google.com/..." style="width:100%;padding:10px;border:1px solid #E5E7EB;border-radius:10px;outline:none;box-shadow:0 0 0 0 var(--ring)" onfocus="this.style.boxShadow='0 0 0 4px var(--ring)'" onblur="this.style.boxShadow='0 0 0 0 var(--ring)'" />
+          </label>
+          <div style="height:10px"></div>
+          <label>Ghi chú:<br>
+            <textarea rows="3" placeholder="Số lượng, chất liệu, thời gian cần..." style="width:100%;padding:10px;border:1px solid #E5E7EB;border-radius:10px;outline:none;box-shadow:0 0 0 0 var(--ring)" onfocus="this.style.boxShadow='0 0 0 4px var(--ring)'" onblur="this.style.boxShadow='0 0 0 0 var(--ring)'"></textarea>
+          </label>
+          <div style="height:12px"></div>
+          <button class="btn btn--primary" type="submit">Gửi &amp; nhận báo giá</button>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div class="container" style="display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap">
+      <div>© <span id="y"></span> PrintPro. All rights reserved.</div>
+      <div>Giờ làm việc: 8:00–18:00 (T2–T7)</div>
+    </div>
+  </footer>
+
+  <!-- Floating CTA (mobile only) -->
+  <div class="cta-fab" aria-label="Liên hệ nhanh">
+    <a class="btn btn--primary" href="tel:0123456789">Gọi</a>
+    <a class="btn btn--primary" href="https://zalo.me/0123456789">Zalo</a>
+  </div>
+
+  <!-- JSON-LD: LocalBusiness + Product (mẫu) -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "LocalBusiness",
+    "name": "PrintPro",
+    "image": "https://example.com/assets/og-image.jpg",
+    "address": {"@type":"PostalAddress","streetAddress":"123 Trần Phú","addressLocality":"Đà Nẵng","addressCountry":"VN"},
+    "telephone": "+84-123-456-789",
+    "url": "https://example.com"
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context":"https://schema.org",
+    "@type":"Product",
+    "name":"Name Card Cao Cấp",
+    "description":"Name card Couche 300gsm, in 2 mặt, bo góc",
+    "brand":{"@type":"Brand","name":"PrintPro"}
+  }
+  </script>
+
+  <!-- Scripts: filter + year -->
+  <script>
+    // năm hiện tại
+    document.getElementById('y').textContent = new Date().getFullYear();
+
+    // filter theo tag
+    const filterBar = document.getElementById('filters');
+    const cards = [...document.querySelectorAll('#productGrid .card')];
+    filterBar?.addEventListener('click', (e) => {
+      const btn = e.target.closest('.tag');
+      if(!btn) return;
+      [...filterBar.children].forEach(b => b.classList.remove('is-active'));
+      btn.classList.add('is-active');
+      const k = btn.dataset.filter;
+      cards.forEach(c => {
+        c.style.display = (k === 'all' || c.dataset.cat === k) ? '' : 'none';
+      });
+    });
+  </script>
 </body>
 </html>
