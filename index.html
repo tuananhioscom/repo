@@ -22,11 +22,14 @@
                 </div>
 
                 <div class="header-actions">
-                    <a href="tel:+84123456789" class="quick-contact-btn phone-btn">
-                        📞 Hotline
+                    <a href="cart.html" class="quick-contact-btn phone-btn">
+                        🛒 Giỏ hàng
                     </a>
-                    <a href="https://zalo.me/84123456789" target="_blank" class="quick-contact-btn zalo-btn">
-                        💬 Zalo
+                    <a href="orders.html" class="quick-contact-btn zalo-btn">
+                        📦 Đơn hàng
+                    </a>
+                    <a href="login.html" id="authBtn" class="quick-contact-btn phone-btn">
+                        👤 Đăng nhập
                     </a>
                 </div>
 
@@ -293,7 +296,57 @@
         📞
     </a>
 
+    <script src="./assets/api.js"></script>
     <script src="./assets/products.js"></script>
     <script src="./assets/main.js"></script>
+
+    <script>
+        // Update auth button based on login status
+        const authBtn = document.getElementById('authBtn');
+
+        if (api.isAuthenticated()) {
+            const user = api.getCurrentUser();
+            authBtn.textContent = `👤 ${user.full_name}`;
+            authBtn.href = '#';
+            authBtn.onclick = (e) => {
+                e.preventDefault();
+                const isAdmin = user.role === 'admin';
+                const options = isAdmin ?
+                    'Admin Dashboard\nHồ sơ\nĐăng xuất' :
+                    'Hồ sơ\nĐơn hàng\nĐăng xuất';
+
+                const choice = prompt(`Xin chào ${user.full_name}!\n\n${options}\n\nNhập lựa chọn của bạn:`);
+
+                if (choice && choice.toLowerCase().includes('đăng xuất')) {
+                    if (confirm('Bạn có muốn đăng xuất?')) {
+                        api.auth.logout();
+                    }
+                } else if (choice && choice.toLowerCase().includes('dashboard') && isAdmin) {
+                    window.location.href = 'admin/index.html';
+                } else if (choice && choice.toLowerCase().includes('đơn')) {
+                    window.location.href = 'orders.html';
+                }
+            };
+        }
+
+        // Add "Thêm vào giỏ" button functionality
+        function viewProductDetails(productId) {
+            if (!api.isAuthenticated()) {
+                if (confirm('Bạn cần đăng nhập để thêm sản phẩm vào giỏ hàng. Đăng nhập ngay?')) {
+                    window.location.href = 'login.html';
+                }
+                return;
+            }
+
+            // Add to cart
+            api.cart.add(productId, 1).then(result => {
+                if (result.success) {
+                    alert('✅ Đã thêm vào giỏ hàng!');
+                } else {
+                    alert('Lỗi: ' + result.data.message);
+                }
+            });
+        }
+    </script>
 </body>
 </html>
