@@ -127,10 +127,10 @@ INSERT INTO categories (name, slug, description, display_order) VALUES
 ('Tờ rơi', 'flyers', 'Tờ rơi quảng cáo, khuyến mại', 2),
 ('Brochure', 'brochures', 'Brochure giới thiệu sản phẩm, dịch vụ', 3),
 ('Poster & Banner', 'posters', 'Poster, banner quảng cáo', 4),
-('Văn phòng phẩm', 'stationery', 'Giấy tiêu đề, sổ tay, phiếu kèm theo', 5),
-('Bao bì', 'packaging', 'Hộp, nhãn, decal đóng gói', 6),
-('Quà tặng doanh nghiệp', 'corporate-gifts', 'In logo thủy tinh, cốc sứ, bình giữ nhiệt', 7),
-('Sản phẩm quảng cáo', 'promotional-products', 'Áo mưa, mũ bảo hiểm, ô dù in logo', 8);
+('Văn phòng phẩm', 'stationery', 'Giấy tiêu đề, sổ tay, phiếu kèm theo', 7),
+('Bao bì', 'packaging', 'Hộp, nhãn, decal đóng gói', 8),
+('Quà tặng doanh nghiệp', 'corporate-gifts', 'In logo thủy tinh, cốc sứ, bình giữ nhiệt', 5),
+('Sản phẩm quảng cáo', 'promotional-products', 'Áo mưa, mũ bảo hiểm, ô dù in logo', 6);
 
 -- Note: You'll need to update the password hash with actual bcrypt hash
 -- To generate: node -e "console.log(require('bcrypt').hashSync('admin123', 10))"
