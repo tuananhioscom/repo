@@ -160,8 +160,8 @@
                         <div id="modalOptions"></div>
                     </div>
                     <div class="product-actions">
-                        <button class="btn btn-primary">Nhận báo giá</button>
-                        <button class="btn btn-secondary">Liên hệ</button>
+                        <button class="btn btn-primary" id="addToCartModalBtn">Thêm vào giỏ</button>
+                        <button class="btn btn-secondary" onclick="document.getElementById('productModal').classList.remove('active')">Đóng</button>
                     </div>
                 </div>
             </div>
@@ -335,8 +335,8 @@
             };
         }
 
-        // Add "Thêm vào giỏ" button functionality
-        function viewProductDetails(productId) {
+        // Add to cart from modal or product card
+        async function addToCartFromPage(productId) {
             if (!api.isAuthenticated()) {
                 if (confirm('Bạn cần đăng nhập để thêm sản phẩm vào giỏ hàng. Đăng nhập ngay?')) {
                     window.location.href = 'login.html';
@@ -345,14 +345,35 @@
             }
 
             // Add to cart
-            api.cart.add(productId, 1).then(result => {
-                if (result.success) {
-                    alert('✅ Đã thêm vào giỏ hàng!');
-                } else {
-                    alert('Lỗi: ' + result.data.message);
-                }
-            });
+            const result = await api.cart.add(productId, 1);
+            if (result.success) {
+                alert('✅ Đã thêm vào giỏ hàng!');
+            } else {
+                alert('❌ Lỗi: ' + (result.data?.message || 'Không thể thêm vào giỏ hàng'));
+            }
         }
+
+        // Track current product in modal
+        let currentModalProductId = null;
+
+        // Override viewProductDetails to track product ID
+        const originalViewProductDetails = viewProductDetails;
+        viewProductDetails = function(productId) {
+            currentModalProductId = productId;
+            originalViewProductDetails(productId);
+        };
+
+        // Handle add to cart button in modal
+        document.addEventListener('DOMContentLoaded', function() {
+            const addToCartModalBtn = document.getElementById('addToCartModalBtn');
+            if (addToCartModalBtn) {
+                addToCartModalBtn.addEventListener('click', function() {
+                    if (currentModalProductId) {
+                        addToCartFromPage(currentModalProductId);
+                    }
+                });
+            }
+        });
     </script>
 </body>
 </html>
