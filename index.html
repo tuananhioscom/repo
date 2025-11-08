@@ -2,377 +2,650 @@
 <html lang="vi">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>TGP - Tam Giang Phát - Xưởng In Chuyên Nghiệp</title>
-    <link rel="stylesheet" href="./assets/styles.css">
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <!-- Custom Styles -->
+    <link rel="stylesheet" href="./assets/c5-styles.css">
 </head>
 <body>
-    <!-- Header -->
-    <header class="header">
-        <div class="container">
-            <div class="header-content">
-                <div class="logo">
-                    <h1>🖨️ TGP</h1>
-                    <p class="tagline">Tam Giang Phát</p>
-                </div>
-
-                <div class="header-search">
-                    <input type="text" id="searchInput" placeholder="Tìm kiếm sản phẩm..." class="search-input">
-                    <button class="search-btn">🔍</button>
-                </div>
-
-                <div class="header-actions">
-                    <a href="cart.html" class="quick-contact-btn phone-btn">
-                        🛒 Giỏ hàng
-                    </a>
-                    <a href="orders.html" class="quick-contact-btn zalo-btn">
-                        📦 Đơn hàng
-                    </a>
-                    <a href="login.html" id="authBtn" class="quick-contact-btn phone-btn">
-                        👤 Đăng nhập
+    <div id="halink_vn_page" class="website-wrapper">
+        <!-- Header -->
+        <header class="whb-header">
+            <div class="whb-main-header">
+                <!-- Banner Top -->
+                <div class="banner-top">
+                    <a href="#" class="woodmart-banner">
+                        <img src="https://via.placeholder.com/1200x80/ff6600/ffffff?text=CHUYEN+IN+AN+CHAT+LUONG+CAO+-+GIAO+HANG+NHANH" alt="banner top">
                     </a>
                 </div>
 
-                <button class="mobile-menu-toggle" id="mobileMenuToggle">
-                    ☰
-                </button>
-            </div>
-
-            <nav class="nav" id="mainNav">
-                <a href="#home" class="nav-link active">Trang chủ</a>
-                <a href="products.html" class="nav-link">Sản phẩm</a>
-                <a href="#about" class="nav-link">Về chúng tôi</a>
-                <a href="#contact" class="nav-link">Liên hệ</a>
-            </nav>
-        </div>
-    </header>
-
-    <!-- Hero Section -->
-    <section id="home" class="hero">
-        <div class="container">
-            <div class="hero-content">
-                <div class="hero-badge">✨ Uy tín - Chất lượng - Nhanh chóng</div>
-                <h2>Dịch Vụ In Ấn Chuyên Nghiệp</h2>
-                <p>In name card, tờ rơi, brochure, banner và nhiều hơn nữa. Chúng tôi cam kết mang đến giải pháp in ấn hoàn hảo cho mọi nhu cầu của bạn.</p>
-                <div class="hero-buttons">
-                    <a href="products.html" class="btn btn-primary">Xem sản phẩm</a>
-                    <a href="#contact" class="btn btn-secondary">Liên hệ báo giá</a>
-                </div>
-                <div class="hero-features">
-                    <div class="feature-item">
-                        <span class="feature-icon">🎯</span>
-                        <span class="feature-text">Chất lượng cao</span>
+                <!-- Top Bar -->
+                <div id="wle-header-bar" class="whb-top-bar">
+                    <div class="container">
+                        <div class="whb-top-bar-inner">
+                            <div class="whb-column whb-col-left whb-visible-lg">
+                                <div class="whb-navigation">
+                                    <ul class="menu">
+                                        <li>
+                                            <a href="tel:0123456789"><i class="fa fa-phone"></i> 0123.456.789</a>
+                                        </li>
+                                        <li>
+                                            <a href="mailto:info@printpro.vn"><i class="fa fa-envelope-o"></i> info@printpro.vn</a>
+                                        </li>
+                                        <li>
+                                            <a href="#"><i class="fa fa-map-marker"></i> 123 Đường In Ấn, Quận Thanh Khê, TP. Đà Nẵng</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="whb-column whb-col-right whb-visible-lg">
+                                <div class="woodmart-social-icons">
+                                    <a href="https://www.facebook.com/" target="_blank" class="woodmart-social-icon">
+                                        <i class="fa fa-facebook"></i>
+                                    </a>
+                                    <a href="https://twitter.com/" target="_blank" class="woodmart-social-icon">
+                                        <i class="fa fa-twitter"></i>
+                                    </a>
+                                    <a href="https://www.youtube.com/" target="_blank" class="woodmart-social-icon">
+                                        <i class="fa fa-youtube"></i>
+                                    </a>
+                                    <a href="https://www.instagram.com/" target="_blank" class="woodmart-social-icon">
+                                        <i class="fa fa-instagram"></i>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                    <div class="feature-item">
-                        <span class="feature-icon">⚡</span>
-                        <span class="feature-text">Giao hàng nhanh</span>
+                </div>
+
+                <!-- Main Header -->
+                <div id="wle-header-main" class="whb-general-header">
+                    <div class="container">
+                        <div class="whb-general-header-inner">
+                            <!-- Logo -->
+                            <div class="whb-column whb-col-left whb-visible-lg col-lg-2">
+                                <div class="site-logo">
+                                    <a href="index.html">
+                                        <h1 style="margin: 0; color: #ff6600; font-size: 32px;">🖨️ TGP</h1>
+                                        <p style="margin: 0; font-size: 12px; color: #666;">Tam Giang Phát</p>
+                                    </a>
+                                </div>
+                            </div>
+
+                            <!-- Search -->
+                            <div class="whb-column whb-visible-lg col-lg-7">
+                                <div class="woodmart-search-form">
+                                    <form role="search" method="get" class="searchform" onsubmit="return false;">
+                                        <input type="text" id="searchInput" placeholder="Nhập từ khóa tìm kiếm..." name="s">
+                                        <div class="all-cat">
+                                            <select name="cat" id="categoryFilter">
+                                                <option value="all">Tất cả danh mục</option>
+                                                <option value="business-cards">Name Card</option>
+                                                <option value="flyers">Tờ rơi</option>
+                                                <option value="brochures">Brochure</option>
+                                                <option value="posters">Poster & Banner</option>
+                                                <option value="corporate-gifts">Quà tặng doanh nghiệp</option>
+                                                <option value="promotional-products">Sản phẩm quảng cáo</option>
+                                                <option value="stationery">Văn phòng phẩm</option>
+                                                <option value="packaging">Bao bì</option>
+                                            </select>
+                                        </div>
+                                        <button type="submit" class="searchsubmit">Tìm</button>
+                                    </form>
+                                </div>
+                            </div>
+
+                            <!-- Cart & Account -->
+                            <div class="whb-column whb-visible-lg col-lg-3">
+                                <div class="cartsearch">
+                                    <div class="accout_h">
+                                        <a href="login.html" class="icon-cart left" id="accountLink">
+                                            <img src="https://via.placeholder.com/35x35/666/fff?text=U" alt="user">
+                                        </a>
+                                        <div class="group_acs right">
+                                            <p>
+                                                <a href="login.html" id="loginLink">Đăng nhập</a> &
+                                                <a href="login.html">Đăng ký</a>
+                                            </p>
+                                            <a href="login.html" class="bold" id="accountText">Tài khoản</a>
+                                        </div>
+                                    </div>
+                                    <div class="carthd">
+                                        <div class="mini-cart">
+                                            <a class="img_hover_cart left" href="cart.html">
+                                                <img src="https://via.placeholder.com/35x35/ff6600/fff?text=C" alt="cart">
+                                            </a>
+                                            <div class="right_content right">
+                                                <p><a href="cart.html">Giỏ hàng của bạn</a></p>
+                                                <p><b>(<span class="count_item_pr" id="cartCount">0</span>) Sản phẩm</b></p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Mobile Header -->
+                            <div class="whb-column whb-mobile-left whb-hidden-lg">
+                                <button class="mobile-menu-toggle" id="mobileMenuToggle">
+                                    <span class="woodmart-burger"></span>
+                                </button>
+                            </div>
+                            <div class="whb-column whb-mobile-center whb-hidden-lg">
+                                <div class="site-logo">
+                                    <a href="index.html">
+                                        <h1 style="margin: 0; color: #ff6600; font-size: 24px;">🖨️ TGP</h1>
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="whb-column whb-mobile-right whb-hidden-lg">
+                                <a href="cart.html" style="text-decoration: none; font-size: 24px; color: #ff6600;">
+                                    🛒 <span id="cartCountMobile">0</span>
+                                </a>
+                            </div>
+                        </div>
                     </div>
-                    <div class="feature-item">
-                        <span class="feature-icon">💰</span>
-                        <span class="feature-text">Giá cạnh tranh</span>
+                </div>
+
+                <!-- Navigation -->
+                <div id="wle-header-nav" class="whb-header-bottom whb-hidden-mobile">
+                    <div class="container">
+                        <div class="whb-header-bottom-inner">
+                            <!-- Category Menu -->
+                            <div class="whb-column whb-col-left whb-visible-lg">
+                                <div class="header-categories-nav">
+                                    <div class="header-categories-nav-wrap">
+                                        <span class="menu-opener">
+                                            <span class="woodmart-burger"></span>
+                                            <span class="menu-open-label">DANH MỤC SẢN PHẨM</span>
+                                        </span>
+                                        <div class="categories-menu-dropdown">
+                                            <ul class="menu">
+                                                <li class="menu-item">
+                                                    <a href="#" data-category="business-cards">
+                                                        <img src="https://via.placeholder.com/18x18/ff6600/fff?text=C" class="category-icon" alt="Name Card">
+                                                        <span>Name Card</span>
+                                                    </a>
+                                                </li>
+                                                <li class="menu-item">
+                                                    <a href="#" data-category="flyers">
+                                                        <img src="https://via.placeholder.com/18x18/ff6600/fff?text=F" class="category-icon" alt="Tờ rơi">
+                                                        <span>Tờ rơi</span>
+                                                    </a>
+                                                </li>
+                                                <li class="menu-item">
+                                                    <a href="#" data-category="brochures">
+                                                        <img src="https://via.placeholder.com/18x18/ff6600/fff?text=B" class="category-icon" alt="Brochure">
+                                                        <span>Brochure</span>
+                                                    </a>
+                                                </li>
+                                                <li class="menu-item">
+                                                    <a href="#" data-category="posters">
+                                                        <img src="https://via.placeholder.com/18x18/ff6600/fff?text=P" class="category-icon" alt="Poster">
+                                                        <span>Poster & Banner</span>
+                                                    </a>
+                                                </li>
+                                                <li class="menu-item">
+                                                    <a href="#" data-category="corporate-gifts">
+                                                        <img src="https://via.placeholder.com/18x18/ff6600/fff?text=G" class="category-icon" alt="Quà tặng">
+                                                        <span>Quà tặng doanh nghiệp</span>
+                                                    </a>
+                                                </li>
+                                                <li class="menu-item">
+                                                    <a href="#" data-category="promotional-products">
+                                                        <img src="https://via.placeholder.com/18x18/ff6600/fff?text=A" class="category-icon" alt="Quảng cáo">
+                                                        <span>Sản phẩm quảng cáo</span>
+                                                    </a>
+                                                </li>
+                                                <li class="menu-item">
+                                                    <a href="#" data-category="stationery">
+                                                        <img src="https://via.placeholder.com/18x18/ff6600/fff?text=V" class="category-icon" alt="Văn phòng">
+                                                        <span>Văn phòng phẩm</span>
+                                                    </a>
+                                                </li>
+                                                <li class="menu-item">
+                                                    <a href="#" data-category="packaging">
+                                                        <img src="https://via.placeholder.com/18x18/ff6600/fff?text=K" class="category-icon" alt="Bao bì">
+                                                        <span>Bao bì</span>
+                                                    </a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Main Menu -->
+                            <div class="whb-column whb-col-center whb-visible-lg">
+                                <div class="whb-primary-menu">
+                                    <ul class="menu">
+                                        <li class="menu-item current-menu-item">
+                                            <a href="index.html">Trang chủ</a>
+                                        </li>
+                                        <li class="menu-item">
+                                            <a href="#about">Giới thiệu</a>
+                                        </li>
+                                        <li class="menu-item">
+                                            <a href="products.html">Sản phẩm</a>
+                                        </li>
+                                        <li class="menu-item sale">
+                                            <a href="#products">Khuyến mãi</a>
+                                        </li>
+                                        <li class="menu-item">
+                                            <a href="#contact">Liên hệ</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+
+                            <!-- Right Nav -->
+                            <div class="whb-column whb-col-right whb-visible-lg">
+                                <ul class="inline-list inline-list-with-border">
+                                    <li><a href="#contact">Chính sách mua hàng</a></li>
+                                    <li><a href="#contact">Đổi trả</a></li>
+                                </ul>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-    </section>
+        </header>
 
-    <!-- Category Filter -->
-    <section id="products" class="products-section">
-        <div class="container">
-            <h2 class="section-title">Sản Phẩm Của Chúng Tôi</h2>
-
-            <!-- Category Folders -->
-            <div class="categories">
-                <button class="category-btn active" data-category="all">
-                    📁 Tất cả
-                </button>
-                <button class="category-btn" data-category="business-cards">
-                    📁 Name Card
-                </button>
-                <button class="category-btn" data-category="flyers">
-                    📁 Tờ rơi
-                </button>
-                <button class="category-btn" data-category="brochures">
-                    📁 Brochure
-                </button>
-                <button class="category-btn" data-category="posters">
-                    📁 Poster & Banner
-                </button>
-                <button class="category-btn" data-category="corporate-gifts">
-                    📁 Quà tặng doanh nghiệp
-                </button>
-                <button class="category-btn" data-category="promotional-products">
-                    📁 Sản phẩm quảng cáo
-                </button>
-                <button class="category-btn" data-category="stationery">
-                    📁 Văn phòng phẩm
-                </button>
-                <button class="category-btn" data-category="packaging">
-                    📁 Bao bì
-                </button>
-            </div>
-
-            <!-- Product Controls -->
-            <div class="product-controls">
-                <div class="product-count" id="productCount">
-                    Hiển thị <strong>15</strong> sản phẩm
+        <!-- Main Content -->
+        <div class="main-page-wrapper">
+            <!-- Slider Section -->
+            <section id="wle-header-slider" style="background: #f8f8f8;">
+                <div class="container">
+                    <div class="slider-wap">
+                        <div id="wle-header-slider-r">
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <div class="cate-banner">
+                                        <img src="https://via.placeholder.com/800x350/ff6600/ffffff?text=IN+AN+CHUYEN+NGHIEP+-+CHAT+LUONG+CAO" alt="slider">
+                                    </div>
+                                    <div class="row" style="margin-top: 15px;">
+                                        <div class="col-lg-6">
+                                            <a href="#">
+                                                <img src="https://via.placeholder.com/390x180/ff9933/ffffff?text=BANNER+1" alt="banner 1" class="d-none d-sm-none d-lg-block">
+                                            </a>
+                                        </div>
+                                        <div class="col-lg-6">
+                                            <a href="#">
+                                                <img src="https://via.placeholder.com/390x180/ff6600/ffffff?text=BANNER+2" alt="banner 2" class="d-none d-sm-none d-lg-block">
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="banner-product d-none d-sm-none d-lg-block" style="margin-top: 15px;">
+                                <a href="#">
+                                    <img src="https://via.placeholder.com/800x120/ffcc00/333?text=KHUYEN+MAI+HOT" alt="banner 3">
+                                </a>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <div class="sort-controls">
-                    <label for="sortSelect">Sắp xếp:</label>
-                    <select id="sortSelect" class="sort-select">
-                        <option value="default">Mặc định</option>
-                        <option value="name">Tên A-Z</option>
-                        <option value="price-low">Giá thấp đến cao</option>
-                        <option value="price-high">Giá cao đến thấp</option>
-                    </select>
+            </section>
+
+            <!-- Policy Section -->
+            <div class="widget-policy">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-lg-3 col-sm-6 col-6">
+                            <div class="policy-item">
+                                <div class="media">
+                                    <img src="https://via.placeholder.com/50x50/ff6600/fff?text=Q" alt="Chất lượng">
+                                </div>
+                                <div class="info">
+                                    <span>Chất lượng hàng đầu</span>
+                                    <p>Cam kết tất cả sản phẩm chính hãng 100%</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-3 col-sm-6 col-6">
+                            <div class="policy-item">
+                                <div class="media">
+                                    <img src="https://via.placeholder.com/50x50/ff6600/fff?text=S" alt="Giao hàng">
+                                </div>
+                                <div class="info">
+                                    <span>Giao hàng siêu nhanh</span>
+                                    <p>Chúng tôi cam kết giao hàng trong 24h</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-3 col-sm-6 col-6">
+                            <div class="policy-item">
+                                <div class="media">
+                                    <img src="https://via.placeholder.com/50x50/ff6600/fff?text=$" alt="Tiết kiệm">
+                                </div>
+                                <div class="info">
+                                    <span>Mua hàng tiết kiệm</span>
+                                    <p>Giảm giá & khuyến mãi với ưu đãi cực lớn</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-3 col-sm-6 col-6">
+                            <div class="policy-item">
+                                <div class="media">
+                                    <img src="https://via.placeholder.com/50x50/ff6600/fff?text=!" alt="Hỗ trợ">
+                                </div>
+                                <div class="info">
+                                    <span>Hỗ trợ 24/7</span>
+                                    <p>Đội ngũ tư vấn nhiệt tình chu đáo</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
 
-            <!-- Product Grid -->
-            <div class="products-grid" id="productsGrid">
-                <!-- Products will be dynamically loaded here -->
-            </div>
+            <!-- Products Section -->
+            <section id="products" style="padding: 30px 0; background: #fff;">
+                <div class="container">
+                    <h2 style="text-align: center; margin-bottom: 30px; color: #333; font-size: 28px;">
+                        SẢN PHẨM CỦA CHÚNG TÔI
+                    </h2>
+
+                    <div class="products-grid" id="productsGrid">
+                        <!-- Products will be loaded here by JavaScript -->
+                    </div>
+                </div>
+            </section>
+
+            <!-- About Section -->
+            <section id="about" style="padding: 50px 0; background: #f8f8f8;">
+                <div class="container">
+                    <h2 style="text-align: center; margin-bottom: 40px; color: #333; font-size: 28px;">
+                        TẠI SAO CHỌN CHÚNG TÔI
+                    </h2>
+                    <div class="row">
+                        <div class="col-lg-3 col-sm-6">
+                            <div style="text-align: center; padding: 20px;">
+                                <h3 style="color: #ff6600; margin-bottom: 10px;">🎯 Chất Lượng Đảm Bảo</h3>
+                                <p>Sử dụng công nghệ in ấn hiện đại, máy móc tiên tiến cùng nguyên liệu cao cấp.</p>
+                            </div>
+                        </div>
+                        <div class="col-lg-3 col-sm-6">
+                            <div style="text-align: center; padding: 20px;">
+                                <h3 style="color: #ff6600; margin-bottom: 10px;">⚡ Giao Hàng Nhanh Chóng</h3>
+                                <p>Xử lý đơn hàng nhanh và giao hàng đúng hẹn trong 24-48 giờ.</p>
+                            </div>
+                        </div>
+                        <div class="col-lg-3 col-sm-6">
+                            <div style="text-align: center; padding: 20px;">
+                                <h3 style="color: #ff6600; margin-bottom: 10px;">💼 Dịch Vụ Chuyên Nghiệp</h3>
+                                <p>Đội ngũ nhân viên giàu kinh nghiệm, tận tâm hỗ trợ khách hàng.</p>
+                            </div>
+                        </div>
+                        <div class="col-lg-3 col-sm-6">
+                            <div style="text-align: center; padding: 20px;">
+                                <h3 style="color: #ff6600; margin-bottom: 10px;">💰 Giá Cả Cạnh Tranh</h3>
+                                <p>Cam kết mang đến giá cả tốt nhất thị trường với nhiều ưu đãi.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Contact Section -->
+            <section id="contact" style="padding: 50px 0; background: #fff;">
+                <div class="container">
+                    <h2 style="text-align: center; margin-bottom: 40px; color: #333; font-size: 28px;">
+                        LIÊN HỆ VỚI CHÚNG TÔI
+                    </h2>
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <h3 style="color: #ff6600; margin-bottom: 20px;">Thông Tin Liên Hệ</h3>
+                            <div style="line-height: 2.5;">
+                                <p><i class="fa fa-envelope"></i> <strong>Email:</strong> info@printpro.vn</p>
+                                <p><i class="fa fa-phone"></i> <strong>Hotline:</strong> 0123 456 789</p>
+                                <p><i class="fa fa-comment"></i> <strong>Zalo:</strong> 0123 456 789</p>
+                                <p><i class="fa fa-map-marker"></i> <strong>Địa chỉ:</strong> 123 Đường In Ấn, Quận Thanh Khê, TP. Đà Nẵng</p>
+                                <p><i class="fa fa-clock-o"></i> <strong>Giờ làm việc:</strong> Thứ 2 - Thứ 7: 8:00 - 18:00</p>
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <h3 style="color: #ff6600; margin-bottom: 20px;">Gửi Tin Nhắn</h3>
+                            <form style="display: flex; flex-direction: column; gap: 15px;">
+                                <input type="text" placeholder="Họ và tên *" required style="padding: 12px; border: 1px solid #e5e5e5; border-radius: 3px;">
+                                <input type="tel" placeholder="Số điện thoại *" required style="padding: 12px; border: 1px solid #e5e5e5; border-radius: 3px;">
+                                <input type="email" placeholder="Email" style="padding: 12px; border: 1px solid #e5e5e5; border-radius: 3px;">
+                                <textarea placeholder="Nội dung tin nhắn *" rows="5" required style="padding: 12px; border: 1px solid #e5e5e5; border-radius: 3px;"></textarea>
+                                <button type="submit" style="background: #ff6600; color: #fff; border: none; padding: 12px 30px; cursor: pointer; border-radius: 3px; font-weight: bold;">Gửi tin nhắn</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </section>
         </div>
-    </section>
+
+        <!-- Footer -->
+        <footer class="footer-container">
+            <div class="main-footer">
+                <div class="container">
+                    <div class="footer-sidebar row">
+                        <div class="footer-column col-lg-4">
+                            <div style="margin-bottom: 15px;">
+                                <h1 style="margin: 0; color: #ff6600; font-size: 32px;">🖨️ TGP</h1>
+                                <p style="margin: 0; font-size: 14px; color: #ccc;">Tam Giang Phát</p>
+                            </div>
+                            <p>Xưởng in ấn chuyên nghiệp tại Đà Nẵng. Chúng tôi cam kết mang đến sản phẩm chất lượng cao với giá cả cạnh tranh.</p>
+                            <div style="line-height: 2; margin-top: 15px;">
+                                <p><i class="fa fa-map-marker"></i> Số 123 Đường In Ấn, Quận Thanh Khê, TP. Đà Nẵng</p>
+                                <p><i class="fa fa-phone"></i> Điện thoại: 0123.456.789</p>
+                                <p><i class="fa fa-envelope"></i> Email: info@printpro.vn</p>
+                            </div>
+                        </div>
+                        <div class="footer-column col-lg-2">
+                            <h5>Chính sách đổi trả</h5>
+                            <ul>
+                                <li><a href="#contact">Chính sách mua hàng</a></li>
+                                <li><a href="#contact">Chính sách đổi trả</a></li>
+                                <li><a href="cart.html">Giỏ hàng</a></li>
+                                <li><a href="orders.html">Đơn hàng</a></li>
+                                <li><a href="login.html">Tài khoản</a></li>
+                                <li><a href="#about">Giới thiệu</a></li>
+                            </ul>
+                        </div>
+                        <div class="footer-column col-lg-2">
+                            <h5>Sản phẩm</h5>
+                            <ul>
+                                <li><a href="products.html">Name Card</a></li>
+                                <li><a href="products.html">Tờ rơi</a></li>
+                                <li><a href="products.html">Brochure</a></li>
+                                <li><a href="products.html">Poster & Banner</a></li>
+                                <li><a href="products.html">Quà tặng doanh nghiệp</a></li>
+                                <li><a href="products.html">Văn phòng phẩm</a></li>
+                            </ul>
+                        </div>
+                        <div class="footer-column col-lg-4">
+                            <h5>Liên hệ với chúng tôi</h5>
+                            <p>Đăng ký nhận tin khuyến mãi và thông tin mới nhất từ TGP</p>
+                            <div style="margin-top: 15px;">
+                                <input type="email" placeholder="Email của bạn" style="width: 100%; padding: 10px; border: 1px solid #555; background: #444; color: #fff; margin-bottom: 10px;">
+                                <button style="background: #ff6600; color: #fff; border: none; padding: 10px 20px; cursor: pointer; width: 100%; font-weight: bold;">Đăng ký</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="copyrights-wrapper">
+                <div class="container">
+                    <small>Copyright © 2024 TGP - Tam Giang Phát. Bản quyền được bảo lưu.</small>
+                </div>
+            </div>
+        </footer>
+
+        <!-- Scroll to Top -->
+        <a href="#" class="scrollToTop" id="scrollToTop">↑</a>
+    </div>
+
+    <!-- Mobile Navigation -->
+    <div class="woodmart-close-side" id="mobileOverlay"></div>
+    <div class="mobile-nav" id="mobileNav">
+        <div style="padding: 20px; border-bottom: 1px solid #e5e5e5;">
+            <input type="text" placeholder="Tìm kiếm..." style="width: 100%; padding: 10px; border: 1px solid #e5e5e5; border-radius: 3px;">
+        </div>
+        <div style="padding: 20px;">
+            <h4>MENU</h4>
+            <ul style="list-style: none; padding: 0;">
+                <li><a href="index.html" style="display: block; padding: 10px 0; color: #333; text-decoration: none; border-bottom: 1px solid #eee;">Trang chủ</a></li>
+                <li><a href="#about" style="display: block; padding: 10px 0; color: #333; text-decoration: none; border-bottom: 1px solid #eee;">Giới thiệu</a></li>
+                <li><a href="products.html" style="display: block; padding: 10px 0; color: #333; text-decoration: none; border-bottom: 1px solid #eee;">Sản phẩm</a></li>
+                <li><a href="#products" style="display: block; padding: 10px 0; color: #ff0000; text-decoration: none; border-bottom: 1px solid #eee; font-weight: bold;">Khuyến mãi</a></li>
+                <li><a href="#contact" style="display: block; padding: 10px 0; color: #333; text-decoration: none; border-bottom: 1px solid #eee;">Liên hệ</a></li>
+            </ul>
+        </div>
+    </div>
 
     <!-- Product Detail Modal -->
-    <div id="productModal" class="modal">
-        <div class="modal-content">
-            <span class="close-modal">&times;</span>
-            <div class="modal-body">
-                <div class="product-image-section">
-                    <img id="modalImage" src="" alt="Product Image">
+    <div id="productModal" class="modal" style="display: none; position: fixed; z-index: 10000; left: 0; top: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5);">
+        <div class="modal-content" style="background: #fff; margin: 5% auto; padding: 0; max-width: 900px; border-radius: 5px; max-height: 90vh; overflow-y: auto;">
+            <span class="close-modal" style="float: right; font-size: 28px; font-weight: bold; padding: 10px 20px; cursor: pointer;">&times;</span>
+            <div class="modal-body" style="padding: 20px; display: flex; gap: 30px; flex-wrap: wrap;">
+                <div class="product-image-section" style="flex: 1; min-width: 300px;">
+                    <img id="modalImage" src="" alt="Product" style="width: 100%; border-radius: 5px;">
                 </div>
-                <div class="product-details-section">
-                    <h2 id="modalTitle"></h2>
-                    <p class="product-category" id="modalCategory"></p>
-                    <p class="product-price" id="modalPrice"></p>
-                    <div class="product-description">
+                <div class="product-details-section" style="flex: 1; min-width: 300px;">
+                    <h2 id="modalTitle" style="color: #333; margin-bottom: 10px;"></h2>
+                    <p class="product-category" id="modalCategory" style="color: #999; margin-bottom: 15px;"></p>
+                    <p class="product-price" id="modalPrice" style="color: #ff6600; font-size: 24px; font-weight: bold; margin-bottom: 20px;"></p>
+                    <div class="product-description" style="margin-bottom: 20px;">
                         <h3>Mô tả</h3>
                         <p id="modalDescription"></p>
                     </div>
-                    <div class="product-specs">
+                    <div class="product-specs" style="margin-bottom: 20px;">
                         <h3>Thông số kỹ thuật</h3>
                         <ul id="modalSpecs"></ul>
                     </div>
-                    <div class="product-options">
-                        <h3>Tùy chọn có sẵn</h3>
-                        <div id="modalOptions"></div>
-                    </div>
-                    <div class="product-actions">
-                        <button class="btn btn-primary" id="addToCartModalBtn">Thêm vào giỏ</button>
-                        <button class="btn btn-secondary" onclick="document.getElementById('productModal').classList.remove('active')">Đóng</button>
+                    <div class="product-actions" style="display: flex; gap: 10px;">
+                        <button id="addToCartModalBtn" style="flex: 1; background: #ff6600; color: #fff; border: none; padding: 15px; cursor: pointer; border-radius: 3px; font-weight: bold; font-size: 16px;">Thêm vào giỏ</button>
+                        <button onclick="document.getElementById('productModal').style.display='none'" style="flex: 1; background: #666; color: #fff; border: none; padding: 15px; cursor: pointer; border-radius: 3px; font-weight: bold; font-size: 16px;">Đóng</button>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- About Section -->
-    <section id="about" class="about-section">
-        <div class="container">
-            <h2 class="section-title">Tại Sao Chọn Chúng Tôi</h2>
-            <div class="about-content">
-                <div class="about-card">
-                    <h3>🎯 Chất Lượng Đảm Bảo</h3>
-                    <p>Sử dụng công nghệ in ấn hiện đại, máy móc tiên tiến cùng nguyên liệu cao cấp để đảm bảo chất lượng sản phẩm tốt nhất.</p>
-                </div>
-                <div class="about-card">
-                    <h3>⚡ Giao Hàng Nhanh Chóng</h3>
-                    <p>Xử lý đơn hàng nhanh và giao hàng đúng hẹn. Hầu hết đơn hàng được hoàn thành trong 24-48 giờ.</p>
-                </div>
-                <div class="about-card">
-                    <h3>💼 Dịch Vụ Chuyên Nghiệp</h3>
-                    <p>Đội ngũ nhân viên giàu kinh nghiệm, tận tâm hỗ trợ và tư vấn khách hàng trong suốt quá trình đặt hàng.</p>
-                </div>
-                <div class="about-card">
-                    <h3>💰 Giá Cả Cạnh Tranh</h3>
-                    <p>Cam kết mang đến giá cả tốt nhất thị trường với nhiều ưu đãi hấp dẫn cho khách hàng thân thiết.</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Contact Section -->
-    <section id="contact" class="contact-section">
-        <div class="container">
-            <h2 class="section-title">Liên Hệ Với Chúng Tôi</h2>
-            <div class="contact-content">
-                <div class="contact-info">
-                    <h3>Thông Tin Liên Hệ</h3>
-                    <div class="contact-item">
-                        <span class="contact-icon">📧</span>
-                        <div>
-                            <strong>Email:</strong>
-                            <p>info@printpro.vn</p>
-                        </div>
-                    </div>
-                    <div class="contact-item">
-                        <span class="contact-icon">📞</span>
-                        <div>
-                            <strong>Hotline:</strong>
-                            <p>0123 456 789</p>
-                        </div>
-                    </div>
-                    <div class="contact-item">
-                        <span class="contact-icon">💬</span>
-                        <div>
-                            <strong>Zalo:</strong>
-                            <p>0123 456 789</p>
-                        </div>
-                    </div>
-                    <div class="contact-item">
-                        <span class="contact-icon">📍</span>
-                        <div>
-                            <strong>Địa chỉ:</strong>
-                            <p>123 Đường In Ấn, Quận Thanh Khê, TP. Đà Nẵng</p>
-                        </div>
-                    </div>
-                    <div class="contact-item">
-                        <span class="contact-icon">🕐</span>
-                        <div>
-                            <strong>Giờ làm việc:</strong>
-                            <p>Thứ 2 - Thứ 7: 8:00 - 18:00<br>Chủ nhật: 8:00 - 12:00</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="contact-form">
-                    <h3>Gửi Tin Nhắn</h3>
-                    <form>
-                        <input type="text" placeholder="Họ và tên *" required>
-                        <input type="tel" placeholder="Số điện thoại *" required>
-                        <input type="email" placeholder="Email">
-                        <textarea placeholder="Nội dung tin nhắn *" rows="5" required></textarea>
-                        <button type="submit" class="btn btn-primary">Gửi tin nhắn</button>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Footer -->
-    <footer class="footer">
-        <div class="container">
-            <div class="footer-content">
-                <div class="footer-section">
-                    <h3>🖨️ TGP</h3>
-                    <p>Tam Giang Phát - Xưởng in ấn chuyên nghiệp tại Đà Nẵng. Chúng tôi cam kết mang đến sản phẩm chất lượng cao với giá cả cạnh tranh.</p>
-                </div>
-                <div class="footer-section">
-                    <h4>Liên kết nhanh</h4>
-                    <ul class="footer-links">
-                        <li><a href="#home">Trang chủ</a></li>
-                        <li><a href="#products">Sản phẩm</a></li>
-                        <li><a href="#about">Về chúng tôi</a></li>
-                        <li><a href="#contact">Liên hệ</a></li>
-                    </ul>
-                </div>
-                <div class="footer-section">
-                    <h4>Sản phẩm</h4>
-                    <ul class="footer-links">
-                        <li><a href="#products">Name Card</a></li>
-                        <li><a href="#products">Tờ rơi</a></li>
-                        <li><a href="#products">Brochure</a></li>
-                        <li><a href="#products">Banner</a></li>
-                    </ul>
-                </div>
-                <div class="footer-section">
-                    <h4>Liên hệ</h4>
-                    <ul class="footer-links">
-                        <li>📞 0123 456 789</li>
-                        <li>📧 info@printpro.vn</li>
-                        <li>📍 Đà Nẵng, Việt Nam</li>
-                    </ul>
-                </div>
-            </div>
-            <div class="footer-bottom">
-                <p>&copy; 2024 TGP - Tam Giang Phát. Bản quyền được bảo lưu.</p>
-                <p>Dịch vụ in ấn chuyên nghiệp | Chất lượng - Uy tín - Nhanh chóng</p>
-            </div>
-        </div>
-    </footer>
-
-    <!-- Floating Zalo Button -->
-    <a href="https://zalo.me/84123456789" target="_blank" class="floating-zalo" title="Chat với chúng tôi qua Zalo">
-        <img src="https://page.widget.zalo.me/static/images/2.0/Logo.svg" alt="Zalo">
-    </a>
-
-    <!-- Floating Phone Button -->
-    <a href="tel:+84123456789" class="floating-phone" title="Gọi ngay">
-        📞
-    </a>
-
+    <!-- Scripts -->
     <script src="./assets/api.js"></script>
     <script src="./assets/products.js"></script>
     <script src="./assets/main.js"></script>
 
     <script>
-        // Update auth button based on login status
-        const authBtn = document.getElementById('authBtn');
+        // Mobile Menu Toggle
+        document.getElementById('mobileMenuToggle').addEventListener('click', function() {
+            document.getElementById('mobileNav').classList.add('active');
+            document.getElementById('mobileOverlay').classList.add('active');
+        });
 
-        if (api.isAuthenticated()) {
-            const user = api.getCurrentUser();
-            authBtn.textContent = `👤 ${user.full_name}`;
-            authBtn.href = '#';
-            authBtn.onclick = (e) => {
-                e.preventDefault();
-                const isAdmin = user.role === 'admin';
-                const options = isAdmin ?
-                    'Admin Dashboard\nHồ sơ\nĐăng xuất' :
-                    'Hồ sơ\nĐơn hàng\nĐăng xuất';
+        document.getElementById('mobileOverlay').addEventListener('click', function() {
+            document.getElementById('mobileNav').classList.remove('active');
+            document.getElementById('mobileOverlay').classList.remove('active');
+        });
 
-                const choice = prompt(`Xin chào ${user.full_name}!\n\n${options}\n\nNhập lựa chọn của bạn:`);
+        // Scroll to Top
+        window.addEventListener('scroll', function() {
+            const scrollBtn = document.getElementById('scrollToTop');
+            if (window.pageYOffset > 300) {
+                scrollBtn.style.display = 'block';
+            } else {
+                scrollBtn.style.display = 'none';
+            }
+        });
 
-                if (choice && choice.toLowerCase().includes('đăng xuất')) {
-                    if (confirm('Bạn có muốn đăng xuất?')) {
-                        api.auth.logout();
+        document.getElementById('scrollToTop').addEventListener('click', function(e) {
+            e.preventDefault();
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+
+        // Update cart count
+        function updateCartCount() {
+            if (typeof api !== 'undefined' && api.isAuthenticated()) {
+                api.cart.getAll().then(result => {
+                    if (result.success && result.data) {
+                        const count = result.data.length;
+                        document.getElementById('cartCount').textContent = count;
+                        const mobileCount = document.getElementById('cartCountMobile');
+                        if (mobileCount) mobileCount.textContent = count;
                     }
-                } else if (choice && choice.toLowerCase().includes('dashboard') && isAdmin) {
-                    window.location.href = 'admin/index.html';
-                } else if (choice && choice.toLowerCase().includes('đơn')) {
-                    window.location.href = 'orders.html';
-                }
-            };
+                });
+            }
         }
 
-        // Add to cart from modal or product card
-        async function addToCartFromPage(productId) {
+        // Update auth UI
+        function updateAuthUI() {
+            if (typeof api !== 'undefined' && api.isAuthenticated()) {
+                const user = api.getCurrentUser();
+                document.getElementById('loginLink').textContent = user.full_name;
+                document.getElementById('accountText').textContent = 'Tài khoản';
+                document.getElementById('accountLink').href = '#';
+
+                document.getElementById('accountLink').onclick = function(e) {
+                    e.preventDefault();
+                    const isAdmin = user.role === 'admin';
+                    const choice = confirm('Bạn có muốn đăng xuất?');
+                    if (choice) {
+                        api.auth.logout();
+                        location.reload();
+                    }
+                };
+
+                updateCartCount();
+            }
+        }
+
+        // Add to cart from modal
+        let currentModalProductId = null;
+
+        function viewProductDetails(productId) {
+            currentModalProductId = productId;
+            // Call original function from main.js
+            if (typeof window.originalViewProductDetails === 'function') {
+                window.originalViewProductDetails(productId);
+            }
+        }
+
+        document.getElementById('addToCartModalBtn').addEventListener('click', async function() {
             if (!api.isAuthenticated()) {
-                if (confirm('Bạn cần đăng nhập để thêm sản phẩm vào giỏ hàng. Đăng nhập ngay')) {
+                if (confirm('Bạn cần đăng nhập để thêm sản phẩm vào giỏ hàng. Đăng nhập ngay?')) {
                     window.location.href = 'login.html';
                 }
                 return;
             }
 
-            // Add to cart
-            const result = await api.cart.add(productId, 1);
-            if (result.success) {
-                alert('✅ Đã thêm vào giỏ hàng!');
-            } else {
-                alert('❌ Lỗi: ' + (result.data?.message || 'Không thể thêm vào giỏ hàng'));
+            if (currentModalProductId) {
+                const result = await api.cart.add(currentModalProductId, 1);
+                if (result.success) {
+                    alert('✅ Đã thêm vào giỏ hàng!');
+                    updateCartCount();
+                    document.getElementById('productModal').style.display = 'none';
+                } else {
+                    alert('❌ Lỗi: ' + (result.data?.message || 'Không thể thêm vào giỏ hàng'));
+                }
             }
-        }
+        });
 
-        // Track current product in modal
-        let currentModalProductId = null;
-
-        // Override viewProductDetails to track product ID
-        const originalViewProductDetails = viewProductDetails;
-        viewProductDetails = function(productId) {
-            currentModalProductId = productId;
-            originalViewProductDetails(productId);
-        };
-
-        // Handle add to cart button in modal
-        document.addEventListener('DOMContentLoaded', function() {
-            const addToCartModalBtn = document.getElementById('addToCartModalBtn');
-            if (addToCartModalBtn) {
-                addToCartModalBtn.addEventListener('click', function() {
-                    if (currentModalProductId) {
-                        addToCartFromPage(currentModalProductId);
+        // Category filter
+        document.querySelectorAll('.categories-menu-dropdown a, #categoryFilter').forEach(el => {
+            el.addEventListener('click', function(e) {
+                if (this.dataset.category) {
+                    e.preventDefault();
+                    const category = this.dataset.category;
+                    if (window.filterByCategory) {
+                        window.filterByCategory(category);
                     }
-                });
-            }
+                }
+            });
+        });
+
+        // Initialize on load
+        document.addEventListener('DOMContentLoaded', function() {
+            updateAuthUI();
+            setInterval(updateCartCount, 30000); // Update every 30 seconds
         });
     </script>
 </body>
