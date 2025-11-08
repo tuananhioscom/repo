@@ -294,9 +294,10 @@ body {
     border-top: none;
     position: absolute;
     width: 100%;
-    z-index: 100;
+    z-index: 9999;
     max-height: 500px;
     overflow-y: auto;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.15);
 }
 
 .categories-menu-dropdown .menu {
