@@ -7,14 +7,19 @@
 }
 
 :root {
-    --primary-color: #ff6600;
-    --primary-dark: #e55b00;
-    --secondary-color: #333333;
-    --text-color: #666666;
-    --text-dark: #333333;
-    --border-color: #e5e5e5;
-    --bg-light: #f8f8f8;
-    --white: #ffffff;
+    /* Deep Blue & Amber Orange Color Scheme */
+    --primary-color: #FF9800;        /* Amber Orange */
+    --primary-dark: #F57C00;         /* Amber Orange Dark */
+    --primary-light: #FFB74D;        /* Amber Orange Light */
+    --secondary-color: #003D7A;      /* Deep Blue */
+    --secondary-dark: #002952;       /* Deep Blue Dark */
+    --secondary-light: #0056b3;      /* Deep Blue Light */
+    --text-color: #666666;           /* Text Gray */
+    --text-dark: #333333;            /* Text Dark */
+    --border-color: #e5e5e5;         /* Border Gray */
+    --bg-light: #f8f9fa;             /* Light Background */
+    --bg-blue-light: #e3f2fd;        /* Light Blue Background */
+    --white: #ffffff;                /* White */
 }
 
 body {
