@@ -1,0 +1,49 @@
+# robots.txt for TGP - Tam Giang Phát
+# Xưởng In Chuyên Nghiệp
+
+User-agent: *
+Allow: /
+
+# Disallow admin or private directories
+Disallow: /admin/
+Disallow: /private/
+Disallow: /api/
+Disallow: /tmp/
+
+# Allow important resources
+Allow: /assets/
+Allow: /css/
+Allow: /js/
+Allow: /images/
+
+# Sitemap location
+Sitemap: https://tuananhioscom.github.io/repo/sitemap.xml
+
+# Crawl delay (optional, in seconds)
+Crawl-delay: 1
+
+# Specific bots
+User-agent: Googlebot
+Allow: /
+
+User-agent: Googlebot-Image
+Allow: /
+
+User-agent: Bingbot
+Allow: /
+
+User-agent: Slurp
+Allow: /
+
+# Block bad bots
+User-agent: AhrefsBot
+Crawl-delay: 10
+
+User-agent: SemrushBot
+Crawl-delay: 10
+
+User-agent: MJ12bot
+Disallow: /
+
+User-agent: DotBot
+Disallow: /
