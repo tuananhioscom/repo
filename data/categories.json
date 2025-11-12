@@ -1,0 +1,108 @@
+{
+  "categories": [
+    {
+      "id": "cat1",
+      "name": "Ly Thủy Tinh In Logo",
+      "slug": "ly-thuy-tinh",
+      "parent": null,
+      "order": 1,
+      "icon": "🥃"
+    },
+    {
+      "id": "cat2",
+      "name": "Tô Chén Thủy Tinh",
+      "slug": "to-chen-thuy-tinh",
+      "parent": "cat1",
+      "order": 2,
+      "icon": "🍲"
+    },
+    {
+      "id": "cat3",
+      "name": "Đĩa Thủy Tinh",
+      "slug": "dia-thuy-tinh",
+      "parent": "cat1",
+      "order": 3,
+      "icon": "🍽️"
+    },
+    {
+      "id": "cat4",
+      "name": "Bộ Bình Nước Thủy Tinh",
+      "slug": "bo-binh-nuoc",
+      "parent": "cat1",
+      "order": 4,
+      "icon": "🍶"
+    },
+    {
+      "id": "cat5",
+      "name": "Bình Giữ Nhiệt",
+      "slug": "binh-giu-nhiet",
+      "parent": null,
+      "order": 5,
+      "icon": "☕"
+    },
+    {
+      "id": "cat6",
+      "name": "Cốc Sứ In Logo",
+      "slug": "coc-su",
+      "parent": null,
+      "order": 6,
+      "icon": "☕"
+    },
+    {
+      "id": "cat7",
+      "name": "Ấm Chén Sứ",
+      "slug": "am-chen-su",
+      "parent": "cat6",
+      "order": 7,
+      "icon": "🫖"
+    },
+    {
+      "id": "cat8",
+      "name": "Áo Mưa In Thương Hiệu",
+      "slug": "ao-mua",
+      "parent": null,
+      "order": 8,
+      "icon": "🧥"
+    },
+    {
+      "id": "cat9",
+      "name": "Mũ Bảo Hiểm In Logo",
+      "slug": "mu-bao-hiem",
+      "parent": null,
+      "order": 9,
+      "icon": "⛑️"
+    },
+    {
+      "id": "cat10",
+      "name": "Ô Dù Cầm Tay",
+      "slug": "o-du",
+      "parent": null,
+      "order": 10,
+      "icon": "☂️"
+    },
+    {
+      "id": "cat11",
+      "name": "Túi Canvas In Logo",
+      "slug": "tui-canvas",
+      "parent": null,
+      "order": 11,
+      "icon": "👜"
+    },
+    {
+      "id": "cat12",
+      "name": "Móc Khóa Quà Tặng",
+      "slug": "moc-khoa",
+      "parent": null,
+      "order": 12,
+      "icon": "🔑"
+    },
+    {
+      "id": "cat13",
+      "name": "Sổ Tay In Logo",
+      "slug": "so-tay",
+      "parent": null,
+      "order": 13,
+      "icon": "📓"
+    }
+  ]
+}

@@ -1,0 +1,146 @@
+{
+  "newProducts": [
+    {
+      "id": "p1",
+      "name": "Ly Thủy Tinh In Logo Cao Cấp 350ml",
+      "image": "https://picsum.photos/id/1080/200/200",
+      "oldPrice": "45,000đ",
+      "newPrice": "35,000đ",
+      "discount": 22,
+      "isNew": true,
+      "category": "ly-thuy-tinh"
+    },
+    {
+      "id": "p2",
+      "name": "Bình Giữ Nhiệt In Logo 500ml",
+      "image": "https://picsum.photos/id/225/200/200",
+      "oldPrice": "180,000đ",
+      "newPrice": "150,000đ",
+      "discount": 17,
+      "isNew": true,
+      "category": "binh-giu-nhiet"
+    },
+    {
+      "id": "p3",
+      "name": "Cốc Sứ In Logo Doanh Nghiệp",
+      "image": "https://picsum.photos/id/431/200/200",
+      "newPrice": "55,000đ",
+      "isNew": true,
+      "category": "coc-su"
+    },
+    {
+      "id": "p4",
+      "name": "Ấm Chén Sứ Cao Cấp",
+      "image": "https://picsum.photos/id/367/200/200",
+      "newPrice": "280,000đ",
+      "category": "coc-su"
+    },
+    {
+      "id": "p5",
+      "name": "Áo Mưa In Thương Hiệu",
+      "image": "https://picsum.photos/id/15/200/200",
+      "oldPrice": "35,000đ",
+      "newPrice": "28,000đ",
+      "discount": 20,
+      "category": "ao-mua"
+    },
+    {
+      "id": "p6",
+      "name": "Mũ Bảo Hiểm In Logo",
+      "image": "https://picsum.photos/id/188/200/200",
+      "newPrice": "95,000đ",
+      "category": "mu-bao-hiem"
+    }
+  ],
+  "glassProducts": [
+    {
+      "id": "g1",
+      "name": "Ly Thủy Tinh In Logo 300ml",
+      "image": "https://picsum.photos/id/1080/200/200",
+      "oldPrice": "40,000đ",
+      "newPrice": "32,000đ",
+      "discount": 20,
+      "category": "ly-thuy-tinh"
+    },
+    {
+      "id": "g2",
+      "name": "Tô Thủy Tinh In Logo",
+      "image": "https://picsum.photos/id/225/200/200",
+      "newPrice": "45,000đ",
+      "isNew": true,
+      "category": "ly-thuy-tinh"
+    },
+    {
+      "id": "g3",
+      "name": "Đĩa Thủy Tinh Cao Cấp",
+      "image": "https://picsum.photos/id/431/200/200",
+      "oldPrice": "55,000đ",
+      "newPrice": "48,000đ",
+      "discount": 13,
+      "category": "ly-thuy-tinh"
+    },
+    {
+      "id": "g4",
+      "name": "Bộ Bình Nước Thủy Tinh",
+      "image": "https://picsum.photos/id/367/200/200",
+      "newPrice": "280,000đ",
+      "category": "ly-thuy-tinh"
+    },
+    {
+      "id": "g5",
+      "name": "Ly Rượu Thủy Tinh In Logo",
+      "image": "https://picsum.photos/id/225/200/200",
+      "newPrice": "38,000đ",
+      "isNew": true,
+      "category": "ly-thuy-tinh"
+    },
+    {
+      "id": "g6",
+      "name": "Cốc Thủy Tinh Uống Nước",
+      "image": "https://picsum.photos/id/1080/200/200",
+      "newPrice": "25,000đ",
+      "category": "ly-thuy-tinh"
+    }
+  ],
+  "giftProducts": [
+    {
+      "id": "gf1",
+      "name": "Ô Dù Cầm Tay In Logo",
+      "image": "https://picsum.photos/id/15/200/200",
+      "oldPrice": "85,000đ",
+      "newPrice": "68,000đ",
+      "discount": 20,
+      "category": "o-du"
+    },
+    {
+      "id": "gf2",
+      "name": "Túi Canvas In Thương Hiệu",
+      "image": "https://picsum.photos/id/188/200/200",
+      "newPrice": "45,000đ",
+      "isNew": true,
+      "category": "tui-canvas"
+    },
+    {
+      "id": "gf3",
+      "name": "Móc Khóa Kim Loại In Logo",
+      "image": "https://picsum.photos/id/367/200/200",
+      "newPrice": "18,000đ",
+      "category": "moc-khoa"
+    },
+    {
+      "id": "gf4",
+      "name": "Sổ Tay Da In Logo",
+      "image": "https://picsum.photos/id/431/200/200",
+      "newPrice": "65,000đ",
+      "isNew": true,
+      "category": "so-tay"
+    },
+    {
+      "id": "gf5",
+      "name": "Bình Nước Nhựa In Logo",
+      "image": "https://picsum.photos/id/225/200/200",
+      "newPrice": "42,000đ",
+      "category": "binh-nuoc"
+    }
+  ]
+}

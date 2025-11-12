@@ -10,6 +10,7 @@ import ProductsPage from './pages/ProductsPage';
 import PromotionsPage from './pages/PromotionsPage';
 import NewsListPage from './pages/NewsListPage';
 import ContactPage from './pages/ContactPage';
+import AdminPage from './pages/AdminPage';
 
 const App: React.FC = () => {
   const [currentPage, setCurrentPage] = useState('TRANG CHỦ');
@@ -38,6 +39,8 @@ const App: React.FC = () => {
         return <NewsListPage />;
       case 'LIÊN HỆ':
         return <ContactPage />;
+      case 'ADMIN':
+        return <AdminPage />;
       case 'Chính sách mua hàng':
         return <StaticPage title="Chính sách mua hàng">
           <p>Đây là Chính sách mua hàng — toàn soạn có thể thay đổi, rút gọn giản dị một đoạn văn bản giả, được dùng vào việc trình bày và dàn trang phục vụ cho các ấn phẩm. Lorem Ipsum đã được sử dụng như một văn bản chuẩn cho ngành công nghiệp in ấn từ những năm 1500, khi một họa sĩ vô danh ghép nhiều đoạn văn bản với nhau để tạo thành một bản mẫu văn bản.</p>
@@ -63,7 +66,7 @@ const App: React.FC = () => {
         {renderPage()}
       </main>
       {currentPage === 'TRANG CHỦ' && <PartnerLogos />}
-      <Footer />
+      <Footer onNavigate={setCurrentPage} />
     </div>
   );
 };

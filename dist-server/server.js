@@ -1,6 +1,6 @@
 import { jsx, jsxs, Fragment } from "react/jsx-runtime";
 import express from "express";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { renderToString } from "react-dom/server";
 import fs from "fs";
 import path from "path";
@@ -108,7 +108,7 @@ const logos = [
 const PartnerLogos = () => {
   return /* @__PURE__ */ jsx("div", { className: "bg-white py-8", children: /* @__PURE__ */ jsx("div", { className: "max-w-7xl mx-auto px-4 sm:px-6 lg:px-8", children: /* @__PURE__ */ jsx("div", { className: "flex justify-center items-center flex-wrap gap-8", children: logos.map((logo, index) => /* @__PURE__ */ jsx("img", { src: logo, alt: `Partner logo ${index + 1}`, className: "h-10 object-contain" }, index)) }) }) });
 };
-const Footer = () => {
+const Footer = ({ onNavigate }) => {
   return /* @__PURE__ */ jsxs("footer", { className: "bg-gray-100 text-gray-700", children: [
     /* @__PURE__ */ jsx("div", { className: "bg-primary-blue text-white py-4", children: /* @__PURE__ */ jsxs("div", { className: "max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row justify-between items-center", children: [
       /* @__PURE__ */ jsxs("div", { className: "mb-4 md:mb-0 text-center md:text-left", children: [
@@ -175,10 +175,29 @@ const Footer = () => {
         ] })
       ] })
     ] }) }),
-    /* @__PURE__ */ jsx("div", { className: "border-t border-gray-200 py-4", children: /* @__PURE__ */ jsx("p", { className: "text-center text-sm", children: "Copyright © 2024 Xưởng In Đà Nẵng TGP - Công ty TNHH Tam Giang Phát" }) })
+    /* @__PURE__ */ jsx("div", { className: "border-t border-gray-200 py-4", children: /* @__PURE__ */ jsxs("p", { className: "text-center text-sm", children: [
+      "Copyright © 2024 Xưởng In Đà Nẵng TGP - Công ty TNHH Tam Giang Phát",
+      onNavigate && /* @__PURE__ */ jsxs(Fragment, { children: [
+        " ",
+        /* @__PURE__ */ jsx("span", { className: "mx-2", children: "|" }),
+        " ",
+        /* @__PURE__ */ jsx(
+          "a",
+          {
+            href: "#",
+            onClick: (e) => {
+              e.preventDefault();
+              onNavigate("ADMIN");
+            },
+            className: "text-gray-400 hover:text-primary-blue text-xs",
+            children: "Admin"
+          }
+        )
+      ] })
+    ] }) })
   ] });
 };
-const categories = [
+const categories$1 = [
   "Ly Thủy Tinh In Logo",
   "Tô Chén Thủy Tinh",
   "Đĩa Thủy Tinh",
@@ -200,7 +219,7 @@ const CategoryMenuItem = ({ category }) => /* @__PURE__ */ jsx("li", { className
 const CategoryMenu = () => {
   return /* @__PURE__ */ jsxs("div", { className: "bg-white border border-gray-200 rounded-md overflow-hidden", children: [
     /* @__PURE__ */ jsx("h2", { className: "bg-primary-blue text-white px-4 py-3 font-bold flex items-center text-base", children: "DANH MỤC SẢN PHẨM" }),
-    /* @__PURE__ */ jsx("ul", { children: categories.map((category) => /* @__PURE__ */ jsx(CategoryMenuItem, { category }, category)) })
+    /* @__PURE__ */ jsx("ul", { children: categories$1.map((category) => /* @__PURE__ */ jsx(CategoryMenuItem, { category }, category)) })
   ] });
 };
 const Hero = () => {
@@ -362,7 +381,7 @@ const NewsSection = () => {
   ] });
 };
 const HomePage = () => {
-  const newProducts = [
+  const newProducts2 = [
     {
       name: "Ly Thủy Tinh In Logo Cao Cấp 350ml",
       image: "https://picsum.photos/id/1080/200/200",
@@ -403,7 +422,7 @@ const HomePage = () => {
       newPrice: "95,000đ"
     }
   ];
-  const glassProducts = [
+  const glassProducts2 = [
     { name: "Ly Thủy Tinh In Logo 300ml", image: "https://picsum.photos/id/1080/200/200", oldPrice: "40,000đ", newPrice: "32,000đ", discount: 20 },
     { name: "Tô Thủy Tinh In Logo", image: "https://picsum.photos/id/225/200/200", newPrice: "45,000đ", isNew: true },
     { name: "Đĩa Thủy Tinh Cao Cấp", image: "https://picsum.photos/id/431/200/200", oldPrice: "55,000đ", newPrice: "48,000đ", discount: 13 },
@@ -411,7 +430,7 @@ const HomePage = () => {
     { name: "Ly Rượu Thủy Tinh In Logo", image: "https://picsum.photos/id/225/200/200", newPrice: "38,000đ", isNew: true },
     { name: "Cốc Thủy Tinh Uống Nước", image: "https://picsum.photos/id/1080/200/200", newPrice: "25,000đ" }
   ];
-  const giftProducts = [
+  const giftProducts2 = [
     { name: "Ô Dù Cầm Tay In Logo", image: "https://picsum.photos/id/15/200/200", oldPrice: "85,000đ", newPrice: "68,000đ", discount: 20 },
     { name: "Túi Canvas In Thương Hiệu", image: "https://picsum.photos/id/188/200/200", newPrice: "45,000đ", isNew: true },
     { name: "Móc Khóa Kim Loại In Logo", image: "https://picsum.photos/id/367/200/200", newPrice: "18,000đ" },
@@ -425,10 +444,10 @@ const HomePage = () => {
     ] }),
     /* @__PURE__ */ jsx(InfoBar, {}),
     /* @__PURE__ */ jsxs("div", { className: "mt-6", children: [
-      /* @__PURE__ */ jsx(ProductSection, { title: "SẢN PHẨM MỚI", products: newProducts }),
-      /* @__PURE__ */ jsx(ProductSection, { title: "LY THỦY TINH IN LOGO", products: glassProducts }),
+      /* @__PURE__ */ jsx(ProductSection, { title: "SẢN PHẨM MỚI", products: newProducts2 }),
+      /* @__PURE__ */ jsx(ProductSection, { title: "LY THỦY TINH IN LOGO", products: glassProducts2 }),
       /* @__PURE__ */ jsx(PromoBanners, {}),
-      /* @__PURE__ */ jsx(ProductSection, { title: "QUÀ TẶNG DOANH NGHIỆP", products: giftProducts }),
+      /* @__PURE__ */ jsx(ProductSection, { title: "QUÀ TẶNG DOANH NGHIỆP", products: giftProducts2 }),
       /* @__PURE__ */ jsx(NewsSection, {})
     ] })
   ] });
@@ -607,6 +626,600 @@ const ContactPage = () => {
     ] })
   ] });
 };
+const newProducts = [{ "id": "p1", "name": "Ly Thủy Tinh In Logo Cao Cấp 350ml", "image": "https://picsum.photos/id/1080/200/200", "oldPrice": "45,000đ", "newPrice": "35,000đ", "discount": 22, "isNew": true, "category": "ly-thuy-tinh" }, { "id": "p2", "name": "Bình Giữ Nhiệt In Logo 500ml", "image": "https://picsum.photos/id/225/200/200", "oldPrice": "180,000đ", "newPrice": "150,000đ", "discount": 17, "isNew": true, "category": "binh-giu-nhiet" }, { "id": "p3", "name": "Cốc Sứ In Logo Doanh Nghiệp", "image": "https://picsum.photos/id/431/200/200", "newPrice": "55,000đ", "isNew": true, "category": "coc-su" }, { "id": "p4", "name": "Ấm Chén Sứ Cao Cấp", "image": "https://picsum.photos/id/367/200/200", "newPrice": "280,000đ", "category": "coc-su" }, { "id": "p5", "name": "Áo Mưa In Thương Hiệu", "image": "https://picsum.photos/id/15/200/200", "oldPrice": "35,000đ", "newPrice": "28,000đ", "discount": 20, "category": "ao-mua" }, { "id": "p6", "name": "Mũ Bảo Hiểm In Logo", "image": "https://picsum.photos/id/188/200/200", "newPrice": "95,000đ", "category": "mu-bao-hiem" }];
+const glassProducts = [{ "id": "g1", "name": "Ly Thủy Tinh In Logo 300ml", "image": "https://picsum.photos/id/1080/200/200", "oldPrice": "40,000đ", "newPrice": "32,000đ", "discount": 20, "category": "ly-thuy-tinh" }, { "id": "g2", "name": "Tô Thủy Tinh In Logo", "image": "https://picsum.photos/id/225/200/200", "newPrice": "45,000đ", "isNew": true, "category": "ly-thuy-tinh" }, { "id": "g3", "name": "Đĩa Thủy Tinh Cao Cấp", "image": "https://picsum.photos/id/431/200/200", "oldPrice": "55,000đ", "newPrice": "48,000đ", "discount": 13, "category": "ly-thuy-tinh" }, { "id": "g4", "name": "Bộ Bình Nước Thủy Tinh", "image": "https://picsum.photos/id/367/200/200", "newPrice": "280,000đ", "category": "ly-thuy-tinh" }, { "id": "g5", "name": "Ly Rượu Thủy Tinh In Logo", "image": "https://picsum.photos/id/225/200/200", "newPrice": "38,000đ", "isNew": true, "category": "ly-thuy-tinh" }, { "id": "g6", "name": "Cốc Thủy Tinh Uống Nước", "image": "https://picsum.photos/id/1080/200/200", "newPrice": "25,000đ", "category": "ly-thuy-tinh" }];
+const giftProducts = [{ "id": "gf1", "name": "Ô Dù Cầm Tay In Logo", "image": "https://picsum.photos/id/15/200/200", "oldPrice": "85,000đ", "newPrice": "68,000đ", "discount": 20, "category": "o-du" }, { "id": "gf2", "name": "Túi Canvas In Thương Hiệu", "image": "https://picsum.photos/id/188/200/200", "newPrice": "45,000đ", "isNew": true, "category": "tui-canvas" }, { "id": "gf3", "name": "Móc Khóa Kim Loại In Logo", "image": "https://picsum.photos/id/367/200/200", "newPrice": "18,000đ", "category": "moc-khoa" }, { "id": "gf4", "name": "Sổ Tay Da In Logo", "image": "https://picsum.photos/id/431/200/200", "newPrice": "65,000đ", "isNew": true, "category": "so-tay" }, { "id": "gf5", "name": "Bình Nước Nhựa In Logo", "image": "https://picsum.photos/id/225/200/200", "newPrice": "42,000đ", "category": "binh-nuoc" }];
+const productsData = {
+  newProducts,
+  glassProducts,
+  giftProducts
+};
+const categories = [{ "id": "cat1", "name": "Ly Thủy Tinh In Logo", "slug": "ly-thuy-tinh", "parent": null, "order": 1, "icon": "🥃" }, { "id": "cat2", "name": "Tô Chén Thủy Tinh", "slug": "to-chen-thuy-tinh", "parent": "cat1", "order": 2, "icon": "🍲" }, { "id": "cat3", "name": "Đĩa Thủy Tinh", "slug": "dia-thuy-tinh", "parent": "cat1", "order": 3, "icon": "🍽️" }, { "id": "cat4", "name": "Bộ Bình Nước Thủy Tinh", "slug": "bo-binh-nuoc", "parent": "cat1", "order": 4, "icon": "🍶" }, { "id": "cat5", "name": "Bình Giữ Nhiệt", "slug": "binh-giu-nhiet", "parent": null, "order": 5, "icon": "☕" }, { "id": "cat6", "name": "Cốc Sứ In Logo", "slug": "coc-su", "parent": null, "order": 6, "icon": "☕" }, { "id": "cat7", "name": "Ấm Chén Sứ", "slug": "am-chen-su", "parent": "cat6", "order": 7, "icon": "🫖" }, { "id": "cat8", "name": "Áo Mưa In Thương Hiệu", "slug": "ao-mua", "parent": null, "order": 8, "icon": "🧥" }, { "id": "cat9", "name": "Mũ Bảo Hiểm In Logo", "slug": "mu-bao-hiem", "parent": null, "order": 9, "icon": "⛑️" }, { "id": "cat10", "name": "Ô Dù Cầm Tay", "slug": "o-du", "parent": null, "order": 10, "icon": "☂️" }, { "id": "cat11", "name": "Túi Canvas In Logo", "slug": "tui-canvas", "parent": null, "order": 11, "icon": "👜" }, { "id": "cat12", "name": "Móc Khóa Quà Tặng", "slug": "moc-khoa", "parent": null, "order": 12, "icon": "🔑" }, { "id": "cat13", "name": "Sổ Tay In Logo", "slug": "so-tay", "parent": null, "order": 13, "icon": "📓" }];
+const categoriesData = {
+  categories
+};
+const news = [{ "id": "n1", "title": "Top 10 Mẫu Ly Thủy Tinh In Logo Đẹp Nhất 2024", "slug": "top-10-ly-thuy-tinh-in-logo-2024", "image": "https://picsum.photos/id/431/400/300", "category": "Sản phẩm", "date": "15/01/2024", "excerpt": "Khám phá 10 mẫu ly thủy tinh in logo được yêu thích nhất năm 2024 cho doanh nghiệp của bạn.", "content": "Nội dung chi tiết bài viết..." }, { "id": "n2", "title": "Hướng Dẫn Chọn Quà Tặng Doanh Nghiệp Ý Nghĩa", "slug": "huong-dan-chon-qua-tang-doanh-nghiep", "image": "https://picsum.photos/id/225/400/300", "category": "Tin tức", "date": "10/01/2024", "excerpt": "Bí quyết lựa chọn quà tặng doanh nghiệp phù hợp, tạo ấn tượng với khách hàng và đối tác.", "content": "Nội dung chi tiết bài viết..." }, { "id": "n3", "title": "Xu Hướng In Logo Lên Sản Phẩm Năm 2024", "slug": "xu-huong-in-logo-2024", "image": "https://picsum.photos/id/367/400/300", "category": "Xu hướng", "date": "05/01/2024", "excerpt": "Những xu hướng in logo mới nhất giúp thương hiệu của bạn nổi bật và thu hút.", "content": "Nội dung chi tiết bài viết..." }];
+const newsData = {
+  news
+};
+const AdminPage = () => {
+  const [activeTab, setActiveTab] = useState("products");
+  const [products, setProducts] = useState([]);
+  const [categories2, setCategories] = useState(categoriesData.categories);
+  const [news2, setNews] = useState(newsData.news);
+  const [editingItem, setEditingItem] = useState(null);
+  const [isAdding, setIsAdding] = useState(false);
+  useEffect(() => {
+    const allProducts2 = [
+      ...productsData.newProducts,
+      ...productsData.glassProducts,
+      ...productsData.giftProducts
+    ];
+    setProducts(allProducts2);
+  }, []);
+  const handleDelete = (id) => {
+    if (!confirm("Bạn có chắc muốn xóa?")) return;
+    if (activeTab === "products") {
+      setProducts(products.filter((p) => p.id !== id));
+    } else if (activeTab === "categories") {
+      setCategories(categories2.filter((c) => c.id !== id));
+    } else if (activeTab === "news") {
+      setNews(news2.filter((n) => n.id !== id));
+    }
+  };
+  const handleEdit = (item) => {
+    setEditingItem(item);
+    setIsAdding(false);
+  };
+  const handleAdd = () => {
+    var _a;
+    setIsAdding(true);
+    if (activeTab === "products") {
+      setEditingItem({
+        id: `p${Date.now()}`,
+        name: "",
+        image: "",
+        newPrice: "",
+        category: ((_a = categories2[0]) == null ? void 0 : _a.slug) || ""
+      });
+    } else if (activeTab === "categories") {
+      setEditingItem({
+        id: `cat${Date.now()}`,
+        name: "",
+        slug: "",
+        parent: null,
+        order: categories2.length + 1,
+        icon: "📦"
+      });
+    } else if (activeTab === "news") {
+      setEditingItem({
+        id: `n${Date.now()}`,
+        title: "",
+        slug: "",
+        image: "",
+        category: "Tin tức",
+        date: (/* @__PURE__ */ new Date()).toLocaleDateString("vi-VN"),
+        excerpt: "",
+        content: ""
+      });
+    }
+  };
+  const handleSave = () => {
+    if (!editingItem) return;
+    if (activeTab === "products") {
+      if (isAdding) {
+        setProducts([...products, editingItem]);
+      } else {
+        setProducts(products.map((p) => p.id === editingItem.id ? editingItem : p));
+      }
+    } else if (activeTab === "categories") {
+      if (isAdding) {
+        setCategories([...categories2, editingItem]);
+      } else {
+        setCategories(categories2.map((c) => c.id === editingItem.id ? editingItem : c));
+      }
+    } else if (activeTab === "news") {
+      if (isAdding) {
+        setNews([...news2, editingItem]);
+      } else {
+        setNews(news2.map((n) => n.id === editingItem.id ? editingItem : n));
+      }
+    }
+    setEditingItem(null);
+    setIsAdding(false);
+  };
+  const handleCancel = () => {
+    setEditingItem(null);
+    setIsAdding(false);
+  };
+  const handleDownloadJSON = () => {
+    let data;
+    let filename;
+    if (activeTab === "products") {
+      data = {
+        newProducts: products.filter((p) => p.isNew).slice(0, 6),
+        glassProducts: products.filter((p) => p.category === "ly-thuy-tinh"),
+        giftProducts: products.filter((p) => !p.category.includes("thuy-tinh") && !p.category.includes("su"))
+      };
+      filename = "products.json";
+    } else if (activeTab === "categories") {
+      data = { categories: categories2 };
+      filename = "categories.json";
+    } else {
+      data = { news: news2 };
+      filename = "news.json";
+    }
+    const blob = new Blob([JSON.stringify(data, null, 2)], { type: "application/json" });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = filename;
+    a.click();
+    URL.revokeObjectURL(url);
+  };
+  const renderForm = () => {
+    if (!editingItem) return null;
+    if (activeTab === "products") {
+      return /* @__PURE__ */ jsxs("div", { className: "bg-white p-6 rounded-lg shadow-md mb-6", children: [
+        /* @__PURE__ */ jsx("h3", { className: "text-xl font-bold mb-4 text-primary-blue", children: isAdding ? "Thêm Sản Phẩm" : "Sửa Sản Phẩm" }),
+        /* @__PURE__ */ jsxs("div", { className: "grid grid-cols-1 md:grid-cols-2 gap-4", children: [
+          /* @__PURE__ */ jsxs("div", { children: [
+            /* @__PURE__ */ jsx("label", { className: "block text-sm font-medium mb-1", children: "Tên sản phẩm" }),
+            /* @__PURE__ */ jsx(
+              "input",
+              {
+                type: "text",
+                className: "w-full border rounded px-3 py-2",
+                value: editingItem.name,
+                onChange: (e) => setEditingItem({ ...editingItem, name: e.target.value })
+              }
+            )
+          ] }),
+          /* @__PURE__ */ jsxs("div", { children: [
+            /* @__PURE__ */ jsx("label", { className: "block text-sm font-medium mb-1", children: "URL hình ảnh" }),
+            /* @__PURE__ */ jsx(
+              "input",
+              {
+                type: "text",
+                className: "w-full border rounded px-3 py-2",
+                value: editingItem.image,
+                onChange: (e) => setEditingItem({ ...editingItem, image: e.target.value })
+              }
+            )
+          ] }),
+          /* @__PURE__ */ jsxs("div", { children: [
+            /* @__PURE__ */ jsx("label", { className: "block text-sm font-medium mb-1", children: "Giá cũ (optional)" }),
+            /* @__PURE__ */ jsx(
+              "input",
+              {
+                type: "text",
+                className: "w-full border rounded px-3 py-2",
+                value: editingItem.oldPrice || "",
+                onChange: (e) => setEditingItem({ ...editingItem, oldPrice: e.target.value }),
+                placeholder: "45,000đ"
+              }
+            )
+          ] }),
+          /* @__PURE__ */ jsxs("div", { children: [
+            /* @__PURE__ */ jsx("label", { className: "block text-sm font-medium mb-1", children: "Giá mới" }),
+            /* @__PURE__ */ jsx(
+              "input",
+              {
+                type: "text",
+                className: "w-full border rounded px-3 py-2",
+                value: editingItem.newPrice,
+                onChange: (e) => setEditingItem({ ...editingItem, newPrice: e.target.value }),
+                placeholder: "35,000đ"
+              }
+            )
+          ] }),
+          /* @__PURE__ */ jsxs("div", { children: [
+            /* @__PURE__ */ jsx("label", { className: "block text-sm font-medium mb-1", children: "Giảm giá (%)" }),
+            /* @__PURE__ */ jsx(
+              "input",
+              {
+                type: "number",
+                className: "w-full border rounded px-3 py-2",
+                value: editingItem.discount || "",
+                onChange: (e) => setEditingItem({ ...editingItem, discount: parseInt(e.target.value) || void 0 })
+              }
+            )
+          ] }),
+          /* @__PURE__ */ jsxs("div", { children: [
+            /* @__PURE__ */ jsx("label", { className: "block text-sm font-medium mb-1", children: "Danh mục" }),
+            /* @__PURE__ */ jsx(
+              "select",
+              {
+                className: "w-full border rounded px-3 py-2",
+                value: editingItem.category,
+                onChange: (e) => setEditingItem({ ...editingItem, category: e.target.value }),
+                children: categories2.map((cat) => /* @__PURE__ */ jsx("option", { value: cat.slug, children: cat.name }, cat.id))
+              }
+            )
+          ] }),
+          /* @__PURE__ */ jsxs("div", { className: "flex items-center", children: [
+            /* @__PURE__ */ jsx(
+              "input",
+              {
+                type: "checkbox",
+                id: "isNew",
+                checked: editingItem.isNew || false,
+                onChange: (e) => setEditingItem({ ...editingItem, isNew: e.target.checked }),
+                className: "mr-2"
+              }
+            ),
+            /* @__PURE__ */ jsx("label", { htmlFor: "isNew", className: "text-sm font-medium", children: "Sản phẩm mới" })
+          ] })
+        ] }),
+        /* @__PURE__ */ jsxs("div", { className: "mt-4 flex gap-2", children: [
+          /* @__PURE__ */ jsx("button", { onClick: handleSave, className: "bg-primary-blue text-white px-6 py-2 rounded hover:bg-primary-blue-dark", children: "Lưu" }),
+          /* @__PURE__ */ jsx("button", { onClick: handleCancel, className: "bg-gray-300 text-gray-700 px-6 py-2 rounded hover:bg-gray-400", children: "Hủy" })
+        ] })
+      ] });
+    } else if (activeTab === "categories") {
+      return /* @__PURE__ */ jsxs("div", { className: "bg-white p-6 rounded-lg shadow-md mb-6", children: [
+        /* @__PURE__ */ jsx("h3", { className: "text-xl font-bold mb-4 text-primary-blue", children: isAdding ? "Thêm Danh Mục" : "Sửa Danh Mục" }),
+        /* @__PURE__ */ jsxs("div", { className: "grid grid-cols-1 md:grid-cols-2 gap-4", children: [
+          /* @__PURE__ */ jsxs("div", { children: [
+            /* @__PURE__ */ jsx("label", { className: "block text-sm font-medium mb-1", children: "Tên danh mục" }),
+            /* @__PURE__ */ jsx(
+              "input",
+              {
+                type: "text",
+                className: "w-full border rounded px-3 py-2",
+                value: editingItem.name,
+                onChange: (e) => setEditingItem({ ...editingItem, name: e.target.value })
+              }
+            )
+          ] }),
+          /* @__PURE__ */ jsxs("div", { children: [
+            /* @__PURE__ */ jsx("label", { className: "block text-sm font-medium mb-1", children: "Slug" }),
+            /* @__PURE__ */ jsx(
+              "input",
+              {
+                type: "text",
+                className: "w-full border rounded px-3 py-2",
+                value: editingItem.slug,
+                onChange: (e) => setEditingItem({ ...editingItem, slug: e.target.value }),
+                placeholder: "ly-thuy-tinh"
+              }
+            )
+          ] }),
+          /* @__PURE__ */ jsxs("div", { children: [
+            /* @__PURE__ */ jsx("label", { className: "block text-sm font-medium mb-1", children: "Danh mục cha" }),
+            /* @__PURE__ */ jsxs(
+              "select",
+              {
+                className: "w-full border rounded px-3 py-2",
+                value: editingItem.parent || "",
+                onChange: (e) => setEditingItem({ ...editingItem, parent: e.target.value || null }),
+                children: [
+                  /* @__PURE__ */ jsx("option", { value: "", children: "-- Không có (danh mục gốc) --" }),
+                  categories2.filter((c) => c.id !== editingItem.id).map((cat) => /* @__PURE__ */ jsx("option", { value: cat.id, children: cat.name }, cat.id))
+                ]
+              }
+            )
+          ] }),
+          /* @__PURE__ */ jsxs("div", { children: [
+            /* @__PURE__ */ jsx("label", { className: "block text-sm font-medium mb-1", children: "Thứ tự" }),
+            /* @__PURE__ */ jsx(
+              "input",
+              {
+                type: "number",
+                className: "w-full border rounded px-3 py-2",
+                value: editingItem.order,
+                onChange: (e) => setEditingItem({ ...editingItem, order: parseInt(e.target.value) })
+              }
+            )
+          ] }),
+          /* @__PURE__ */ jsxs("div", { children: [
+            /* @__PURE__ */ jsx("label", { className: "block text-sm font-medium mb-1", children: "Icon (emoji)" }),
+            /* @__PURE__ */ jsx(
+              "input",
+              {
+                type: "text",
+                className: "w-full border rounded px-3 py-2",
+                value: editingItem.icon,
+                onChange: (e) => setEditingItem({ ...editingItem, icon: e.target.value }),
+                placeholder: "🥃"
+              }
+            )
+          ] })
+        ] }),
+        /* @__PURE__ */ jsxs("div", { className: "mt-4 flex gap-2", children: [
+          /* @__PURE__ */ jsx("button", { onClick: handleSave, className: "bg-primary-blue text-white px-6 py-2 rounded hover:bg-primary-blue-dark", children: "Lưu" }),
+          /* @__PURE__ */ jsx("button", { onClick: handleCancel, className: "bg-gray-300 text-gray-700 px-6 py-2 rounded hover:bg-gray-400", children: "Hủy" })
+        ] })
+      ] });
+    } else if (activeTab === "news") {
+      return /* @__PURE__ */ jsxs("div", { className: "bg-white p-6 rounded-lg shadow-md mb-6", children: [
+        /* @__PURE__ */ jsx("h3", { className: "text-xl font-bold mb-4 text-primary-blue", children: isAdding ? "Thêm Tin Tức" : "Sửa Tin Tức" }),
+        /* @__PURE__ */ jsxs("div", { className: "grid grid-cols-1 gap-4", children: [
+          /* @__PURE__ */ jsxs("div", { children: [
+            /* @__PURE__ */ jsx("label", { className: "block text-sm font-medium mb-1", children: "Tiêu đề" }),
+            /* @__PURE__ */ jsx(
+              "input",
+              {
+                type: "text",
+                className: "w-full border rounded px-3 py-2",
+                value: editingItem.title,
+                onChange: (e) => setEditingItem({ ...editingItem, title: e.target.value })
+              }
+            )
+          ] }),
+          /* @__PURE__ */ jsxs("div", { className: "grid grid-cols-2 gap-4", children: [
+            /* @__PURE__ */ jsxs("div", { children: [
+              /* @__PURE__ */ jsx("label", { className: "block text-sm font-medium mb-1", children: "Slug" }),
+              /* @__PURE__ */ jsx(
+                "input",
+                {
+                  type: "text",
+                  className: "w-full border rounded px-3 py-2",
+                  value: editingItem.slug,
+                  onChange: (e) => setEditingItem({ ...editingItem, slug: e.target.value }),
+                  placeholder: "ten-bai-viet"
+                }
+              )
+            ] }),
+            /* @__PURE__ */ jsxs("div", { children: [
+              /* @__PURE__ */ jsx("label", { className: "block text-sm font-medium mb-1", children: "URL hình ảnh" }),
+              /* @__PURE__ */ jsx(
+                "input",
+                {
+                  type: "text",
+                  className: "w-full border rounded px-3 py-2",
+                  value: editingItem.image,
+                  onChange: (e) => setEditingItem({ ...editingItem, image: e.target.value })
+                }
+              )
+            ] })
+          ] }),
+          /* @__PURE__ */ jsxs("div", { className: "grid grid-cols-2 gap-4", children: [
+            /* @__PURE__ */ jsxs("div", { children: [
+              /* @__PURE__ */ jsx("label", { className: "block text-sm font-medium mb-1", children: "Danh mục" }),
+              /* @__PURE__ */ jsx(
+                "input",
+                {
+                  type: "text",
+                  className: "w-full border rounded px-3 py-2",
+                  value: editingItem.category,
+                  onChange: (e) => setEditingItem({ ...editingItem, category: e.target.value }),
+                  placeholder: "Tin tức"
+                }
+              )
+            ] }),
+            /* @__PURE__ */ jsxs("div", { children: [
+              /* @__PURE__ */ jsx("label", { className: "block text-sm font-medium mb-1", children: "Ngày" }),
+              /* @__PURE__ */ jsx(
+                "input",
+                {
+                  type: "text",
+                  className: "w-full border rounded px-3 py-2",
+                  value: editingItem.date,
+                  onChange: (e) => setEditingItem({ ...editingItem, date: e.target.value }),
+                  placeholder: "15/01/2024"
+                }
+              )
+            ] })
+          ] }),
+          /* @__PURE__ */ jsxs("div", { children: [
+            /* @__PURE__ */ jsx("label", { className: "block text-sm font-medium mb-1", children: "Mô tả ngắn" }),
+            /* @__PURE__ */ jsx(
+              "textarea",
+              {
+                className: "w-full border rounded px-3 py-2",
+                rows: 2,
+                value: editingItem.excerpt,
+                onChange: (e) => setEditingItem({ ...editingItem, excerpt: e.target.value })
+              }
+            )
+          ] }),
+          /* @__PURE__ */ jsxs("div", { children: [
+            /* @__PURE__ */ jsx("label", { className: "block text-sm font-medium mb-1", children: "Nội dung" }),
+            /* @__PURE__ */ jsx(
+              "textarea",
+              {
+                className: "w-full border rounded px-3 py-2",
+                rows: 6,
+                value: editingItem.content,
+                onChange: (e) => setEditingItem({ ...editingItem, content: e.target.value })
+              }
+            )
+          ] })
+        ] }),
+        /* @__PURE__ */ jsxs("div", { className: "mt-4 flex gap-2", children: [
+          /* @__PURE__ */ jsx("button", { onClick: handleSave, className: "bg-primary-blue text-white px-6 py-2 rounded hover:bg-primary-blue-dark", children: "Lưu" }),
+          /* @__PURE__ */ jsx("button", { onClick: handleCancel, className: "bg-gray-300 text-gray-700 px-6 py-2 rounded hover:bg-gray-400", children: "Hủy" })
+        ] })
+      ] });
+    }
+  };
+  const renderTable = () => {
+    if (activeTab === "products") {
+      return /* @__PURE__ */ jsx("div", { className: "overflow-x-auto", children: /* @__PURE__ */ jsxs("table", { className: "min-w-full bg-white rounded-lg shadow", children: [
+        /* @__PURE__ */ jsx("thead", { className: "bg-gray-100", children: /* @__PURE__ */ jsxs("tr", { children: [
+          /* @__PURE__ */ jsx("th", { className: "px-4 py-3 text-left", children: "ID" }),
+          /* @__PURE__ */ jsx("th", { className: "px-4 py-3 text-left", children: "Tên" }),
+          /* @__PURE__ */ jsx("th", { className: "px-4 py-3 text-left", children: "Hình ảnh" }),
+          /* @__PURE__ */ jsx("th", { className: "px-4 py-3 text-left", children: "Giá" }),
+          /* @__PURE__ */ jsx("th", { className: "px-4 py-3 text-left", children: "Danh mục" }),
+          /* @__PURE__ */ jsx("th", { className: "px-4 py-3 text-left", children: "Mới" }),
+          /* @__PURE__ */ jsx("th", { className: "px-4 py-3 text-left", children: "Thao tác" })
+        ] }) }),
+        /* @__PURE__ */ jsx("tbody", { children: products.map((product) => /* @__PURE__ */ jsxs("tr", { className: "border-b hover:bg-gray-50", children: [
+          /* @__PURE__ */ jsx("td", { className: "px-4 py-3", children: product.id }),
+          /* @__PURE__ */ jsx("td", { className: "px-4 py-3", children: product.name }),
+          /* @__PURE__ */ jsx("td", { className: "px-4 py-3", children: /* @__PURE__ */ jsx("img", { src: product.image, alt: "", className: "h-10 w-10 object-cover rounded" }) }),
+          /* @__PURE__ */ jsxs("td", { className: "px-4 py-3", children: [
+            product.oldPrice && /* @__PURE__ */ jsx("span", { className: "line-through text-gray-400 mr-2", children: product.oldPrice }),
+            /* @__PURE__ */ jsx("span", { className: "font-bold text-primary-orange", children: product.newPrice })
+          ] }),
+          /* @__PURE__ */ jsx("td", { className: "px-4 py-3", children: product.category }),
+          /* @__PURE__ */ jsx("td", { className: "px-4 py-3", children: product.isNew ? "✓" : "" }),
+          /* @__PURE__ */ jsxs("td", { className: "px-4 py-3", children: [
+            /* @__PURE__ */ jsx(
+              "button",
+              {
+                onClick: () => handleEdit(product),
+                className: "text-blue-600 hover:underline mr-3",
+                children: "Sửa"
+              }
+            ),
+            /* @__PURE__ */ jsx(
+              "button",
+              {
+                onClick: () => handleDelete(product.id),
+                className: "text-red-600 hover:underline",
+                children: "Xóa"
+              }
+            )
+          ] })
+        ] }, product.id)) })
+      ] }) });
+    } else if (activeTab === "categories") {
+      return /* @__PURE__ */ jsx("div", { className: "overflow-x-auto", children: /* @__PURE__ */ jsxs("table", { className: "min-w-full bg-white rounded-lg shadow", children: [
+        /* @__PURE__ */ jsx("thead", { className: "bg-gray-100", children: /* @__PURE__ */ jsxs("tr", { children: [
+          /* @__PURE__ */ jsx("th", { className: "px-4 py-3 text-left", children: "ID" }),
+          /* @__PURE__ */ jsx("th", { className: "px-4 py-3 text-left", children: "Icon" }),
+          /* @__PURE__ */ jsx("th", { className: "px-4 py-3 text-left", children: "Tên" }),
+          /* @__PURE__ */ jsx("th", { className: "px-4 py-3 text-left", children: "Slug" }),
+          /* @__PURE__ */ jsx("th", { className: "px-4 py-3 text-left", children: "Danh mục cha" }),
+          /* @__PURE__ */ jsx("th", { className: "px-4 py-3 text-left", children: "Thứ tự" }),
+          /* @__PURE__ */ jsx("th", { className: "px-4 py-3 text-left", children: "Thao tác" })
+        ] }) }),
+        /* @__PURE__ */ jsx("tbody", { children: categories2.sort((a, b) => a.order - b.order).map((category) => {
+          const parentCat = categories2.find((c) => c.id === category.parent);
+          return /* @__PURE__ */ jsxs("tr", { className: "border-b hover:bg-gray-50", children: [
+            /* @__PURE__ */ jsx("td", { className: "px-4 py-3", children: category.id }),
+            /* @__PURE__ */ jsx("td", { className: "px-4 py-3 text-2xl", children: category.icon }),
+            /* @__PURE__ */ jsx("td", { className: "px-4 py-3", children: category.name }),
+            /* @__PURE__ */ jsx("td", { className: "px-4 py-3", children: category.slug }),
+            /* @__PURE__ */ jsx("td", { className: "px-4 py-3", children: parentCat ? parentCat.name : "-" }),
+            /* @__PURE__ */ jsx("td", { className: "px-4 py-3", children: category.order }),
+            /* @__PURE__ */ jsxs("td", { className: "px-4 py-3", children: [
+              /* @__PURE__ */ jsx(
+                "button",
+                {
+                  onClick: () => handleEdit(category),
+                  className: "text-blue-600 hover:underline mr-3",
+                  children: "Sửa"
+                }
+              ),
+              /* @__PURE__ */ jsx(
+                "button",
+                {
+                  onClick: () => handleDelete(category.id),
+                  className: "text-red-600 hover:underline",
+                  children: "Xóa"
+                }
+              )
+            ] })
+          ] }, category.id);
+        }) })
+      ] }) });
+    } else if (activeTab === "news") {
+      return /* @__PURE__ */ jsx("div", { className: "overflow-x-auto", children: /* @__PURE__ */ jsxs("table", { className: "min-w-full bg-white rounded-lg shadow", children: [
+        /* @__PURE__ */ jsx("thead", { className: "bg-gray-100", children: /* @__PURE__ */ jsxs("tr", { children: [
+          /* @__PURE__ */ jsx("th", { className: "px-4 py-3 text-left", children: "ID" }),
+          /* @__PURE__ */ jsx("th", { className: "px-4 py-3 text-left", children: "Tiêu đề" }),
+          /* @__PURE__ */ jsx("th", { className: "px-4 py-3 text-left", children: "Hình ảnh" }),
+          /* @__PURE__ */ jsx("th", { className: "px-4 py-3 text-left", children: "Danh mục" }),
+          /* @__PURE__ */ jsx("th", { className: "px-4 py-3 text-left", children: "Ngày" }),
+          /* @__PURE__ */ jsx("th", { className: "px-4 py-3 text-left", children: "Thao tác" })
+        ] }) }),
+        /* @__PURE__ */ jsx("tbody", { children: news2.map((item) => /* @__PURE__ */ jsxs("tr", { className: "border-b hover:bg-gray-50", children: [
+          /* @__PURE__ */ jsx("td", { className: "px-4 py-3", children: item.id }),
+          /* @__PURE__ */ jsx("td", { className: "px-4 py-3", children: item.title }),
+          /* @__PURE__ */ jsx("td", { className: "px-4 py-3", children: /* @__PURE__ */ jsx("img", { src: item.image, alt: "", className: "h-10 w-16 object-cover rounded" }) }),
+          /* @__PURE__ */ jsx("td", { className: "px-4 py-3", children: item.category }),
+          /* @__PURE__ */ jsx("td", { className: "px-4 py-3", children: item.date }),
+          /* @__PURE__ */ jsxs("td", { className: "px-4 py-3", children: [
+            /* @__PURE__ */ jsx(
+              "button",
+              {
+                onClick: () => handleEdit(item),
+                className: "text-blue-600 hover:underline mr-3",
+                children: "Sửa"
+              }
+            ),
+            /* @__PURE__ */ jsx(
+              "button",
+              {
+                onClick: () => handleDelete(item.id),
+                className: "text-red-600 hover:underline",
+                children: "Xóa"
+              }
+            )
+          ] })
+        ] }, item.id)) })
+      ] }) });
+    }
+  };
+  return /* @__PURE__ */ jsx("div", { className: "min-h-screen bg-gray-100 py-8", children: /* @__PURE__ */ jsxs("div", { className: "max-w-7xl mx-auto px-4", children: [
+    /* @__PURE__ */ jsxs("div", { className: "bg-white rounded-lg shadow-md p-6 mb-6", children: [
+      /* @__PURE__ */ jsx("h1", { className: "text-3xl font-bold text-primary-blue mb-4", children: "Quản Trị Nội Dung" }),
+      /* @__PURE__ */ jsx("p", { className: "text-gray-600 mb-4", children: 'Trang quản lý sản phẩm, danh mục và tin tức. Sau khi chỉnh sửa, nhấn "Tải JSON" để lưu file và thay thế vào thư mục /data.' }),
+      /* @__PURE__ */ jsxs("div", { className: "flex gap-2 mb-4", children: [
+        /* @__PURE__ */ jsxs(
+          "button",
+          {
+            onClick: () => setActiveTab("products"),
+            className: `px-6 py-2 rounded ${activeTab === "products" ? "bg-primary-blue text-white" : "bg-gray-200"}`,
+            children: [
+              "Sản Phẩm (",
+              products.length,
+              ")"
+            ]
+          }
+        ),
+        /* @__PURE__ */ jsxs(
+          "button",
+          {
+            onClick: () => setActiveTab("categories"),
+            className: `px-6 py-2 rounded ${activeTab === "categories" ? "bg-primary-blue text-white" : "bg-gray-200"}`,
+            children: [
+              "Danh Mục (",
+              categories2.length,
+              ")"
+            ]
+          }
+        ),
+        /* @__PURE__ */ jsxs(
+          "button",
+          {
+            onClick: () => setActiveTab("news"),
+            className: `px-6 py-2 rounded ${activeTab === "news" ? "bg-primary-blue text-white" : "bg-gray-200"}`,
+            children: [
+              "Tin Tức (",
+              news2.length,
+              ")"
+            ]
+          }
+        )
+      ] }),
+      /* @__PURE__ */ jsxs("div", { className: "flex gap-2", children: [
+        /* @__PURE__ */ jsx(
+          "button",
+          {
+            onClick: handleAdd,
+            className: "bg-primary-orange text-white px-6 py-2 rounded hover:bg-primary-orange-dark",
+            children: "+ Thêm Mới"
+          }
+        ),
+        /* @__PURE__ */ jsx(
+          "button",
+          {
+            onClick: handleDownloadJSON,
+            className: "bg-green-600 text-white px-6 py-2 rounded hover:bg-green-700",
+            children: "📥 Tải JSON"
+          }
+        )
+      ] })
+    ] }),
+    renderForm(),
+    renderTable()
+  ] }) });
+};
 const App = () => {
   const [currentPage, setCurrentPage] = useState("TRANG CHỦ");
   const renderPage = () => {
@@ -643,6 +1256,8 @@ const App = () => {
         return /* @__PURE__ */ jsx(NewsListPage, {});
       case "LIÊN HỆ":
         return /* @__PURE__ */ jsx(ContactPage, {});
+      case "ADMIN":
+        return /* @__PURE__ */ jsx(AdminPage, {});
       case "Chính sách mua hàng":
         return /* @__PURE__ */ jsxs(StaticPage, { title: "Chính sách mua hàng", children: [
           /* @__PURE__ */ jsx("p", { children: "Đây là Chính sách mua hàng — toàn soạn có thể thay đổi, rút gọn giản dị một đoạn văn bản giả, được dùng vào việc trình bày và dàn trang phục vụ cho các ấn phẩm. Lorem Ipsum đã được sử dụng như một văn bản chuẩn cho ngành công nghiệp in ấn từ những năm 1500, khi một họa sĩ vô danh ghép nhiều đoạn văn bản với nhau để tạo thành một bản mẫu văn bản." }),
@@ -664,7 +1279,7 @@ const App = () => {
     /* @__PURE__ */ jsx(Header, { onNavigate: setCurrentPage }),
     /* @__PURE__ */ jsx("main", { className: "max-w-7xl mx-auto px-2 sm:px-4 lg:px-8 py-4", children: renderPage() }),
     currentPage === "TRANG CHỦ" && /* @__PURE__ */ jsx(PartnerLogos, {}),
-    /* @__PURE__ */ jsx(Footer, {})
+    /* @__PURE__ */ jsx(Footer, { onNavigate: setCurrentPage })
   ] });
 };
 const __filename$1 = fileURLToPath(import.meta.url);
