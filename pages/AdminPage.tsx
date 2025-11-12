@@ -50,6 +50,10 @@ const AdminPage: React.FC<AdminPageProps> = ({ onLogout }) => {
   const [formTab, setFormTab] = useState<'basic' | 'detail' | 'seo'>('basic');
   const [newsFormTab, setNewsFormTab] = useState<'basic' | 'content' | 'seo'>('basic');
   
+  // Marquee Banner state
+  const [marqueeText, setMarqueeText] = useState<string>('');
+  const [isEditingMarquee, setIsEditingMarquee] = useState(false);
+  
   // Content builder state for news
   const [contentBlocks, setContentBlocks] = useState<Array<{
     id: string;
@@ -65,6 +69,17 @@ const AdminPage: React.FC<AdminPageProps> = ({ onLogout }) => {
       onLogout();
     }
   };
+
+  // Load Marquee Banner text
+  useEffect(() => {
+    const savedMarquee = localStorage.getItem('marquee_banner_text');
+    if (savedMarquee) {
+      setMarqueeText(savedMarquee);
+    } else {
+      // Default text
+      setMarqueeText('🎉 Chào mừng đến với Xưởng In Đà Nẵng TGP - Chuyên dịch vụ in ấn, in logo & quà tặng doanh nghiệp | Thiết kế miễn phí | Freeship toàn quốc | Hotline: 0935.444.945');
+    }
+  }, []);
 
   // Load data from localStorage or use default
   useEffect(() => {
@@ -1380,6 +1395,73 @@ const AdminPage: React.FC<AdminPageProps> = ({ onLogout }) => {
           <p className="text-gray-600 mb-4">
             Trang quản lý sản phẩm, danh mục và tin tức. <strong className="text-green-600">Dữ liệu được tự động lưu vào trình duyệt</strong> và sẽ giữ lại khi refresh trang. Nhấn "Tải JSON" để xuất file và thay thế vào thư mục /data nếu cần.
           </p>
+
+          {/* Marquee Banner Management */}
+          <div className="bg-gradient-to-r from-blue-50 to-indigo-50 border-l-4 border-primary-blue p-4 rounded-lg mb-6">
+            <div className="flex justify-between items-center mb-2">
+              <h3 className="text-lg font-bold text-gray-800 flex items-center">
+                <span className="mr-2">📢</span> Quản Lý Dòng Chạy Quảng Cáo (Marquee Banner)
+              </h3>
+              <button
+                onClick={() => setIsEditingMarquee(!isEditingMarquee)}
+                className={`px-4 py-2 rounded text-sm font-semibold ${
+                  isEditingMarquee 
+                    ? 'bg-gray-600 text-white hover:bg-gray-700' 
+                    : 'bg-primary-blue text-white hover:bg-primary-blue-dark'
+                }`}
+              >
+                {isEditingMarquee ? '✕ Hủy' : '✏️ Chỉnh Sửa'}
+              </button>
+            </div>
+            
+            {isEditingMarquee ? (
+              <div className="space-y-3">
+                <div>
+                  <label className="block text-sm font-semibold text-gray-700 mb-2">
+                    Nội dung dòng chạy quảng cáo:
+                  </label>
+                  <textarea
+                    value={marqueeText}
+                    onChange={(e) => setMarqueeText(e.target.value)}
+                    placeholder="Nhập nội dung quảng cáo sẽ chạy ngang trên trang chủ..."
+                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-blue focus:border-transparent resize-y min-h-[100px]"
+                    rows={3}
+                  />
+                  <p className="text-xs text-gray-500 mt-1">
+                    💡 Mẹo: Sử dụng emoji (🎉, 🔥, ⭐) và ký tự "|" hoặc "•" để phân cách các thông tin. Ví dụ: "🎉 Khuyến mãi | Freeship | Hotline: 0935.444.945"
+                  </p>
+                </div>
+                <div className="flex gap-2">
+                  <button
+                    onClick={() => {
+                      localStorage.setItem('marquee_banner_text', marqueeText);
+                      window.dispatchEvent(new Event('marqueeUpdated'));
+                      setIsEditingMarquee(false);
+                      alert('✅ Đã lưu dòng chạy quảng cáo thành công!');
+                    }}
+                    className="bg-green-600 text-white px-6 py-2 rounded hover:bg-green-700 font-semibold"
+                  >
+                    💾 Lưu
+                  </button>
+                  <button
+                    onClick={() => {
+                      setMarqueeText('🎉 Chào mừng đến với Xưởng In Đà Nẵng TGP - Chuyên dịch vụ in ấn, in logo & quà tặng doanh nghiệp | Thiết kế miễn phí | Freeship toàn quốc | Hotline: 0935.444.945');
+                    }}
+                    className="bg-gray-500 text-white px-6 py-2 rounded hover:bg-gray-600 font-semibold"
+                  >
+                    🔄 Đặt lại mặc định
+                  </button>
+                </div>
+              </div>
+            ) : (
+              <div className="bg-white p-3 rounded border border-gray-200">
+                <p className="text-sm text-gray-600 mb-1">Nội dung hiện tại:</p>
+                <p className="text-base font-medium text-gray-800 bg-blue-50 p-2 rounded">
+                  {marqueeText || '(Chưa có nội dung)'}
+                </p>
+              </div>
+            )}
+          </div>
 
           <div className="flex gap-2 mb-4">
             <button
