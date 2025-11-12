@@ -17,7 +17,7 @@ const InfoBar: React.FC = () => {
             <InfoItem icon="🛡️" title="Chất lượng hàng đầu" subtitle="Cam kết tất cả sản phẩm chính hãng 100%" />
             <InfoItem icon="🚚" title="Giao hàng siêu nhanh" subtitle="Chúng tôi cam kết giao hàng trong 24h" />
             <InfoItem icon="💰" title="Mua hàng tiết kiệm" subtitle="Giảm giá & khuyến mãi với ưu đãi cực lớn" />
-            <InfoItem icon="📞" title="Hỗ trợ online 24/7" subtitle="Gọi ngay 0123.456.789 để được tư vấn" />
+            <InfoItem icon="📞" title="Hỗ trợ online 24/7" subtitle="Gọi ngay 0935.444.945 để được tư vấn" />
         </div>
     );
 };
