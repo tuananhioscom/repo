@@ -1,6 +1,10 @@
 import React from 'react';
 
-const Footer: React.FC = () => {
+interface FooterProps {
+    onNavigate?: (page: string) => void;
+}
+
+const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
     return (
         <footer className="bg-gray-100 text-gray-700">
             {/* Newsletter Section */}
@@ -89,7 +93,21 @@ const Footer: React.FC = () => {
             
             {/* Copyright */}
             <div className="border-t border-gray-200 py-4">
-                 <p className="text-center text-sm">Copyright © 2024 Xưởng In Đà Nẵng TGP - Công ty TNHH Tam Giang Phát</p>
+                 <p className="text-center text-sm">
+                    Copyright © 2024 Xưởng In Đà Nẵng TGP - Công ty TNHH Tam Giang Phát
+                    {onNavigate && (
+                        <>
+                            {' '}<span className="mx-2">|</span>{' '}
+                            <a
+                                href="#"
+                                onClick={(e) => { e.preventDefault(); onNavigate('ADMIN'); }}
+                                className="text-gray-400 hover:text-primary-blue text-xs"
+                            >
+                                Admin
+                            </a>
+                        </>
+                    )}
+                 </p>
             </div>
         </footer>
     );

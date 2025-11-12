@@ -1,0 +1,34 @@
+{
+  "news": [
+    {
+      "id": "n1",
+      "title": "Top 10 Mẫu Ly Thủy Tinh In Logo Đẹp Nhất 2024",
+      "slug": "top-10-ly-thuy-tinh-in-logo-2024",
+      "image": "https://picsum.photos/id/431/400/300",
+      "category": "Sản phẩm",
+      "date": "15/01/2024",
+      "excerpt": "Khám phá 10 mẫu ly thủy tinh in logo được yêu thích nhất năm 2024 cho doanh nghiệp của bạn.",
+      "content": "Nội dung chi tiết bài viết..."
+    },
+    {
+      "id": "n2",
+      "title": "Hướng Dẫn Chọn Quà Tặng Doanh Nghiệp Ý Nghĩa",
+      "slug": "huong-dan-chon-qua-tang-doanh-nghiep",
+      "image": "https://picsum.photos/id/225/400/300",
+      "category": "Tin tức",
+      "date": "10/01/2024",
+      "excerpt": "Bí quyết lựa chọn quà tặng doanh nghiệp phù hợp, tạo ấn tượng với khách hàng và đối tác.",
+      "content": "Nội dung chi tiết bài viết..."
+    },
+    {
+      "id": "n3",
+      "title": "Xu Hướng In Logo Lên Sản Phẩm Năm 2024",
+      "slug": "xu-huong-in-logo-2024",
+      "image": "https://picsum.photos/id/367/400/300",
+      "category": "Xu hướng",
+      "date": "05/01/2024",
+      "excerpt": "Những xu hướng in logo mới nhất giúp thương hiệu của bạn nổi bật và thu hút.",
+      "content": "Nội dung chi tiết bài viết..."
+    }
+  ]
+}
