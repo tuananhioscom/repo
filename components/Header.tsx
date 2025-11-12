@@ -14,7 +14,7 @@ const Header: React.FC<HeaderProps> = ({ onNavigate }) => {
     };
 
     const TopBar = () => (
-        <div className="bg-primary-red text-white text-xs py-1">
+        <div className="bg-primary-blue text-white text-xs py-1">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex justify-between items-center">
                 <div className="flex items-center space-x-4">
                     <div className="flex items-center space-x-1">
@@ -43,8 +43,8 @@ const Header: React.FC<HeaderProps> = ({ onNavigate }) => {
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between">
                 <div className="flex items-center">
                      <a href="#" onClick={(e) => handleNavClick(e, 'TRANG CHỦ')} className="text-4xl font-bold text-gray-800">
-                        <span className="text-primary-red">C5</span>
-                        <span className="text-yellow-500">SHOP</span>
+                        <span className="text-primary-blue">C5</span>
+                        <span className="text-primary-orange">SHOP</span>
                     </a>
                 </div>
 
@@ -53,9 +53,9 @@ const Header: React.FC<HeaderProps> = ({ onNavigate }) => {
                         <input
                             type="text"
                             placeholder="Nhập từ khóa..."
-                            className="w-full border border-gray-300 rounded-l-md py-2 px-4 focus:outline-none focus:ring-2 focus:ring-primary-red"
+                            className="w-full border border-gray-300 rounded-l-md py-2 px-4 focus:outline-none focus:ring-2 focus:ring-primary-orange"
                         />
-                        <button className="absolute right-0 top-0 h-full bg-primary-red text-white px-6 rounded-r-md hover:bg-primary-red-dark">
+                        <button className="absolute right-0 top-0 h-full bg-primary-orange text-white px-6 rounded-r-md hover:bg-primary-orange-dark">
                             <SearchIcon />
                         </button>
                     </div>
@@ -65,14 +65,14 @@ const Header: React.FC<HeaderProps> = ({ onNavigate }) => {
                      <div className="hidden sm:flex items-center space-x-2 text-sm">
                         <UserIcon />
                         <div>
-                            <a href="#" className="font-semibold hover:text-primary-red">Đăng nhập</a> & <a href="#" className="font-semibold hover:text-primary-red">Đăng ký</a>
+                            <a href="#" className="font-semibold hover:text-primary-blue">Đăng nhập</a> & <a href="#" className="font-semibold hover:text-primary-blue">Đăng ký</a>
                             <div>Tài khoản</div>
                         </div>
                     </div>
                      <div className="flex items-center space-x-2 text-sm">
                         <div className="relative">
                             <CartIcon />
-                            <span className="absolute -top-2 -right-2 bg-primary-red text-white text-xs rounded-full h-4 w-4 flex items-center justify-center">0</span>
+                            <span className="absolute -top-2 -right-2 bg-primary-orange text-white text-xs rounded-full h-4 w-4 flex items-center justify-center">0</span>
                         </div>
                         <div>
                             <div className="font-semibold">Giỏ hàng</div>
@@ -91,18 +91,18 @@ const Header: React.FC<HeaderProps> = ({ onNavigate }) => {
 
     const NavBar = () => {
         const navItems = ['TRANG CHỦ', 'GIỚI THIỆU', 'SẢN PHẨM', 'KHUYẾN MÃI', 'TIN TỨC', 'LIÊN HỆ'];
-        
+
         return (
             <nav className="bg-white border-t border-b">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                     <div className="hidden lg:flex items-center">
-                        <div className="bg-primary-red text-white px-6 py-3 font-bold flex items-center">
+                        <div className="bg-primary-blue text-white px-6 py-3 font-bold flex items-center">
                             <MenuIcon />
                             <span className="ml-2">DANH MỤC SẢN PHẨM</span>
                         </div>
                         <div className="flex space-x-8 ml-8 text-sm font-semibold">
                             {navItems.map(item => (
-                                <a key={item} href="#" onClick={(e) => handleNavClick(e, item)} className="py-4 text-gray-700 hover:text-primary-red border-b-2 border-transparent hover:border-primary-red">
+                                <a key={item} href="#" onClick={(e) => handleNavClick(e, item)} className="py-4 text-gray-700 hover:text-primary-orange border-b-2 border-transparent hover:border-primary-orange">
                                     {item}
                                 </a>
                             ))}

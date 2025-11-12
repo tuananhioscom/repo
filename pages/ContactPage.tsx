@@ -33,7 +33,7 @@ const ContactPage: React.FC = () => {
                             <textarea id="message" rows={5} className="w-full p-2 border border-gray-300 rounded"></textarea>
                         </div>
                         <div>
-                            <button type="submit" className="bg-primary-red text-white font-bold px-6 py-2 rounded hover:bg-primary-red-dark">Gửi đi</button>
+                            <button type="submit" className="bg-primary-orange text-white font-bold px-6 py-2 rounded hover:bg-primary-orange-dark">Gửi đi</button>
                         </div>
                     </form>
                 </div>

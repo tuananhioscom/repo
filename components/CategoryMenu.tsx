@@ -19,7 +19,7 @@ const categories = [
 
 const CategoryMenuItem: React.FC<{ category: string }> = ({ category }) => (
     <li className="border-b border-gray-200 last:border-b-0">
-        <a href="#" className="flex justify-between items-center px-4 py-3 text-sm text-gray-700 hover:bg-gray-50 hover:text-primary-red">
+        <a href="#" className="flex justify-between items-center px-4 py-3 text-sm text-gray-700 hover:bg-gray-50 hover:text-primary-blue">
             <span>{category}</span>
             <ChevronRightIcon />
         </a>
@@ -29,7 +29,7 @@ const CategoryMenuItem: React.FC<{ category: string }> = ({ category }) => (
 const CategoryMenu: React.FC = () => {
     return (
         <div className="bg-white border border-gray-200 rounded-md overflow-hidden">
-            <h2 className="bg-primary-red text-white px-4 py-3 font-bold flex items-center text-base">
+            <h2 className="bg-primary-blue text-white px-4 py-3 font-bold flex items-center text-base">
                 DANH MỤC SẢN PHẨM
             </h2>
             <ul>

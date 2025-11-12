@@ -22,7 +22,7 @@ const Header = ({ onNavigate }) => {
     e.preventDefault();
     onNavigate(page);
   };
-  const TopBar = () => /* @__PURE__ */ jsx("div", { className: "bg-primary-red text-white text-xs py-1", children: /* @__PURE__ */ jsxs("div", { className: "max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex justify-between items-center", children: [
+  const TopBar = () => /* @__PURE__ */ jsx("div", { className: "bg-primary-blue text-white text-xs py-1", children: /* @__PURE__ */ jsxs("div", { className: "max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex justify-between items-center", children: [
     /* @__PURE__ */ jsxs("div", { className: "flex items-center space-x-4", children: [
       /* @__PURE__ */ jsxs("div", { className: "flex items-center space-x-1", children: [
         /* @__PURE__ */ jsx(PhoneIcon, {}),
@@ -44,8 +44,8 @@ const Header = ({ onNavigate }) => {
   ] }) });
   const MainHeader = () => /* @__PURE__ */ jsx("div", { className: "bg-white py-4", children: /* @__PURE__ */ jsxs("div", { className: "max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between", children: [
     /* @__PURE__ */ jsx("div", { className: "flex items-center", children: /* @__PURE__ */ jsxs("a", { href: "#", onClick: (e) => handleNavClick(e, "TRANG CHỦ"), className: "text-4xl font-bold text-gray-800", children: [
-      /* @__PURE__ */ jsx("span", { className: "text-primary-red", children: "C5" }),
-      /* @__PURE__ */ jsx("span", { className: "text-yellow-500", children: "SHOP" })
+      /* @__PURE__ */ jsx("span", { className: "text-primary-blue", children: "C5" }),
+      /* @__PURE__ */ jsx("span", { className: "text-primary-orange", children: "SHOP" })
     ] }) }),
     /* @__PURE__ */ jsx("div", { className: "hidden lg:flex flex-grow max-w-xl mx-8", children: /* @__PURE__ */ jsxs("div", { className: "relative w-full", children: [
       /* @__PURE__ */ jsx(
@@ -53,25 +53,25 @@ const Header = ({ onNavigate }) => {
         {
           type: "text",
           placeholder: "Nhập từ khóa...",
-          className: "w-full border border-gray-300 rounded-l-md py-2 px-4 focus:outline-none focus:ring-2 focus:ring-primary-red"
+          className: "w-full border border-gray-300 rounded-l-md py-2 px-4 focus:outline-none focus:ring-2 focus:ring-primary-orange"
         }
       ),
-      /* @__PURE__ */ jsx("button", { className: "absolute right-0 top-0 h-full bg-primary-red text-white px-6 rounded-r-md hover:bg-primary-red-dark", children: /* @__PURE__ */ jsx(SearchIcon, {}) })
+      /* @__PURE__ */ jsx("button", { className: "absolute right-0 top-0 h-full bg-primary-orange text-white px-6 rounded-r-md hover:bg-primary-orange-dark", children: /* @__PURE__ */ jsx(SearchIcon, {}) })
     ] }) }),
     /* @__PURE__ */ jsxs("div", { className: "flex items-center space-x-6", children: [
       /* @__PURE__ */ jsxs("div", { className: "hidden sm:flex items-center space-x-2 text-sm", children: [
         /* @__PURE__ */ jsx(UserIcon, {}),
         /* @__PURE__ */ jsxs("div", { children: [
-          /* @__PURE__ */ jsx("a", { href: "#", className: "font-semibold hover:text-primary-red", children: "Đăng nhập" }),
+          /* @__PURE__ */ jsx("a", { href: "#", className: "font-semibold hover:text-primary-blue", children: "Đăng nhập" }),
           " & ",
-          /* @__PURE__ */ jsx("a", { href: "#", className: "font-semibold hover:text-primary-red", children: "Đăng ký" }),
+          /* @__PURE__ */ jsx("a", { href: "#", className: "font-semibold hover:text-primary-blue", children: "Đăng ký" }),
           /* @__PURE__ */ jsx("div", { children: "Tài khoản" })
         ] })
       ] }),
       /* @__PURE__ */ jsxs("div", { className: "flex items-center space-x-2 text-sm", children: [
         /* @__PURE__ */ jsxs("div", { className: "relative", children: [
           /* @__PURE__ */ jsx(CartIcon, {}),
-          /* @__PURE__ */ jsx("span", { className: "absolute -top-2 -right-2 bg-primary-red text-white text-xs rounded-full h-4 w-4 flex items-center justify-center", children: "0" })
+          /* @__PURE__ */ jsx("span", { className: "absolute -top-2 -right-2 bg-primary-orange text-white text-xs rounded-full h-4 w-4 flex items-center justify-center", children: "0" })
         ] }),
         /* @__PURE__ */ jsxs("div", { children: [
           /* @__PURE__ */ jsx("div", { className: "font-semibold", children: "Giỏ hàng" }),
@@ -84,11 +84,11 @@ const Header = ({ onNavigate }) => {
   const NavBar = () => {
     const navItems = ["TRANG CHỦ", "GIỚI THIỆU", "SẢN PHẨM", "KHUYẾN MÃI", "TIN TỨC", "LIÊN HỆ"];
     return /* @__PURE__ */ jsx("nav", { className: "bg-white border-t border-b", children: /* @__PURE__ */ jsx("div", { className: "max-w-7xl mx-auto px-4 sm:px-6 lg:px-8", children: /* @__PURE__ */ jsxs("div", { className: "hidden lg:flex items-center", children: [
-      /* @__PURE__ */ jsxs("div", { className: "bg-primary-red text-white px-6 py-3 font-bold flex items-center", children: [
+      /* @__PURE__ */ jsxs("div", { className: "bg-primary-blue text-white px-6 py-3 font-bold flex items-center", children: [
         /* @__PURE__ */ jsx(MenuIcon, {}),
         /* @__PURE__ */ jsx("span", { className: "ml-2", children: "DANH MỤC SẢN PHẨM" })
       ] }),
-      /* @__PURE__ */ jsx("div", { className: "flex space-x-8 ml-8 text-sm font-semibold", children: navItems.map((item) => /* @__PURE__ */ jsx("a", { href: "#", onClick: (e) => handleNavClick(e, item), className: "py-4 text-gray-700 hover:text-primary-red border-b-2 border-transparent hover:border-primary-red", children: item }, item)) })
+      /* @__PURE__ */ jsx("div", { className: "flex space-x-8 ml-8 text-sm font-semibold", children: navItems.map((item) => /* @__PURE__ */ jsx("a", { href: "#", onClick: (e) => handleNavClick(e, item), className: "py-4 text-gray-700 hover:text-primary-orange border-b-2 border-transparent hover:border-primary-orange", children: item }, item)) })
     ] }) }) });
   };
   return /* @__PURE__ */ jsxs("header", { className: "shadow-md", children: [
@@ -110,21 +110,21 @@ const PartnerLogos = () => {
 };
 const Footer = () => {
   return /* @__PURE__ */ jsxs("footer", { className: "bg-gray-100 text-gray-700", children: [
-    /* @__PURE__ */ jsx("div", { className: "bg-primary-red text-white py-4", children: /* @__PURE__ */ jsxs("div", { className: "max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row justify-between items-center", children: [
+    /* @__PURE__ */ jsx("div", { className: "bg-primary-blue text-white py-4", children: /* @__PURE__ */ jsxs("div", { className: "max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row justify-between items-center", children: [
       /* @__PURE__ */ jsxs("div", { className: "mb-4 md:mb-0 text-center md:text-left", children: [
         /* @__PURE__ */ jsx("h3", { className: "font-bold text-lg", children: "ĐĂNG KÝ NHẬN EMAIL" }),
         /* @__PURE__ */ jsx("p", { className: "text-sm", children: "Nhận thông tin sản phẩm mới" })
       ] }),
       /* @__PURE__ */ jsxs("div", { className: "flex w-full max-w-md", children: [
         /* @__PURE__ */ jsx("input", { type: "email", placeholder: "Nhập địa chỉ email", className: "w-full px-4 py-2 text-gray-800 rounded-l-md focus:outline-none" }),
-        /* @__PURE__ */ jsx("button", { className: "bg-gray-800 text-white font-bold px-6 py-2 rounded-r-md hover:bg-gray-700", children: "GỬI" })
+        /* @__PURE__ */ jsx("button", { className: "bg-primary-orange text-white font-bold px-6 py-2 rounded-r-md hover:bg-primary-orange-dark", children: "GỬI" })
       ] })
     ] }) }),
     /* @__PURE__ */ jsx("div", { className: "max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10", children: /* @__PURE__ */ jsxs("div", { className: "grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8", children: [
       /* @__PURE__ */ jsxs("div", { children: [
         /* @__PURE__ */ jsxs("a", { href: "/", className: "text-4xl font-bold text-gray-800", children: [
-          /* @__PURE__ */ jsx("span", { className: "text-primary-red", children: "C5" }),
-          /* @__PURE__ */ jsx("span", { className: "text-yellow-500", children: "SHOP" })
+          /* @__PURE__ */ jsx("span", { className: "text-primary-blue", children: "C5" }),
+          /* @__PURE__ */ jsx("span", { className: "text-primary-orange", children: "SHOP" })
         ] }),
         /* @__PURE__ */ jsx("p", { className: "text-sm mt-4", children: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua." }),
         /* @__PURE__ */ jsx("p", { className: "text-sm mt-4", children: "📍 123 Đường Phan Chu Trinh, Quận 10, TPHCM" }),
@@ -134,24 +134,24 @@ const Footer = () => {
       /* @__PURE__ */ jsxs("div", { children: [
         /* @__PURE__ */ jsx("h4", { className: "font-bold text-lg mb-4", children: "CHÍNH SÁCH ĐỔI TRẢ" }),
         /* @__PURE__ */ jsxs("ul", { className: "space-y-2 text-sm", children: [
-          /* @__PURE__ */ jsx("li", { children: /* @__PURE__ */ jsx("a", { href: "#", className: "hover:text-primary-red", children: "Chính sách mua hàng" }) }),
-          /* @__PURE__ */ jsx("li", { children: /* @__PURE__ */ jsx("a", { href: "#", className: "hover:text-primary-red", children: "Chính sách đổi trả" }) }),
-          /* @__PURE__ */ jsx("li", { children: /* @__PURE__ */ jsx("a", { href: "#", className: "hover:text-primary-red", children: "Giao hàng" }) }),
-          /* @__PURE__ */ jsx("li", { children: /* @__PURE__ */ jsx("a", { href: "#", className: "hover:text-primary-red", children: "Thanh toán" }) }),
-          /* @__PURE__ */ jsx("li", { children: /* @__PURE__ */ jsx("a", { href: "#", className: "hover:text-primary-red", children: "Tài khoản" }) }),
-          /* @__PURE__ */ jsx("li", { children: /* @__PURE__ */ jsx("a", { href: "#", className: "hover:text-primary-red", children: "Giới thiệu" }) })
+          /* @__PURE__ */ jsx("li", { children: /* @__PURE__ */ jsx("a", { href: "#", className: "hover:text-primary-blue", children: "Chính sách mua hàng" }) }),
+          /* @__PURE__ */ jsx("li", { children: /* @__PURE__ */ jsx("a", { href: "#", className: "hover:text-primary-blue", children: "Chính sách đổi trả" }) }),
+          /* @__PURE__ */ jsx("li", { children: /* @__PURE__ */ jsx("a", { href: "#", className: "hover:text-primary-blue", children: "Giao hàng" }) }),
+          /* @__PURE__ */ jsx("li", { children: /* @__PURE__ */ jsx("a", { href: "#", className: "hover:text-primary-blue", children: "Thanh toán" }) }),
+          /* @__PURE__ */ jsx("li", { children: /* @__PURE__ */ jsx("a", { href: "#", className: "hover:text-primary-blue", children: "Tài khoản" }) }),
+          /* @__PURE__ */ jsx("li", { children: /* @__PURE__ */ jsx("a", { href: "#", className: "hover:text-primary-blue", children: "Giới thiệu" }) })
         ] })
       ] }),
       /* @__PURE__ */ jsxs("div", { children: [
         /* @__PURE__ */ jsx("h4", { className: "font-bold text-lg mb-4", children: "SẢN PHẨM" }),
         /* @__PURE__ */ jsxs("ul", { className: "space-y-2 text-sm", children: [
-          /* @__PURE__ */ jsx("li", { children: /* @__PURE__ */ jsx("a", { href: "#", className: "hover:text-primary-red", children: "Điện Thoại & Phụ Kiện" }) }),
-          /* @__PURE__ */ jsx("li", { children: /* @__PURE__ */ jsx("a", { href: "#", className: "hover:text-primary-red", children: "Đồ Chơi" }) }),
-          /* @__PURE__ */ jsx("li", { children: /* @__PURE__ */ jsx("a", { href: "#", className: "hover:text-primary-red", children: "Đồng Hồ" }) }),
-          /* @__PURE__ */ jsx("li", { children: /* @__PURE__ */ jsx("a", { href: "#", className: "hover:text-primary-red", children: "Giày Dép Nam" }) }),
-          /* @__PURE__ */ jsx("li", { children: /* @__PURE__ */ jsx("a", { href: "#", className: "hover:text-primary-red", children: "Giày Dép Nữ" }) }),
-          /* @__PURE__ */ jsx("li", { children: /* @__PURE__ */ jsx("a", { href: "#", className: "hover:text-primary-red", children: "Làm Đẹp" }) }),
-          /* @__PURE__ */ jsx("li", { children: /* @__PURE__ */ jsx("a", { href: "#", className: "hover:text-primary-red", children: "Máy Ảnh & Máy Quay Phim" }) })
+          /* @__PURE__ */ jsx("li", { children: /* @__PURE__ */ jsx("a", { href: "#", className: "hover:text-primary-blue", children: "Điện Thoại & Phụ Kiện" }) }),
+          /* @__PURE__ */ jsx("li", { children: /* @__PURE__ */ jsx("a", { href: "#", className: "hover:text-primary-blue", children: "Đồ Chơi" }) }),
+          /* @__PURE__ */ jsx("li", { children: /* @__PURE__ */ jsx("a", { href: "#", className: "hover:text-primary-blue", children: "Đồng Hồ" }) }),
+          /* @__PURE__ */ jsx("li", { children: /* @__PURE__ */ jsx("a", { href: "#", className: "hover:text-primary-blue", children: "Giày Dép Nam" }) }),
+          /* @__PURE__ */ jsx("li", { children: /* @__PURE__ */ jsx("a", { href: "#", className: "hover:text-primary-blue", children: "Giày Dép Nữ" }) }),
+          /* @__PURE__ */ jsx("li", { children: /* @__PURE__ */ jsx("a", { href: "#", className: "hover:text-primary-blue", children: "Làm Đẹp" }) }),
+          /* @__PURE__ */ jsx("li", { children: /* @__PURE__ */ jsx("a", { href: "#", className: "hover:text-primary-blue", children: "Máy Ảnh & Máy Quay Phim" }) })
         ] })
       ] }),
       /* @__PURE__ */ jsxs("div", { children: [
@@ -160,15 +160,15 @@ const Footer = () => {
           /* @__PURE__ */ jsxs("li", { className: "flex items-center space-x-3", children: [
             /* @__PURE__ */ jsx("img", { src: "https://picsum.photos/id/1080/50/50", alt: "New product 1", className: "w-12 h-12 object-cover rounded" }),
             /* @__PURE__ */ jsxs("div", { children: [
-              /* @__PURE__ */ jsx("a", { href: "#", className: "font-semibold hover:text-primary-red", children: "Son Kem Lì HERA..." }),
-              /* @__PURE__ */ jsx("p", { className: "text-primary-red font-bold", children: "420,000đ" })
+              /* @__PURE__ */ jsx("a", { href: "#", className: "font-semibold hover:text-primary-blue", children: "Son Kem Lì HERA..." }),
+              /* @__PURE__ */ jsx("p", { className: "text-primary-orange font-bold", children: "420,000đ" })
             ] })
           ] }),
           /* @__PURE__ */ jsxs("li", { className: "flex items-center space-x-3", children: [
             /* @__PURE__ */ jsx("img", { src: "https://i.imgur.com/vHZTmCE.png", alt: "New product 2", className: "w-12 h-12 object-cover rounded" }),
             /* @__PURE__ */ jsxs("div", { children: [
-              /* @__PURE__ */ jsx("a", { href: "#", className: "font-semibold hover:text-primary-red", children: "Gấu Bông Thú Nhồi Bông..." }),
-              /* @__PURE__ */ jsx("p", { className: "text-primary-red font-bold", children: "210,000đ" })
+              /* @__PURE__ */ jsx("a", { href: "#", className: "font-semibold hover:text-primary-blue", children: "Gấu Bông Thú Nhồi Bông..." }),
+              /* @__PURE__ */ jsx("p", { className: "text-primary-orange font-bold", children: "210,000đ" })
             ] })
           ] })
         ] })
@@ -192,13 +192,13 @@ const categories = [
   "Thiết Bị Điện Gia Dụng",
   "Thực Bì Điện Tử"
 ];
-const CategoryMenuItem = ({ category }) => /* @__PURE__ */ jsx("li", { className: "border-b border-gray-200 last:border-b-0", children: /* @__PURE__ */ jsxs("a", { href: "#", className: "flex justify-between items-center px-4 py-3 text-sm text-gray-700 hover:bg-gray-50 hover:text-primary-red", children: [
+const CategoryMenuItem = ({ category }) => /* @__PURE__ */ jsx("li", { className: "border-b border-gray-200 last:border-b-0", children: /* @__PURE__ */ jsxs("a", { href: "#", className: "flex justify-between items-center px-4 py-3 text-sm text-gray-700 hover:bg-gray-50 hover:text-primary-blue", children: [
   /* @__PURE__ */ jsx("span", { children: category }),
   /* @__PURE__ */ jsx(ChevronRightIcon, {})
 ] }) });
 const CategoryMenu = () => {
   return /* @__PURE__ */ jsxs("div", { className: "bg-white border border-gray-200 rounded-md overflow-hidden", children: [
-    /* @__PURE__ */ jsx("h2", { className: "bg-primary-red text-white px-4 py-3 font-bold flex items-center text-base", children: "DANH MỤC SẢN PHẨM" }),
+    /* @__PURE__ */ jsx("h2", { className: "bg-primary-blue text-white px-4 py-3 font-bold flex items-center text-base", children: "DANH MỤC SẢN PHẨM" }),
     /* @__PURE__ */ jsx("ul", { children: categories.map((category) => /* @__PURE__ */ jsx(CategoryMenuItem, { category }, category)) })
   ] });
 };
@@ -264,10 +264,10 @@ const InfoBar = () => {
   ] });
 };
 const ProductCard = ({ product }) => {
-  return /* @__PURE__ */ jsxs("div", { className: "bg-white border border-gray-200 rounded-lg overflow-hidden shadow-sm hover:shadow-lg hover:border-primary-red transition-all duration-300 group", children: [
+  return /* @__PURE__ */ jsxs("div", { className: "bg-white border border-gray-200 rounded-lg overflow-hidden shadow-sm hover:shadow-lg hover:border-primary-blue transition-all duration-300 group", children: [
     /* @__PURE__ */ jsxs("div", { className: "relative", children: [
       /* @__PURE__ */ jsx("img", { src: product.image, alt: product.name, className: "w-full h-40 object-cover" }),
-      product.discount && /* @__PURE__ */ jsxs("span", { className: "absolute top-2 left-2 bg-primary-red text-white text-xs font-bold px-2 py-1 rounded-full", children: [
+      product.discount && /* @__PURE__ */ jsxs("span", { className: "absolute top-2 left-2 bg-primary-orange text-white text-xs font-bold px-2 py-1 rounded-full", children: [
         "-",
         product.discount,
         "%"
@@ -275,9 +275,9 @@ const ProductCard = ({ product }) => {
       product.isNew && /* @__PURE__ */ jsx("span", { className: "absolute top-2 right-2 bg-green-500 text-white text-xs font-bold px-2 py-1 rounded-full", children: "Mới" })
     ] }),
     /* @__PURE__ */ jsxs("div", { className: "p-4", children: [
-      /* @__PURE__ */ jsx("h3", { className: "text-sm font-semibold text-gray-800 h-10 overflow-hidden group-hover:text-primary-red", children: product.name }),
+      /* @__PURE__ */ jsx("h3", { className: "text-sm font-semibold text-gray-800 h-10 overflow-hidden group-hover:text-primary-blue", children: product.name }),
       /* @__PURE__ */ jsxs("div", { className: "mt-2 flex items-baseline space-x-2", children: [
-        /* @__PURE__ */ jsx("p", { className: "text-primary-red font-bold text-base", children: product.newPrice }),
+        /* @__PURE__ */ jsx("p", { className: "text-primary-orange font-bold text-base", children: product.newPrice }),
         product.oldPrice && /* @__PURE__ */ jsx("p", { className: "text-gray-500 line-through text-xs", children: product.oldPrice })
       ] })
     ] })
@@ -286,8 +286,8 @@ const ProductCard = ({ product }) => {
 const ProductSection = ({ title, products }) => {
   return /* @__PURE__ */ jsxs("div", { className: "mb-8", children: [
     /* @__PURE__ */ jsxs("div", { className: "flex justify-between items-center mb-4", children: [
-      /* @__PURE__ */ jsx("h2", { className: "text-xl font-bold bg-primary-red text-white py-2 px-4 rounded-r-full", children: title }),
-      /* @__PURE__ */ jsxs("a", { href: "#", className: "text-sm font-semibold text-gray-600 hover:text-primary-red flex items-center", children: [
+      /* @__PURE__ */ jsx("h2", { className: "text-xl font-bold bg-primary-blue text-white py-2 px-4 rounded-r-full", children: title }),
+      /* @__PURE__ */ jsxs("a", { href: "#", className: "text-sm font-semibold text-gray-600 hover:text-primary-blue flex items-center", children: [
         "Xem thêm ",
         /* @__PURE__ */ jsx(ChevronRightIcon, {})
       ] })
@@ -305,7 +305,7 @@ const NewsCard = ({ article }) => {
   return /* @__PURE__ */ jsxs("div", { className: "bg-white border border-gray-200 rounded-lg overflow-hidden shadow-sm hover:shadow-lg transition-shadow duration-300", children: [
     /* @__PURE__ */ jsxs("div", { className: "relative", children: [
       /* @__PURE__ */ jsx("img", { src: article.image, alt: article.title, className: "w-full h-40 object-cover" }),
-      /* @__PURE__ */ jsx("span", { className: "absolute top-2 left-2 bg-primary-red bg-opacity-80 text-white text-xs font-bold px-2 py-1 rounded", children: article.category })
+      /* @__PURE__ */ jsx("span", { className: "absolute top-2 left-2 bg-primary-blue bg-opacity-80 text-white text-xs font-bold px-2 py-1 rounded", children: article.category })
     ] }),
     /* @__PURE__ */ jsxs("div", { className: "p-4", children: [
       /* @__PURE__ */ jsx("h3", { className: "text-sm font-semibold text-gray-800 h-10 overflow-hidden mb-2", children: article.title }),
@@ -314,7 +314,7 @@ const NewsCard = ({ article }) => {
           "📅 ",
           article.date
         ] }),
-        /* @__PURE__ */ jsxs("a", { href: "#", className: "bg-primary-red text-white px-3 py-1 rounded-full text-xs flex items-center hover:bg-primary-red-dark", children: [
+        /* @__PURE__ */ jsxs("a", { href: "#", className: "bg-primary-orange text-white px-3 py-1 rounded-full text-xs flex items-center hover:bg-primary-orange-dark", children: [
           "Chi tiết ",
           /* @__PURE__ */ jsx(ChevronRightIcon, {})
         ] })
@@ -352,7 +352,7 @@ const NewsSection = () => {
   return /* @__PURE__ */ jsxs("div", { className: "my-8", children: [
     /* @__PURE__ */ jsxs("div", { className: "flex justify-between items-center mb-4", children: [
       /* @__PURE__ */ jsx("h2", { className: "text-xl font-bold text-gray-800", children: "TIN TỨC" }),
-      /* @__PURE__ */ jsxs("a", { href: "#", className: "text-sm font-semibold text-gray-600 hover:text-primary-red flex items-center", children: [
+      /* @__PURE__ */ jsxs("a", { href: "#", className: "text-sm font-semibold text-gray-600 hover:text-primary-blue flex items-center", children: [
         "Xem thêm ",
         /* @__PURE__ */ jsx(ChevronRightIcon, {})
       ] })
@@ -426,7 +426,7 @@ const HomePage = () => {
 const Breadcrumb = ({ items }) => {
   return /* @__PURE__ */ jsx("nav", { className: "text-sm text-gray-500 mb-4", "aria-label": "Breadcrumb", children: /* @__PURE__ */ jsx("ol", { className: "list-none p-0 inline-flex", children: items.map((item, index) => /* @__PURE__ */ jsxs("li", { className: "flex items-center", children: [
     index > 0 && /* @__PURE__ */ jsx("span", { className: "mx-2", children: "/" }),
-    /* @__PURE__ */ jsx("span", { className: index === items.length - 1 ? "text-gray-800" : "text-primary-red", children: item.label })
+    /* @__PURE__ */ jsx("span", { className: index === items.length - 1 ? "text-gray-800" : "text-primary-blue", children: item.label })
   ] }, index)) }) });
 };
 const sidebarCategories = [
@@ -443,16 +443,16 @@ const shockingPriceProducts = [
 const Sidebar = () => {
   return /* @__PURE__ */ jsxs("aside", { className: "w-full", children: [
     /* @__PURE__ */ jsxs("div", { className: "bg-white border border-gray-200 mb-6", children: [
-      /* @__PURE__ */ jsx("h3", { className: "bg-primary-red text-white font-bold p-3 text-sm", children: "CHUYÊN MỤC" }),
-      /* @__PURE__ */ jsx("ul", { className: "p-4 space-y-2 text-sm", children: sidebarCategories.map((cat) => /* @__PURE__ */ jsx("li", { children: /* @__PURE__ */ jsx("a", { href: "#", className: "hover:text-primary-red", children: cat }) }, cat)) })
+      /* @__PURE__ */ jsx("h3", { className: "bg-primary-blue text-white font-bold p-3 text-sm", children: "CHUYÊN MỤC" }),
+      /* @__PURE__ */ jsx("ul", { className: "p-4 space-y-2 text-sm", children: sidebarCategories.map((cat) => /* @__PURE__ */ jsx("li", { children: /* @__PURE__ */ jsx("a", { href: "#", className: "hover:text-primary-blue", children: cat }) }, cat)) })
     ] }),
     /* @__PURE__ */ jsxs("div", { className: "bg-white border border-gray-200", children: [
-      /* @__PURE__ */ jsx("h3", { className: "bg-primary-red text-white font-bold p-3 text-sm", children: "SẢN PHẨM GIÁ SỐC" }),
+      /* @__PURE__ */ jsx("h3", { className: "bg-primary-blue text-white font-bold p-3 text-sm", children: "SẢN PHẨM GIÁ SỐC" }),
       /* @__PURE__ */ jsx("ul", { className: "p-4 space-y-4", children: shockingPriceProducts.map((product, index) => /* @__PURE__ */ jsxs("li", { className: "flex items-center space-x-3", children: [
         /* @__PURE__ */ jsx("img", { src: product.image, alt: product.name, className: "w-16 h-16 object-cover border" }),
         /* @__PURE__ */ jsxs("div", { children: [
-          /* @__PURE__ */ jsx("a", { href: "#", className: "text-sm font-semibold hover:text-primary-red leading-tight", children: product.name }),
-          /* @__PURE__ */ jsx("p", { className: "text-primary-red font-bold text-sm mt-1", children: product.newPrice })
+          /* @__PURE__ */ jsx("a", { href: "#", className: "text-sm font-semibold hover:text-primary-blue leading-tight", children: product.name }),
+          /* @__PURE__ */ jsx("p", { className: "text-primary-orange font-bold text-sm mt-1", children: product.newPrice })
         ] })
       ] }, index)) })
     ] })
@@ -495,7 +495,7 @@ const ProductsPage = () => {
     ] }),
     /* @__PURE__ */ jsx("div", { className: "grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4", children: [...allProducts, ...allProducts.slice(0, 2)].map((product, index) => /* @__PURE__ */ jsx(ProductCard, { product }, index)) }),
     /* @__PURE__ */ jsx("div", { className: "flex justify-center mt-8", children: /* @__PURE__ */ jsxs("nav", { className: "flex space-x-2", "aria-label": "Pagination", children: [
-      /* @__PURE__ */ jsx("span", { "aria-current": "page", className: "px-4 py-2 bg-primary-red text-white rounded cursor-default", children: "1" }),
+      /* @__PURE__ */ jsx("span", { "aria-current": "page", className: "px-4 py-2 bg-primary-orange text-white rounded cursor-default", children: "1" }),
       /* @__PURE__ */ jsx("a", { href: "#", className: "px-4 py-2 bg-white border border-gray-300 rounded hover:bg-gray-100", children: "2" }),
       /* @__PURE__ */ jsx("a", { href: "#", className: "px-4 py-2 bg-white border border-gray-300 rounded hover:bg-gray-100", children: "»" })
     ] }) })
@@ -578,7 +578,7 @@ const ContactPage = () => {
             /* @__PURE__ */ jsx("label", { htmlFor: "message", className: "block mb-1 font-medium", children: "Nội dung" }),
             /* @__PURE__ */ jsx("textarea", { id: "message", rows: 5, className: "w-full p-2 border border-gray-300 rounded" })
           ] }),
-          /* @__PURE__ */ jsx("div", { children: /* @__PURE__ */ jsx("button", { type: "submit", className: "bg-primary-red text-white font-bold px-6 py-2 rounded hover:bg-primary-red-dark", children: "Gửi đi" }) })
+          /* @__PURE__ */ jsx("div", { children: /* @__PURE__ */ jsx("button", { type: "submit", className: "bg-primary-orange text-white font-bold px-6 py-2 rounded hover:bg-primary-orange-dark", children: "Gửi đi" }) })
         ] })
       ] }),
       /* @__PURE__ */ jsx("div", { className: "lg:w-1/2 mt-8 lg:mt-0", children: /* @__PURE__ */ jsx(

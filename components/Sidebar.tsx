@@ -19,23 +19,23 @@ const Sidebar: React.FC = () => {
     return (
         <aside className="w-full">
             <div className="bg-white border border-gray-200 mb-6">
-                <h3 className="bg-primary-red text-white font-bold p-3 text-sm">CHUYÊN MỤC</h3>
+                <h3 className="bg-primary-blue text-white font-bold p-3 text-sm">CHUYÊN MỤC</h3>
                 <ul className="p-4 space-y-2 text-sm">
                     {sidebarCategories.map(cat => (
-                         <li key={cat}><a href="#" className="hover:text-primary-red">{cat}</a></li>
+                         <li key={cat}><a href="#" className="hover:text-primary-blue">{cat}</a></li>
                     ))}
                 </ul>
             </div>
 
             <div className="bg-white border border-gray-200">
-                <h3 className="bg-primary-red text-white font-bold p-3 text-sm">SẢN PHẨM GIÁ SỐC</h3>
+                <h3 className="bg-primary-blue text-white font-bold p-3 text-sm">SẢN PHẨM GIÁ SỐC</h3>
                 <ul className="p-4 space-y-4">
                     {shockingPriceProducts.map((product, index) => (
                          <li key={index} className="flex items-center space-x-3">
                             <img src={product.image} alt={product.name} className="w-16 h-16 object-cover border"/>
                             <div>
-                                <a href="#" className="text-sm font-semibold hover:text-primary-red leading-tight">{product.name}</a>
-                                <p className="text-primary-red font-bold text-sm mt-1">{product.newPrice}</p>
+                                <a href="#" className="text-sm font-semibold hover:text-primary-blue leading-tight">{product.name}</a>
+                                <p className="text-primary-orange font-bold text-sm mt-1">{product.newPrice}</p>
                             </div>
                         </li>
                     ))}

@@ -12,8 +12,8 @@ const ProductSection: React.FC<ProductSectionProps> = ({ title, products }) => {
     return (
         <div className="mb-8">
             <div className="flex justify-between items-center mb-4">
-                <h2 className="text-xl font-bold bg-primary-red text-white py-2 px-4 rounded-r-full">{title}</h2>
-                <a href="#" className="text-sm font-semibold text-gray-600 hover:text-primary-red flex items-center">
+                <h2 className="text-xl font-bold bg-primary-blue text-white py-2 px-4 rounded-r-full">{title}</h2>
+                <a href="#" className="text-sm font-semibold text-gray-600 hover:text-primary-blue flex items-center">
                     Xem thêm <ChevronRightIcon />
                 </a>
             </div>
