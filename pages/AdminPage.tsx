@@ -484,15 +484,26 @@ const AdminPage: React.FC<AdminPageProps> = ({ onLogout }) => {
 
   // Export ALL data from localStorage (including images as Base64)
   const handleExportAllData = () => {
+    // Get data from localStorage first (most reliable source)
+    // Then fallback to state if localStorage is empty
+    const savedProducts = localStorage.getItem('admin_products');
+    const savedCategories = localStorage.getItem('admin_categories');
+    const savedNews = localStorage.getItem('admin_news');
+    const savedReviews = localStorage.getItem('customer_reviews');
+    const savedMarquee = localStorage.getItem('marquee_banner_text');
+    const savedLogos = localStorage.getItem('partner_logos');
+    const savedEmails = localStorage.getItem('email_subscriptions');
+    const savedMessages = localStorage.getItem('contact_messages');
+
     const allData = {
-      products: JSON.parse(localStorage.getItem('admin_products') || '[]'),
-      categories: JSON.parse(localStorage.getItem('admin_categories') || '[]'),
-      news: JSON.parse(localStorage.getItem('admin_news') || '[]'),
-      reviews: JSON.parse(localStorage.getItem('customer_reviews') || '[]'),
-      marqueeText: localStorage.getItem('marquee_banner_text') || '',
-      partnerLogos: JSON.parse(localStorage.getItem('partner_logos') || '[]'),
-      emailSubscriptions: JSON.parse(localStorage.getItem('email_subscriptions') || '[]'),
-      contactMessages: JSON.parse(localStorage.getItem('contact_messages') || '[]'),
+      products: savedProducts ? JSON.parse(savedProducts) : (products.length > 0 ? products : []),
+      categories: savedCategories ? JSON.parse(savedCategories) : (categories.length > 0 ? categories : categoriesData.categories),
+      news: savedNews ? JSON.parse(savedNews) : (news.length > 0 ? news : []),
+      reviews: savedReviews ? JSON.parse(savedReviews) : (reviews.length > 0 ? reviews : []),
+      marqueeText: savedMarquee || marqueeText || '',
+      partnerLogos: savedLogos ? JSON.parse(savedLogos) : (partnerLogos.length > 0 ? partnerLogos : []),
+      emailSubscriptions: savedEmails ? JSON.parse(savedEmails) : (emailSubscriptions.length > 0 ? emailSubscriptions : []),
+      contactMessages: savedMessages ? JSON.parse(savedMessages) : (contactMessages.length > 0 ? contactMessages : []),
       exportDate: new Date().toISOString(),
       note: 'Dữ liệu này bao gồm tất cả sản phẩm, danh mục, tin tức, đánh giá, logo đối tác, và hình ảnh (dưới dạng Base64). Import lại file này để restore dữ liệu.'
     };
@@ -526,53 +537,108 @@ const AdminPage: React.FC<AdminPageProps> = ({ onLogout }) => {
             return;
           }
 
-          // Import data
-          if (importedData.products) {
-            localStorage.setItem('admin_products', JSON.stringify(importedData.products));
-            setProducts(importedData.products);
+          // Import data - Always set, even if empty array
+          // Products
+          if (importedData.products !== undefined) {
+            const productsToSave = Array.isArray(importedData.products) ? importedData.products : [];
+            localStorage.setItem('admin_products', JSON.stringify(productsToSave));
+            setProducts(productsToSave);
             window.dispatchEvent(new CustomEvent('productsUpdated'));
           }
           
-          if (importedData.categories) {
-            localStorage.setItem('admin_categories', JSON.stringify(importedData.categories));
-            setCategories(importedData.categories);
+          // Categories - IMPORTANT: Always import, even if empty
+          if (importedData.categories !== undefined) {
+            const categoriesToSave = Array.isArray(importedData.categories) ? importedData.categories : categoriesData.categories;
+            localStorage.setItem('admin_categories', JSON.stringify(categoriesToSave));
+            setCategories(categoriesToSave);
             window.dispatchEvent(new CustomEvent('categoriesUpdated'));
+          } else {
+            // If categories not in import, keep current or use default
+            const currentCategories = localStorage.getItem('admin_categories');
+            if (!currentCategories) {
+              localStorage.setItem('admin_categories', JSON.stringify(categoriesData.categories));
+              setCategories(categoriesData.categories);
+            }
           }
           
-          if (importedData.news) {
-            localStorage.setItem('admin_news', JSON.stringify(importedData.news));
-            setNews(importedData.news);
+          // News
+          if (importedData.news !== undefined) {
+            const newsToSave = Array.isArray(importedData.news) ? importedData.news : [];
+            localStorage.setItem('admin_news', JSON.stringify(newsToSave));
+            setNews(newsToSave);
             window.dispatchEvent(new CustomEvent('newsUpdated'));
           }
           
-          if (importedData.reviews) {
-            localStorage.setItem('customer_reviews', JSON.stringify(importedData.reviews));
-            setReviews(importedData.reviews);
+          // Reviews - IMPORTANT: Always import, even if empty
+          if (importedData.reviews !== undefined) {
+            const reviewsToSave = Array.isArray(importedData.reviews) ? importedData.reviews : [];
+            localStorage.setItem('customer_reviews', JSON.stringify(reviewsToSave));
+            setReviews(reviewsToSave);
             window.dispatchEvent(new CustomEvent('reviewsUpdated'));
+          } else {
+            // If reviews not in import, keep current or use default
+            const currentReviews = localStorage.getItem('customer_reviews');
+            if (!currentReviews) {
+              const defaultReviews = [
+                {
+                  id: 'r1',
+                  customerName: 'Nguyễn Văn A',
+                  rating: 5,
+                  comment: 'Sản phẩm chất lượng cao, in logo rất đẹp và bền màu. Dịch vụ tư vấn nhiệt tình, giao hàng nhanh. Rất hài lòng!',
+                  date: '15/12/2024',
+                  product: 'Ly thủy tinh in logo',
+                  verified: true
+                },
+                {
+                  id: 'r2',
+                  customerName: 'Trần Thị B',
+                  rating: 5,
+                  comment: 'Đặt làm quà tặng cho nhân viên, sản phẩm đẹp, giá cả hợp lý. Logo in rõ nét, không bị phai màu sau nhiều lần sử dụng.',
+                  date: '10/12/2024',
+                  product: 'Bình giữ nhiệt in logo',
+                  verified: true
+                }
+              ];
+              localStorage.setItem('customer_reviews', JSON.stringify(defaultReviews));
+              setReviews(defaultReviews);
+            }
           }
           
+          // Marquee Text
           if (importedData.marqueeText !== undefined) {
-            localStorage.setItem('marquee_banner_text', importedData.marqueeText);
-            setMarqueeText(importedData.marqueeText);
+            localStorage.setItem('marquee_banner_text', importedData.marqueeText || '');
+            setMarqueeText(importedData.marqueeText || '');
             window.dispatchEvent(new CustomEvent('marqueeUpdated'));
           }
           
-          if (importedData.partnerLogos) {
-            localStorage.setItem('partner_logos', JSON.stringify(importedData.partnerLogos));
-            setPartnerLogos(importedData.partnerLogos);
+          // Partner Logos
+          if (importedData.partnerLogos !== undefined) {
+            const logosToSave = Array.isArray(importedData.partnerLogos) ? importedData.partnerLogos : [];
+            localStorage.setItem('partner_logos', JSON.stringify(logosToSave));
+            setPartnerLogos(logosToSave);
             window.dispatchEvent(new CustomEvent('partnerLogosUpdated'));
           }
           
-          if (importedData.emailSubscriptions) {
-            localStorage.setItem('email_subscriptions', JSON.stringify(importedData.emailSubscriptions));
+          // Email Subscriptions
+          if (importedData.emailSubscriptions !== undefined) {
+            const emailsToSave = Array.isArray(importedData.emailSubscriptions) ? importedData.emailSubscriptions : [];
+            localStorage.setItem('email_subscriptions', JSON.stringify(emailsToSave));
+            setEmailSubscriptions(emailsToSave);
           }
           
-          if (importedData.contactMessages) {
-            localStorage.setItem('contact_messages', JSON.stringify(importedData.contactMessages));
+          // Contact Messages
+          if (importedData.contactMessages !== undefined) {
+            const messagesToSave = Array.isArray(importedData.contactMessages) ? importedData.contactMessages : [];
+            localStorage.setItem('contact_messages', JSON.stringify(messagesToSave));
+            setContactMessages(messagesToSave);
           }
 
           alert('✅ Import dữ liệu thành công! Trang sẽ tự động reload để hiển thị dữ liệu mới.');
-          window.location.reload();
+          
+          // Small delay to ensure localStorage is written
+          setTimeout(() => {
+            window.location.reload();
+          }, 100);
         } catch (error) {
           alert('❌ Lỗi: File JSON không hợp lệ hoặc định dạng sai!');
           console.error('Import error:', error);
