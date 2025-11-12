@@ -93,108 +93,123 @@ const NewsDetailPage: React.FC<NewsDetailPageProps> = ({ newsId, newsSlug }) => 
         <meta property="article:published_time" content={article.date} />
         <meta property="article:section" content={article.category} />
       </head>
-
-      <div className="bg-white min-h-screen">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+  
+      <div className="bg-gray-50 min-h-screen">
+        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
           {/* Breadcrumb */}
-          <Breadcrumb items={breadcrumbItems} />
+          <div className="mb-6">
+            <Breadcrumb items={breadcrumbItems} />
+          </div>
 
-          {/* Article Content */}
-          <article className="bg-white rounded-lg shadow-sm mt-4 p-6 md:p-8">
-            {/* Category Badge */}
-            <div className="mb-4">
-              <span className="inline-block bg-primary-blue text-white text-sm font-bold px-3 py-1 rounded">
-                {article.category}
-              </span>
-            </div>
-
-            {/* Title */}
-            <h1 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
-              {article.title}
-            </h1>
-
-            {/* Meta Info */}
-            <div className="flex items-center text-gray-600 text-sm mb-6 pb-6 border-b">
-              <span className="mr-4">📅 {article.date}</span>
-              <span>📂 {article.category}</span>
-            </div>
-
-            {/* Featured Image */}
-            <div className="mb-6">
-              <img
-                src={article.image}
-                alt={article.title}
-                className="w-full h-auto rounded-lg object-cover"
-              />
-            </div>
-
-            {/* Excerpt */}
-            {article.excerpt && (
-              <div className="mb-6 p-4 bg-gray-50 rounded-lg border-l-4 border-primary-blue">
-                <p className="text-lg text-gray-700 italic">
-                  {article.excerpt}
-                </p>
-              </div>
-            )}
-
-            {/* Article Content */}
-            <div className="prose max-w-none text-gray-700 leading-relaxed">
-              {article.content ? (
-                <div dangerouslySetInnerHTML={{ __html: article.content }} />
-              ) : (
-                <div>
-                  <p className="mb-4">
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-                  </p>
-                  <p className="mb-4">
-                    Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-                  </p>
-                  <h2 className="text-2xl font-bold text-gray-900 mt-8 mb-4">Tiêu đề phụ</h2>
-                  <p className="mb-4">
-                    Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.
-                  </p>
-                  <p className="mb-4">
-                    Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt.
-                  </p>
+          <div className="lg:grid lg:grid-cols-12 lg:gap-8">
+            {/* Main Article Content */}
+            <article className="lg:col-span-8">
+              <div className="bg-white rounded-lg shadow-md overflow-hidden">
+                {/* Category Badge & Meta Info */}
+                <div className="px-6 pt-6 pb-4 border-b border-gray-200">
+                  <div className="flex items-center justify-between mb-4">
+                    <span className="inline-block bg-primary-blue text-white text-sm font-bold px-3 py-1 rounded">
+                      {article.category}
+                    </span>
+                    <time className="text-sm text-gray-500" dateTime={article.date}>
+                      📅 {article.date}
+                    </time>
+                  </div>
+                  
+                  {/* Title */}
+                  <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 leading-tight mb-4">
+                    {article.title}
+                  </h1>
                 </div>
-              )}
-            </div>
 
-            {/* Share Buttons */}
-            <div className="mt-8 pt-6 border-t">
-              <h3 className="text-lg font-semibold text-gray-900 mb-4">Chia sẻ bài viết</h3>
-              <div className="flex gap-2">
-                <button
-                  className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700"
-                  onClick={() => window.open(`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(window.location.href)}`, '_blank')}
-                >
-                  Facebook
-                </button>
-                <button
-                  className="bg-blue-400 text-white px-4 py-2 rounded hover:bg-blue-500"
-                  onClick={() => window.open(`https://twitter.com/intent/tweet?url=${encodeURIComponent(window.location.href)}&text=${encodeURIComponent(article.title)}`, '_blank')}
-                >
-                  Twitter
-                </button>
-                <button
-                  className="bg-gray-600 text-white px-4 py-2 rounded hover:bg-gray-700"
-                  onClick={() => {
-                    navigator.clipboard.writeText(window.location.href);
-                    alert('Đã sao chép link!');
-                  }}
-                >
-                  Copy Link
-                </button>
+                {/* Featured Image */}
+                <div className="px-6 pt-6">
+                  <div className="relative w-full h-64 md:h-96 lg:h-[500px] rounded-lg overflow-hidden mb-6">
+                    <img
+                      src={article.image}
+                      alt={article.title}
+                      className="w-full h-full object-cover"
+                      loading="eager"
+                    />
+                  </div>
+                </div>
+
+                {/* Excerpt */}
+                {article.excerpt && (
+                  <div className="px-6 mb-6">
+                    <div className="bg-gradient-to-r from-blue-50 to-indigo-50 p-5 rounded-lg border-l-4 border-primary-blue">
+                      <p className="text-lg md:text-xl text-gray-800 leading-relaxed font-medium">
+                        {article.excerpt}
+                      </p>
+                    </div>
+                  </div>
+                )}
+
+                {/* Article Content */}
+                <div className="px-6 pb-8">
+                  <div 
+                    className="prose prose-lg max-w-none text-gray-700 leading-relaxed
+                      prose-headings:font-bold prose-headings:text-gray-900
+                      prose-h2:text-2xl prose-h2:mt-8 prose-h2:mb-4
+                      prose-h3:text-xl prose-h3:mt-6 prose-h3:mb-3
+                      prose-p:mb-4 prose-p:text-base prose-p:leading-7
+                      prose-strong:text-gray-900 prose-strong:font-semibold
+                      prose-ul:list-disc prose-ul:ml-6 prose-ul:mb-4
+                      prose-ol:list-decimal prose-ol:ml-6 prose-ol:mb-4
+                      prose-li:mb-2 prose-li:text-base
+                      prose-a:text-primary-blue prose-a:underline hover:prose-a:text-primary-blue-dark
+                      prose-img:rounded-lg prose-img:shadow-md prose-img:my-6
+                      prose-blockquote:border-l-4 prose-blockquote:border-primary-blue prose-blockquote:pl-4 prose-blockquote:italic prose-blockquote:text-gray-600"
+                    dangerouslySetInnerHTML={{ __html: article.content || '' }}
+                  />
+                </div>
+
+                {/* Share Buttons */}
+                <div className="px-6 py-6 border-t border-gray-200 bg-gray-50">
+                  <h3 className="text-lg font-semibold text-gray-900 mb-4">Chia sẻ bài viết</h3>
+                  <div className="flex flex-wrap gap-3">
+                    <button
+                      className="bg-blue-600 text-white px-5 py-2.5 rounded-lg hover:bg-blue-700 transition-colors font-medium text-sm flex items-center gap-2"
+                      onClick={() => window.open(`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(window.location.href)}`, '_blank')}
+                    >
+                      <span>📘</span> Facebook
+                    </button>
+                    <button
+                      className="bg-blue-400 text-white px-5 py-2.5 rounded-lg hover:bg-blue-500 transition-colors font-medium text-sm flex items-center gap-2"
+                      onClick={() => window.open(`https://twitter.com/intent/tweet?url=${encodeURIComponent(window.location.href)}&text=${encodeURIComponent(article.title)}`, '_blank')}
+                    >
+                      <span>🐦</span> Twitter
+                    </button>
+                    <button
+                      className="bg-gray-600 text-white px-5 py-2.5 rounded-lg hover:bg-gray-700 transition-colors font-medium text-sm flex items-center gap-2"
+                      onClick={() => {
+                        navigator.clipboard.writeText(window.location.href);
+                        alert('Đã sao chép link!');
+                      }}
+                    >
+                      <span>🔗</span> Copy Link
+                    </button>
+                  </div>
+                </div>
               </div>
-            </div>
-          </article>
+            </article>
 
-          {/* Related Articles */}
-          <div className="mt-12">
-            <h2 className="text-2xl font-bold text-gray-900 mb-6">Bài viết liên quan</h2>
-            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
-              {/* This would show related articles - can be implemented later */}
-            </div>
+            {/* Sidebar */}
+            <aside className="lg:col-span-4 mt-8 lg:mt-0">
+              <div className="bg-white rounded-lg shadow-md p-6 sticky top-4">
+                <h3 className="text-lg font-bold text-gray-900 mb-4">Thông tin bài viết</h3>
+                <div className="space-y-3 text-sm">
+                  <div className="flex items-start">
+                    <span className="text-gray-500 w-24 flex-shrink-0">📂 Danh mục:</span>
+                    <span className="text-gray-900 font-medium">{article.category}</span>
+                  </div>
+                  <div className="flex items-start">
+                    <span className="text-gray-500 w-24 flex-shrink-0">📅 Ngày đăng:</span>
+                    <span className="text-gray-900 font-medium">{article.date}</span>
+                  </div>
+                </div>
+              </div>
+            </aside>
           </div>
         </div>
       </div>

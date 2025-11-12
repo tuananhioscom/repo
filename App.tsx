@@ -81,6 +81,8 @@ const App: React.FC = () => {
       // Don't reset detail states, just set page
     } else if (page === 'products' || newFilter === 'true') {
       setCurrentPage('SẢN PHẨM');
+    } else if (page === 'news') {
+      setCurrentPage('TIN TỨC');
     } else if (productId || productSlug) {
       setCurrentPage('PRODUCT_DETAIL');
       setSelectedProductId(productId);

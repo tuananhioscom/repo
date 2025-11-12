@@ -49,6 +49,15 @@ const AdminPage: React.FC<AdminPageProps> = ({ onLogout }) => {
   const [isAdding, setIsAdding] = useState(false);
   const [formTab, setFormTab] = useState<'basic' | 'detail' | 'seo'>('basic');
   const [newsFormTab, setNewsFormTab] = useState<'basic' | 'content' | 'seo'>('basic');
+  
+  // Content builder state for news
+  const [contentBlocks, setContentBlocks] = useState<Array<{
+    id: string;
+    type: 'paragraph' | 'heading' | 'list' | 'image' | 'quote';
+    content: string;
+    listItems?: string[];
+    level?: number; // for heading (2 or 3)
+  }>>([]);
 
   const handleLogout = () => {
     if (confirm('Bạn có chắc muốn đăng xuất?')) {
@@ -137,6 +146,47 @@ const AdminPage: React.FC<AdminPageProps> = ({ onLogout }) => {
     }
   };
 
+  // Convert contentBlocks to HTML
+  const convertBlocksToHTML = (blocks: typeof contentBlocks): string => {
+    return blocks.map(block => {
+      if (block.type === 'paragraph') {
+        return `<p>${block.content}</p>`;
+      } else if (block.type === 'heading') {
+        return `<h${block.level || 2}>${block.content}</h${block.level || 2}>`;
+      } else if (block.type === 'list') {
+        const items = (block.listItems || []).map(item => `<li>${item}</li>`).join('');
+        return `<ul>${items}</ul>`;
+      } else if (block.type === 'image') {
+        return `<img src="${block.content}" alt="" />`;
+      }
+      return '';
+    }).join('\n');
+  };
+
+  // Parse HTML to contentBlocks (simple parser)
+  const parseHTMLToBlocks = (html: string): typeof contentBlocks => {
+    if (!html) return [];
+    
+    const blocks: typeof contentBlocks = [];
+    const tempDiv = document.createElement('div');
+    tempDiv.innerHTML = html;
+    
+    Array.from(tempDiv.children).forEach((el: any) => {
+      if (el.tagName === 'P') {
+        blocks.push({ id: Date.now().toString() + Math.random(), type: 'paragraph', content: el.textContent || '' });
+      } else if (el.tagName === 'H2' || el.tagName === 'H3') {
+        blocks.push({ id: Date.now().toString() + Math.random(), type: 'heading', content: el.textContent || '', level: parseInt(el.tagName[1]) });
+      } else if (el.tagName === 'UL') {
+        const items = Array.from(el.querySelectorAll('li')).map((li: any) => li.textContent || '');
+        blocks.push({ id: Date.now().toString() + Math.random(), type: 'list', content: '', listItems: items });
+      } else if (el.tagName === 'IMG') {
+        blocks.push({ id: Date.now().toString() + Math.random(), type: 'image', content: el.src || '' });
+      }
+    });
+    
+    return blocks.length > 0 ? blocks : [{ id: Date.now().toString(), type: 'paragraph', content: html }];
+  };
+
   const handleEdit = (item: any) => {
     setEditingItem(item);
     setIsAdding(false);
@@ -144,6 +194,12 @@ const AdminPage: React.FC<AdminPageProps> = ({ onLogout }) => {
       setFormTab('basic'); // Reset to basic tab when editing
     } else if (activeTab === 'news') {
       setNewsFormTab('basic'); // Reset to basic tab when editing news
+      // Parse existing content to blocks
+      if (item.content) {
+        setContentBlocks(parseHTMLToBlocks(item.content));
+      } else {
+        setContentBlocks([]);
+      }
     }
   };
 
@@ -177,6 +233,7 @@ const AdminPage: React.FC<AdminPageProps> = ({ onLogout }) => {
         excerpt: '',
         content: ''
       });
+      setContentBlocks([]); // Reset content blocks when adding new
     }
   };
 
@@ -205,11 +262,15 @@ const AdminPage: React.FC<AdminPageProps> = ({ onLogout }) => {
       window.dispatchEvent(new CustomEvent('categoriesUpdated'));
       alert('Đã lưu thành công! Dữ liệu sẽ được giữ lại khi refresh trang.');
     } else if (activeTab === 'news') {
+      // Convert contentBlocks to HTML before saving
+      const htmlContent = convertBlocksToHTML(contentBlocks);
+      const itemToSave = { ...editingItem, content: htmlContent };
+      
       let newNews: NewsItem[];
       if (isAdding) {
-        newNews = [...news, editingItem];
+        newNews = [...news, itemToSave];
       } else {
-        newNews = news.map(n => n.id === editingItem.id ? editingItem : n);
+        newNews = news.map(n => n.id === editingItem.id ? itemToSave : n);
       }
       setNews(newNews);
       saveToLocalStorage('admin_news', newNews);
@@ -224,6 +285,7 @@ const AdminPage: React.FC<AdminPageProps> = ({ onLogout }) => {
   const handleCancel = () => {
     setEditingItem(null);
     setIsAdding(false);
+    setContentBlocks([]); // Reset content blocks when canceling
   };
 
   const handleReset = () => {
@@ -314,188 +376,334 @@ const AdminPage: React.FC<AdminPageProps> = ({ onLogout }) => {
 
           {/* Basic Info Tab */}
           {formTab === 'basic' && (
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              <div>
-                <label className="block text-sm font-medium mb-1">Tên sản phẩm *</label>
-                <input
-                  type="text"
-                  className="w-full border rounded px-3 py-2"
-                  value={editingItem.name || ''}
-                  onChange={(e) => setEditingItem({...editingItem, name: e.target.value})}
-                />
+            <div className="space-y-6">
+              {/* Section 1: Thông tin cơ bản */}
+              <div className="border-l-4 border-blue-500 pl-4">
+                <h4 className="text-lg font-bold text-gray-900 mb-4 flex items-center gap-2">
+                  <span>📦</span> Thông tin cơ bản sản phẩm
+                </h4>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <div>
+                    <label className="block text-sm font-semibold mb-2 text-gray-700">
+                      Tên sản phẩm <span className="text-red-500">*</span>
+                    </label>
+                    <input
+                      type="text"
+                      className="w-full border-2 border-gray-300 rounded-lg px-4 py-2.5 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition"
+                      value={editingItem.name || ''}
+                      onChange={(e) => setEditingItem({...editingItem, name: e.target.value})}
+                      placeholder="Ví dụ: Ly Thủy Tinh In Logo 350ml"
+                    />
+                    <p className="text-xs text-gray-500 mt-1.5">Tên sản phẩm sẽ hiển thị trên website</p>
+                  </div>
+                  <div>
+                    <label className="block text-sm font-semibold mb-2 text-gray-700">
+                      Slug (Đường dẫn URL)
+                    </label>
+                    <input
+                      type="text"
+                      className="w-full border-2 border-gray-300 rounded-lg px-4 py-2.5 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition"
+                      value={editingItem.slug || ''}
+                      onChange={(e) => setEditingItem({...editingItem, slug: e.target.value})}
+                      placeholder="ly-thuy-tinh-in-logo-350ml"
+                    />
+                    <p className="text-xs text-gray-500 mt-1.5">Để trống sẽ tự động tạo từ tên sản phẩm. Dùng dấu gạch ngang (-) thay khoảng trắng</p>
+                  </div>
+                  <div className="md:col-span-2">
+                    <label className="block text-sm font-semibold mb-2 text-gray-700">
+                      URL hình ảnh chính <span className="text-red-500">*</span>
+                    </label>
+                    <input
+                      type="text"
+                      className="w-full border-2 border-gray-300 rounded-lg px-4 py-2.5 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition"
+                      value={editingItem.image || ''}
+                      onChange={(e) => setEditingItem({...editingItem, image: e.target.value})}
+                      placeholder="https://example.com/image.jpg"
+                    />
+                    <p className="text-xs text-gray-500 mt-1.5">Dán link hình ảnh từ internet hoặc upload lên hosting</p>
+                  </div>
+                </div>
               </div>
-              <div>
-                <label className="block text-sm font-medium mb-1">Slug (URL-friendly)</label>
-                <input
-                  type="text"
-                  className="w-full border rounded px-3 py-2"
-                  value={editingItem.slug || ''}
-                  onChange={(e) => setEditingItem({...editingItem, slug: e.target.value})}
-                  placeholder="ly-thuy-tinh-in-logo"
-                />
-                <p className="text-xs text-gray-500 mt-1">Để trống sẽ tự động tạo từ tên sản phẩm</p>
+
+              {/* Section 2: Giá cả */}
+              <div className="border-l-4 border-green-500 pl-4">
+                <h4 className="text-lg font-bold text-gray-900 mb-4 flex items-center gap-2">
+                  <span>💰</span> Thông tin giá cả
+                </h4>
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                  <div>
+                    <label className="block text-sm font-semibold mb-2 text-gray-700">
+                      Giá cũ (không bắt buộc)
+                    </label>
+                    <input
+                      type="text"
+                      className="w-full border-2 border-gray-300 rounded-lg px-4 py-2.5 focus:border-green-500 focus:ring-2 focus:ring-green-200 transition"
+                      value={editingItem.oldPrice || ''}
+                      onChange={(e) => setEditingItem({...editingItem, oldPrice: e.target.value})}
+                      placeholder="45,000đ"
+                    />
+                    <p className="text-xs text-gray-500 mt-1.5">Giá gốc trước khi giảm (để hiển thị gạch ngang)</p>
+                  </div>
+                  <div>
+                    <label className="block text-sm font-semibold mb-2 text-gray-700">
+                      Giá mới <span className="text-red-500">*</span>
+                    </label>
+                    <input
+                      type="text"
+                      className="w-full border-2 border-gray-300 rounded-lg px-4 py-2.5 focus:border-green-500 focus:ring-2 focus:ring-green-200 transition"
+                      value={editingItem.newPrice || ''}
+                      onChange={(e) => setEditingItem({...editingItem, newPrice: e.target.value})}
+                      placeholder="35,000đ"
+                    />
+                    <p className="text-xs text-gray-500 mt-1.5">Giá bán hiện tại của sản phẩm</p>
+                  </div>
+                  <div>
+                    <label className="block text-sm font-semibold mb-2 text-gray-700">
+                      Phần trăm giảm giá (%)
+                    </label>
+                    <input
+                      type="number"
+                      className="w-full border-2 border-gray-300 rounded-lg px-4 py-2.5 focus:border-green-500 focus:ring-2 focus:ring-green-200 transition"
+                      value={editingItem.discount || ''}
+                      onChange={(e) => setEditingItem({...editingItem, discount: parseInt(e.target.value) || undefined})}
+                      placeholder="22"
+                    />
+                    <p className="text-xs text-gray-500 mt-1.5">Ví dụ: 22 = giảm 22%</p>
+                  </div>
+                </div>
               </div>
-              <div>
-                <label className="block text-sm font-medium mb-1">URL hình ảnh chính *</label>
-                <input
-                  type="text"
-                  className="w-full border rounded px-3 py-2"
-                  value={editingItem.image || ''}
-                  onChange={(e) => setEditingItem({...editingItem, image: e.target.value})}
-                />
+
+              {/* Section 3: Phân loại */}
+              <div className="border-l-4 border-purple-500 pl-4">
+                <h4 className="text-lg font-bold text-gray-900 mb-4 flex items-center gap-2">
+                  <span>🏷️</span> Phân loại sản phẩm
+                </h4>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <div>
+                    <label className="block text-sm font-semibold mb-2 text-gray-700">
+                      Danh mục sản phẩm
+                    </label>
+                    <select
+                      className="w-full border-2 border-gray-300 rounded-lg px-4 py-2.5 focus:border-purple-500 focus:ring-2 focus:ring-purple-200 transition"
+                      value={editingItem.category || ''}
+                      onChange={(e) => setEditingItem({...editingItem, category: e.target.value})}
+                    >
+                      <option value="">-- Chọn danh mục --</option>
+                      {categories.map(cat => (
+                        <option key={cat.id} value={cat.slug}>{cat.name}</option>
+                      ))}
+                    </select>
+                    <p className="text-xs text-gray-500 mt-1.5">Chọn danh mục để sản phẩm hiển thị đúng vị trí</p>
+                  </div>
+                  <div className="flex items-center justify-center border-2 border-gray-200 rounded-lg p-4">
+                    <div className="flex items-center gap-3">
+                      <input
+                        type="checkbox"
+                        id="isNew"
+                        checked={editingItem.isNew || false}
+                        onChange={(e) => setEditingItem({...editingItem, isNew: e.target.checked})}
+                        className="w-5 h-5 text-blue-600 border-gray-300 rounded focus:ring-blue-500"
+                      />
+                      <label htmlFor="isNew" className="text-sm font-semibold text-gray-700 cursor-pointer">
+                        🆕 Đánh dấu là sản phẩm mới
+                      </label>
+                    </div>
+                    <p className="text-xs text-gray-500 ml-2">Sản phẩm mới sẽ hiển thị ở section "Sản phẩm mới"</p>
+                  </div>
+                </div>
               </div>
-              <div>
-                <label className="block text-sm font-medium mb-1">Giá cũ (optional)</label>
-                <input
-                  type="text"
-                  className="w-full border rounded px-3 py-2"
-                  value={editingItem.oldPrice || ''}
-                  onChange={(e) => setEditingItem({...editingItem, oldPrice: e.target.value})}
-                  placeholder="45,000đ"
-                />
-              </div>
-              <div>
-                <label className="block text-sm font-medium mb-1">Giá mới *</label>
-                <input
-                  type="text"
-                  className="w-full border rounded px-3 py-2"
-                  value={editingItem.newPrice || ''}
-                  onChange={(e) => setEditingItem({...editingItem, newPrice: e.target.value})}
-                  placeholder="35,000đ"
-                />
-              </div>
-              <div>
-                <label className="block text-sm font-medium mb-1">Giảm giá (%)</label>
-                <input
-                  type="number"
-                  className="w-full border rounded px-3 py-2"
-                  value={editingItem.discount || ''}
-                  onChange={(e) => setEditingItem({...editingItem, discount: parseInt(e.target.value) || undefined})}
-                />
-              </div>
-              <div>
-                <label className="block text-sm font-medium mb-1">Danh mục</label>
-                <select
-                  className="w-full border rounded px-3 py-2"
-                  value={editingItem.category || ''}
-                  onChange={(e) => setEditingItem({...editingItem, category: e.target.value})}
-                >
-                  {categories.map(cat => (
-                    <option key={cat.id} value={cat.slug}>{cat.name}</option>
-                  ))}
-                </select>
-              </div>
-              <div className="flex items-center">
-                <input
-                  type="checkbox"
-                  id="isNew"
-                  checked={editingItem.isNew || false}
-                  onChange={(e) => setEditingItem({...editingItem, isNew: e.target.checked})}
-                  className="mr-2"
-                />
-                <label htmlFor="isNew" className="text-sm font-medium">Sản phẩm mới</label>
-              </div>
-              <div className="md:col-span-2">
-                <label className="block text-sm font-medium mb-1">Mô tả ngắn</label>
-                <textarea
-                  className="w-full border rounded px-3 py-2"
-                  rows={3}
-                  value={editingItem.description || ''}
-                  onChange={(e) => setEditingItem({...editingItem, description: e.target.value})}
-                  placeholder="Mô tả ngắn gọn về sản phẩm..."
-                />
+
+              {/* Section 4: Mô tả */}
+              <div className="border-l-4 border-orange-500 pl-4">
+                <h4 className="text-lg font-bold text-gray-900 mb-4 flex items-center gap-2">
+                  <span>📝</span> Mô tả ngắn
+                </h4>
+                <div>
+                  <label className="block text-sm font-semibold mb-2 text-gray-700">
+                    Mô tả sản phẩm (tùy chọn)
+                  </label>
+                  <textarea
+                    className="w-full border-2 border-gray-300 rounded-lg px-4 py-2.5 focus:border-orange-500 focus:ring-2 focus:ring-orange-200 transition"
+                    rows={4}
+                    value={editingItem.description || ''}
+                    onChange={(e) => setEditingItem({...editingItem, description: e.target.value})}
+                    placeholder="Mô tả ngắn gọn về sản phẩm, đặc điểm nổi bật..."
+                  />
+                  <p className="text-xs text-gray-500 mt-1.5">Mô tả này sẽ hiển thị ở trang danh sách và trang chi tiết sản phẩm</p>
+                </div>
               </div>
             </div>
           )}
 
           {/* Detail & Images Tab */}
           {formTab === 'detail' && (
-            <div className="space-y-4">
-              <div>
-                <label className="block text-sm font-medium mb-1">Nội dung chi tiết (HTML)</label>
-                <textarea
-                  className="w-full border rounded px-3 py-2"
-                  rows={10}
-                  value={editingItem.content || ''}
-                  onChange={(e) => setEditingItem({...editingItem, content: e.target.value})}
-                  placeholder="<p>Mô tả chi tiết sản phẩm...</p>"
-                />
-                <p className="text-xs text-gray-500 mt-1">Có thể sử dụng HTML để định dạng</p>
+            <div className="space-y-6">
+              {/* Section 1: Nội dung chi tiết */}
+              <div className="border-l-4 border-indigo-500 pl-4">
+                <h4 className="text-lg font-bold text-gray-900 mb-4 flex items-center gap-2">
+                  <span>📄</span> Nội dung chi tiết sản phẩm
+                </h4>
+                <div>
+                  <label className="block text-sm font-semibold mb-2 text-gray-700">
+                    Mô tả chi tiết (có thể dùng HTML)
+                  </label>
+                  <textarea
+                    className="w-full border-2 border-gray-300 rounded-lg px-4 py-2.5 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 transition font-mono text-sm"
+                    rows={12}
+                    value={editingItem.content || ''}
+                    onChange={(e) => setEditingItem({...editingItem, content: e.target.value})}
+                    placeholder="<p>Mô tả chi tiết về sản phẩm...</p>&#10;<h2>Đặc điểm nổi bật</h2>&#10;<ul>&#10;  <li>Chất liệu cao cấp</li>&#10;  <li>Bền đẹp</li>&#10;</ul>"
+                  />
+                  <p className="text-xs text-gray-500 mt-1.5">
+                    💡 <strong>Gợi ý:</strong> Có thể sử dụng HTML để định dạng (p, h2, h3, ul, li, strong, em, a, img...)
+                  </p>
+                </div>
               </div>
               
-              <div>
-                <label className="block text-sm font-medium mb-2">Hình ảnh bổ sung (mỗi URL một dòng)</label>
-                <textarea
-                  className="w-full border rounded px-3 py-2"
-                  rows={4}
-                  value={imagesList.join('\n')}
-                  onChange={(e) => {
-                    const imageUrls = e.target.value.split('\n').filter(url => url.trim());
-                    setEditingItem({
-                      ...editingItem,
-                      images: imageUrls.length > 0 ? imageUrls : undefined
-                    });
-                  }}
-                  placeholder="https://example.com/image1.jpg&#10;https://example.com/image2.jpg"
-                />
-                <p className="text-xs text-gray-500 mt-1">Mỗi URL một dòng. Hình đầu tiên sẽ là hình chính.</p>
+              {/* Section 2: Hình ảnh bổ sung */}
+              <div className="border-l-4 border-pink-500 pl-4">
+                <h4 className="text-lg font-bold text-gray-900 mb-4 flex items-center gap-2">
+                  <span>🖼️</span> Hình ảnh bổ sung
+                </h4>
+                <div>
+                  <label className="block text-sm font-semibold mb-2 text-gray-700">
+                    Danh sách hình ảnh (mỗi URL một dòng)
+                  </label>
+                  <textarea
+                    className="w-full border-2 border-gray-300 rounded-lg px-4 py-2.5 focus:border-pink-500 focus:ring-2 focus:ring-pink-200 transition font-mono text-sm"
+                    rows={6}
+                    value={imagesList.join('\n')}
+                    onChange={(e) => {
+                      const imageUrls = e.target.value.split('\n').filter(url => url.trim());
+                      setEditingItem({
+                        ...editingItem,
+                        images: imageUrls.length > 0 ? imageUrls : undefined
+                      });
+                    }}
+                    placeholder="https://example.com/image1.jpg&#10;https://example.com/image2.jpg&#10;https://example.com/image3.jpg"
+                  />
+                  <p className="text-xs text-gray-500 mt-1.5">
+                    💡 <strong>Lưu ý:</strong> Mỗi URL một dòng. Hình ảnh sẽ hiển thị trong gallery ở trang chi tiết sản phẩm
+                  </p>
+                </div>
               </div>
 
-              <div>
-                <label className="block text-sm font-medium mb-2">Thông số kỹ thuật (JSON format)</label>
-                <textarea
-                  className="w-full border rounded px-3 py-2 font-mono text-sm"
-                  rows={6}
-                  value={editingItem.specifications ? JSON.stringify(editingItem.specifications, null, 2) : '{\n  "Chất liệu": "",\n  "Kích thước": "",\n  "Trọng lượng": ""\n}'}
-                  onChange={(e) => {
-                    try {
-                      const specs = JSON.parse(e.target.value);
-                      setEditingItem({...editingItem, specifications: specs});
-                    } catch (e) {
-                      // Invalid JSON, keep as is
-                    }
-                  }}
-                  placeholder='{"Chất liệu": "Thủy tinh", "Kích thước": "350ml"}'
-                />
-                <p className="text-xs text-gray-500 mt-1">Định dạng JSON: {`{"key": "value"}`}</p>
+              {/* Section 3: Thông số kỹ thuật */}
+              <div className="border-l-4 border-teal-500 pl-4">
+                <h4 className="text-lg font-bold text-gray-900 mb-4 flex items-center gap-2">
+                  <span>⚙️</span> Thông số kỹ thuật
+                </h4>
+                <div>
+                  <label className="block text-sm font-semibold mb-2 text-gray-700">
+                    Thông số (định dạng JSON)
+                  </label>
+                  <textarea
+                    className="w-full border-2 border-gray-300 rounded-lg px-4 py-2.5 focus:border-teal-500 focus:ring-2 focus:ring-teal-200 transition font-mono text-xs"
+                    rows={8}
+                    value={editingItem.specifications ? JSON.stringify(editingItem.specifications, null, 2) : '{\n  "Chất liệu": "",\n  "Kích thước": "",\n  "Trọng lượng": ""\n}'}
+                    onChange={(e) => {
+                      try {
+                        const specs = JSON.parse(e.target.value);
+                        setEditingItem({...editingItem, specifications: specs});
+                      } catch (e) {
+                        // Invalid JSON, keep as is
+                      }
+                    }}
+                    placeholder='{\n  "Chất liệu": "Thủy tinh",\n  "Kích thước": "350ml",\n  "Trọng lượng": "200g"\n}'
+                  />
+                  <p className="text-xs text-gray-500 mt-1.5">
+                    💡 <strong>Ví dụ:</strong> {`{"Chất liệu": "Thủy tinh", "Kích thước": "350ml", "Màu sắc": "Trong suốt"}`}
+                  </p>
+                </div>
               </div>
             </div>
           )}
 
           {/* SEO Tab */}
           {formTab === 'seo' && (
-            <div className="space-y-4">
-              <div>
-                <label className="block text-sm font-medium mb-1">Meta Title</label>
-                <input
-                  type="text"
-                  className="w-full border rounded px-3 py-2"
-                  value={editingItem.metaTitle || ''}
-                  onChange={(e) => setEditingItem({...editingItem, metaTitle: e.target.value})}
-                  placeholder="Tên sản phẩm - Xưởng In Đà Nẵng TGP"
-                />
-                <p className="text-xs text-gray-500 mt-1">Tiêu đề hiển thị trên Google (50-60 ký tự)</p>
+            <div className="space-y-6">
+              <div className="bg-yellow-50 border-l-4 border-yellow-400 p-4 rounded-r-lg mb-6">
+                <p className="text-sm text-yellow-800">
+                  <strong>💡 Lưu ý về SEO:</strong> Các thông tin này giúp sản phẩm của bạn xuất hiện tốt hơn trên Google. Nếu để trống, hệ thống sẽ tự động tạo từ thông tin sản phẩm.
+                </p>
               </div>
-              <div>
-                <label className="block text-sm font-medium mb-1">Meta Description</label>
-                <textarea
-                  className="w-full border rounded px-3 py-2"
-                  rows={3}
-                  value={editingItem.metaDescription || ''}
-                  onChange={(e) => setEditingItem({...editingItem, metaDescription: e.target.value})}
-                  placeholder="Mô tả ngắn gọn về sản phẩm cho SEO..."
-                />
-                <p className="text-xs text-gray-500 mt-1">Mô tả hiển thị trên Google (150-160 ký tự)</p>
+
+              {/* Section 1: Meta Title */}
+              <div className="border-l-4 border-yellow-500 pl-4">
+                <h4 className="text-lg font-bold text-gray-900 mb-4 flex items-center gap-2">
+                  <span>🔍</span> Meta Title (Tiêu đề SEO)
+                </h4>
+                <div>
+                  <label className="block text-sm font-semibold mb-2 text-gray-700">
+                    Tiêu đề hiển thị trên Google
+                  </label>
+                  <input
+                    type="text"
+                    className="w-full border-2 border-gray-300 rounded-lg px-4 py-2.5 focus:border-yellow-500 focus:ring-2 focus:ring-yellow-200 transition"
+                    value={editingItem.metaTitle || ''}
+                    onChange={(e) => setEditingItem({...editingItem, metaTitle: e.target.value})}
+                    placeholder="Ly Thủy Tinh In Logo 350ml - Xưởng In Đà Nẵng TGP"
+                    maxLength={60}
+                  />
+                  <div className="flex items-center justify-between mt-1.5">
+                    <p className="text-xs text-gray-500">
+                      💡 Độ dài tối ưu: 50-60 ký tự. Tiêu đề này sẽ hiển thị trên kết quả tìm kiếm Google
+                    </p>
+                    <span className="text-xs font-medium text-gray-600">
+                      {(editingItem.metaTitle || '').length}/60
+                    </span>
+                  </div>
+                </div>
               </div>
-              <div>
-                <label className="block text-sm font-medium mb-1">Keywords (phân cách bằng dấu phẩy)</label>
-                <input
-                  type="text"
-                  className="w-full border rounded px-3 py-2"
-                  value={editingItem.keywords || ''}
-                  onChange={(e) => setEditingItem({...editingItem, keywords: e.target.value})}
-                  placeholder="ly thủy tinh, in logo, quà tặng doanh nghiệp"
-                />
+
+              {/* Section 2: Meta Description */}
+              <div className="border-l-4 border-yellow-500 pl-4">
+                <h4 className="text-lg font-bold text-gray-900 mb-4 flex items-center gap-2">
+                  <span>📋</span> Meta Description (Mô tả SEO)
+                </h4>
+                <div>
+                  <label className="block text-sm font-semibold mb-2 text-gray-700">
+                    Mô tả hiển thị trên Google
+                  </label>
+                  <textarea
+                    className="w-full border-2 border-gray-300 rounded-lg px-4 py-2.5 focus:border-yellow-500 focus:ring-2 focus:ring-yellow-200 transition"
+                    rows={4}
+                    value={editingItem.metaDescription || ''}
+                    onChange={(e) => setEditingItem({...editingItem, metaDescription: e.target.value})}
+                    placeholder="Sản phẩm ly thủy tinh in logo cao cấp, chất lượng tốt, giá cả hợp lý. Phù hợp làm quà tặng doanh nghiệp..."
+                    maxLength={160}
+                  />
+                  <div className="flex items-center justify-between mt-1.5">
+                    <p className="text-xs text-gray-500">
+                      💡 Độ dài tối ưu: 150-160 ký tự. Mô tả này sẽ hiển thị dưới tiêu đề trên Google
+                    </p>
+                    <span className="text-xs font-medium text-gray-600">
+                      {(editingItem.metaDescription || '').length}/160
+                    </span>
+                  </div>
+                </div>
+              </div>
+
+              {/* Section 3: Keywords */}
+              <div className="border-l-4 border-yellow-500 pl-4">
+                <h4 className="text-lg font-bold text-gray-900 mb-4 flex items-center gap-2">
+                  <span>🏷️</span> Keywords (Từ khóa)
+                </h4>
+                <div>
+                  <label className="block text-sm font-semibold mb-2 text-gray-700">
+                    Từ khóa tìm kiếm (phân cách bằng dấu phẩy)
+                  </label>
+                  <input
+                    type="text"
+                    className="w-full border-2 border-gray-300 rounded-lg px-4 py-2.5 focus:border-yellow-500 focus:ring-2 focus:ring-yellow-200 transition"
+                    value={editingItem.keywords || ''}
+                    onChange={(e) => setEditingItem({...editingItem, keywords: e.target.value})}
+                    placeholder="ly thủy tinh, in logo, quà tặng doanh nghiệp, xưởng in đà nẵng"
+                  />
+                  <p className="text-xs text-gray-500 mt-1.5">
+                    💡 Nhập các từ khóa liên quan đến sản phẩm, phân cách bằng dấu phẩy. Ví dụ: "ly thủy tinh, in logo, quà tặng"
+                  </p>
+                </div>
               </div>
             </div>
           )}
@@ -610,118 +818,378 @@ const AdminPage: React.FC<AdminPageProps> = ({ onLogout }) => {
 
           {/* Basic Info Tab */}
           {newsFormTab === 'basic' && (
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              <div className="md:col-span-2">
-                <label className="block text-sm font-medium mb-1">Tiêu đề *</label>
-                <input
-                  type="text"
-                  className="w-full border rounded px-3 py-2"
-                  value={editingItem.title || ''}
-                  onChange={(e) => setEditingItem({...editingItem, title: e.target.value})}
-                />
-              </div>
-              <div>
-                <label className="block text-sm font-medium mb-1">Slug (URL-friendly)</label>
-                <input
-                  type="text"
-                  className="w-full border rounded px-3 py-2"
-                  value={editingItem.slug || ''}
-                  onChange={(e) => setEditingItem({...editingItem, slug: e.target.value})}
-                  placeholder="ten-bai-viet"
-                />
-                <p className="text-xs text-gray-500 mt-1">Để trống sẽ tự động tạo từ tiêu đề</p>
-              </div>
-              <div>
-                <label className="block text-sm font-medium mb-1">URL hình ảnh *</label>
-                <input
-                  type="text"
-                  className="w-full border rounded px-3 py-2"
-                  value={editingItem.image || ''}
-                  onChange={(e) => setEditingItem({...editingItem, image: e.target.value})}
-                />
-              </div>
-              <div>
-                <label className="block text-sm font-medium mb-1">Danh mục</label>
-                <input
-                  type="text"
-                  className="w-full border rounded px-3 py-2"
-                  value={editingItem.category || ''}
-                  onChange={(e) => setEditingItem({...editingItem, category: e.target.value})}
-                  placeholder="Tin tức"
-                />
-              </div>
-              <div>
-                <label className="block text-sm font-medium mb-1">Ngày</label>
-                <input
-                  type="text"
-                  className="w-full border rounded px-3 py-2"
-                  value={editingItem.date || ''}
-                  onChange={(e) => setEditingItem({...editingItem, date: e.target.value})}
-                  placeholder="15/01/2024"
-                />
-              </div>
-              <div className="md:col-span-2">
-                <label className="block text-sm font-medium mb-1">Mô tả ngắn (Excerpt)</label>
-                <textarea
-                  className="w-full border rounded px-3 py-2"
-                  rows={3}
-                  value={editingItem.excerpt || ''}
-                  onChange={(e) => setEditingItem({...editingItem, excerpt: e.target.value})}
-                  placeholder="Mô tả ngắn gọn về bài viết..."
-                />
+            <div className="space-y-6">
+              {/* Section 1: Thông tin cơ bản */}
+              <div className="border-l-4 border-blue-500 pl-4">
+                <h4 className="text-lg font-bold text-gray-900 mb-4 flex items-center gap-2">
+                  <span>📰</span> Thông tin cơ bản bài viết
+                </h4>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <div className="md:col-span-2">
+                    <label className="block text-sm font-semibold mb-2 text-gray-700">
+                      Tiêu đề bài viết <span className="text-red-500">*</span>
+                    </label>
+                    <input
+                      type="text"
+                      className="w-full border-2 border-gray-300 rounded-lg px-4 py-2.5 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition"
+                      value={editingItem.title || ''}
+                      onChange={(e) => setEditingItem({...editingItem, title: e.target.value})}
+                      placeholder="Ví dụ: Top 10 Mẫu Ly Thủy Tinh In Logo Đẹp Nhất 2024"
+                    />
+                    <p className="text-xs text-gray-500 mt-1.5">Tiêu đề sẽ hiển thị lớn ở đầu bài viết</p>
+                  </div>
+                  <div>
+                    <label className="block text-sm font-semibold mb-2 text-gray-700">
+                      Slug (Đường dẫn URL)
+                    </label>
+                    <input
+                      type="text"
+                      className="w-full border-2 border-gray-300 rounded-lg px-4 py-2.5 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition"
+                      value={editingItem.slug || ''}
+                      onChange={(e) => setEditingItem({...editingItem, slug: e.target.value})}
+                      placeholder="top-10-ly-thuy-tinh-in-logo-2024"
+                    />
+                    <p className="text-xs text-gray-500 mt-1.5">Để trống sẽ tự động tạo từ tiêu đề. Dùng dấu gạch ngang (-) thay khoảng trắng</p>
+                  </div>
+                  <div>
+                    <label className="block text-sm font-semibold mb-2 text-gray-700">
+                      URL hình ảnh đại diện <span className="text-red-500">*</span>
+                    </label>
+                    <input
+                      type="text"
+                      className="w-full border-2 border-gray-300 rounded-lg px-4 py-2.5 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition"
+                      value={editingItem.image || ''}
+                      onChange={(e) => setEditingItem({...editingItem, image: e.target.value})}
+                      placeholder="https://example.com/image.jpg"
+                    />
+                    <p className="text-xs text-gray-500 mt-1.5">Hình ảnh sẽ hiển thị ở đầu bài viết và trong danh sách tin tức</p>
+                  </div>
+                  <div>
+                    <label className="block text-sm font-semibold mb-2 text-gray-700">
+                      Danh mục bài viết
+                    </label>
+                    <input
+                      type="text"
+                      className="w-full border-2 border-gray-300 rounded-lg px-4 py-2.5 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition"
+                      value={editingItem.category || ''}
+                      onChange={(e) => setEditingItem({...editingItem, category: e.target.value})}
+                      placeholder="Tin tức, Sản phẩm, Xu hướng..."
+                    />
+                    <p className="text-xs text-gray-500 mt-1.5">Ví dụ: "Tin tức", "Sản phẩm", "Xu hướng"</p>
+                  </div>
+                  <div>
+                    <label className="block text-sm font-semibold mb-2 text-gray-700">
+                      Ngày đăng bài
+                    </label>
+                    <input
+                      type="text"
+                      className="w-full border-2 border-gray-300 rounded-lg px-4 py-2.5 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition"
+                      value={editingItem.date || ''}
+                      onChange={(e) => setEditingItem({...editingItem, date: e.target.value})}
+                      placeholder="15/01/2024"
+                    />
+                    <p className="text-xs text-gray-500 mt-1.5">Định dạng: DD/MM/YYYY (ví dụ: 15/01/2024)</p>
+                  </div>
+                  <div className="md:col-span-2">
+                    <label className="block text-sm font-semibold mb-2 text-gray-700">
+                      Mô tả ngắn (Excerpt)
+                    </label>
+                    <textarea
+                      className="w-full border-2 border-gray-300 rounded-lg px-4 py-2.5 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition"
+                      rows={4}
+                      value={editingItem.excerpt || ''}
+                      onChange={(e) => setEditingItem({...editingItem, excerpt: e.target.value})}
+                      placeholder="Mô tả ngắn gọn về bài viết, tóm tắt nội dung chính..."
+                    />
+                    <p className="text-xs text-gray-500 mt-1.5">Mô tả này sẽ hiển thị ở trang danh sách tin tức và đầu bài viết</p>
+                  </div>
+                </div>
               </div>
             </div>
           )}
 
           {/* Content Tab */}
           {newsFormTab === 'content' && (
-            <div>
-              <label className="block text-sm font-medium mb-1">Nội dung chi tiết (HTML)</label>
-              <textarea
-                className="w-full border rounded px-3 py-2"
-                rows={15}
-                value={editingItem.content || ''}
-                onChange={(e) => setEditingItem({...editingItem, content: e.target.value})}
-                placeholder="<p>Nội dung bài viết...</p>"
-              />
-              <p className="text-xs text-gray-500 mt-1">Có thể sử dụng HTML để định dạng</p>
+            <div className="space-y-6">
+              <div className="border-l-4 border-indigo-500 pl-4">
+                <div className="flex items-center justify-between mb-4">
+                  <h4 className="text-lg font-bold text-gray-900 flex items-center gap-2">
+                    <span>📝</span> Nội dung chi tiết bài viết
+                  </h4>
+                  <div className="flex gap-2">
+                    <button
+                      type="button"
+                      onClick={() => {
+                        const newBlock = { id: Date.now().toString(), type: 'paragraph' as const, content: '' };
+                        setContentBlocks([...contentBlocks, newBlock]);
+                      }}
+                      className="bg-blue-500 text-white px-4 py-2 rounded-lg text-sm hover:bg-blue-600 transition"
+                    >
+                      + Đoạn văn
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => {
+                        const newBlock = { id: Date.now().toString(), type: 'heading' as const, content: '', level: 2 };
+                        setContentBlocks([...contentBlocks, newBlock]);
+                      }}
+                      className="bg-green-500 text-white px-4 py-2 rounded-lg text-sm hover:bg-green-600 transition"
+                    >
+                      + Tiêu đề
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => {
+                        const newBlock = { id: Date.now().toString(), type: 'list' as const, content: '', listItems: [''] };
+                        setContentBlocks([...contentBlocks, newBlock]);
+                      }}
+                      className="bg-purple-500 text-white px-4 py-2 rounded-lg text-sm hover:bg-purple-600 transition"
+                    >
+                      + Danh sách
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => {
+                        const newBlock = { id: Date.now().toString(), type: 'image' as const, content: '' };
+                        setContentBlocks([...contentBlocks, newBlock]);
+                      }}
+                      className="bg-pink-500 text-white px-4 py-2 rounded-lg text-sm hover:bg-pink-600 transition"
+                    >
+                      + Hình ảnh
+                    </button>
+                  </div>
+                </div>
+
+                {contentBlocks.length === 0 ? (
+                  <div className="bg-gray-50 border-2 border-dashed border-gray-300 rounded-lg p-8 text-center">
+                    <p className="text-gray-500 mb-2">Chưa có nội dung nào</p>
+                    <p className="text-sm text-gray-400">Nhấn các nút phía trên để thêm phần tử nội dung</p>
+                  </div>
+                ) : (
+                  <div className="space-y-4">
+                    {contentBlocks.map((block, index) => (
+                      <div key={block.id} className="bg-gray-50 border-2 border-gray-200 rounded-lg p-4">
+                        <div className="flex items-center justify-between mb-3">
+                          <span className="text-xs font-semibold text-gray-600 bg-white px-2 py-1 rounded">
+                            {block.type === 'paragraph' && '📄 Đoạn văn'}
+                            {block.type === 'heading' && `📌 Tiêu đề ${block.level === 2 ? 'lớn' : 'nhỏ'}`}
+                            {block.type === 'list' && '📋 Danh sách'}
+                            {block.type === 'image' && '🖼️ Hình ảnh'}
+                            {block.type === 'quote' && '💬 Trích dẫn'}
+                          </span>
+                          <button
+                            type="button"
+                            onClick={() => {
+                              const newBlocks = contentBlocks.filter(b => b.id !== block.id);
+                              setContentBlocks(newBlocks);
+                            }}
+                            className="text-red-500 hover:text-red-700 text-sm font-medium"
+                          >
+                            ✕ Xóa
+                          </button>
+                        </div>
+
+                        {block.type === 'paragraph' && (
+                          <div>
+                            <label className="block text-sm font-medium mb-2 text-gray-700">
+                              Nội dung đoạn văn
+                            </label>
+                            <textarea
+                              className="w-full border-2 border-gray-300 rounded-lg px-4 py-2.5 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition"
+                              rows={4}
+                              value={block.content}
+                              onChange={(e) => {
+                                const newBlocks = [...contentBlocks];
+                                newBlocks[index].content = e.target.value;
+                                setContentBlocks(newBlocks);
+                              }}
+                              placeholder="Nhập nội dung đoạn văn..."
+                            />
+                          </div>
+                        )}
+
+                        {block.type === 'heading' && (
+                          <div className="space-y-3">
+                            <div>
+                              <label className="block text-sm font-medium mb-2 text-gray-700">
+                                Cấp độ tiêu đề
+                              </label>
+                              <select
+                                className="w-full border-2 border-gray-300 rounded-lg px-4 py-2.5 focus:border-green-500 focus:ring-2 focus:ring-green-200 transition"
+                                value={block.level || 2}
+                                onChange={(e) => {
+                                  const newBlocks = [...contentBlocks];
+                                  newBlocks[index].level = parseInt(e.target.value);
+                                  setContentBlocks(newBlocks);
+                                }}
+                              >
+                                <option value={2}>Tiêu đề lớn (H2)</option>
+                                <option value={3}>Tiêu đề nhỏ (H3)</option>
+                              </select>
+                            </div>
+                            <div>
+                              <label className="block text-sm font-medium mb-2 text-gray-700">
+                                Nội dung tiêu đề
+                              </label>
+                              <input
+                                type="text"
+                                className="w-full border-2 border-gray-300 rounded-lg px-4 py-2.5 focus:border-green-500 focus:ring-2 focus:ring-green-200 transition"
+                                value={block.content}
+                                onChange={(e) => {
+                                  const newBlocks = [...contentBlocks];
+                                  newBlocks[index].content = e.target.value;
+                                  setContentBlocks(newBlocks);
+                                }}
+                                placeholder="Nhập tiêu đề..."
+                              />
+                            </div>
+                          </div>
+                        )}
+
+                        {block.type === 'list' && (
+                          <div>
+                            <label className="block text-sm font-medium mb-2 text-gray-700">
+                              Các mục trong danh sách (mỗi dòng một mục)
+                            </label>
+                            <textarea
+                              className="w-full border-2 border-gray-300 rounded-lg px-4 py-2.5 focus:border-purple-500 focus:ring-2 focus:ring-purple-200 transition"
+                              rows={6}
+                              value={(block.listItems || []).join('\n')}
+                              onChange={(e) => {
+                                const newBlocks = [...contentBlocks];
+                                newBlocks[index].listItems = e.target.value.split('\n').filter(item => item.trim());
+                                setContentBlocks(newBlocks);
+                              }}
+                              placeholder="Mục 1&#10;Mục 2&#10;Mục 3"
+                            />
+                            <p className="text-xs text-gray-500 mt-1.5">Mỗi dòng là một mục trong danh sách</p>
+                          </div>
+                        )}
+
+                        {block.type === 'image' && (
+                          <div>
+                            <label className="block text-sm font-medium mb-2 text-gray-700">
+                              URL hình ảnh
+                            </label>
+                            <input
+                              type="text"
+                              className="w-full border-2 border-gray-300 rounded-lg px-4 py-2.5 focus:border-pink-500 focus:ring-2 focus:ring-pink-200 transition"
+                              value={block.content}
+                              onChange={(e) => {
+                                const newBlocks = [...contentBlocks];
+                                newBlocks[index].content = e.target.value;
+                                setContentBlocks(newBlocks);
+                              }}
+                              placeholder="https://example.com/image.jpg"
+                            />
+                            {block.content && (
+                              <div className="mt-3">
+                                <img src={block.content} alt="Preview" className="max-w-full h-auto rounded-lg border border-gray-300" onError={(e) => {
+                                  (e.target as HTMLImageElement).style.display = 'none';
+                                }} />
+                              </div>
+                            )}
+                          </div>
+                        )}
+                      </div>
+                    ))}
+                  </div>
+                )}
+
+                <div className="mt-4 p-4 bg-blue-50 border-l-4 border-blue-400 rounded-r-lg">
+                  <p className="text-sm text-blue-800">
+                    💡 <strong>Hướng dẫn:</strong> Thêm các phần tử nội dung bằng các nút phía trên. Bạn có thể sắp xếp lại thứ tự bằng cách xóa và thêm lại.
+                  </p>
+                </div>
+              </div>
             </div>
           )}
 
           {/* SEO Tab */}
           {newsFormTab === 'seo' && (
-            <div className="space-y-4">
-              <div>
-                <label className="block text-sm font-medium mb-1">Meta Title</label>
-                <input
-                  type="text"
-                  className="w-full border rounded px-3 py-2"
-                  value={editingItem.metaTitle || ''}
-                  onChange={(e) => setEditingItem({...editingItem, metaTitle: e.target.value})}
-                  placeholder="Tiêu đề bài viết - Xưởng In Đà Nẵng TGP"
-                />
-                <p className="text-xs text-gray-500 mt-1">Tiêu đề hiển thị trên Google (50-60 ký tự)</p>
+            <div className="space-y-6">
+              <div className="bg-yellow-50 border-l-4 border-yellow-400 p-4 rounded-r-lg mb-6">
+                <p className="text-sm text-yellow-800">
+                  <strong>💡 Lưu ý về SEO:</strong> Các thông tin này giúp bài viết của bạn xuất hiện tốt hơn trên Google. Nếu để trống, hệ thống sẽ tự động tạo từ thông tin bài viết.
+                </p>
               </div>
-              <div>
-                <label className="block text-sm font-medium mb-1">Meta Description</label>
-                <textarea
-                  className="w-full border rounded px-3 py-2"
-                  rows={3}
-                  value={editingItem.metaDescription || ''}
-                  onChange={(e) => setEditingItem({...editingItem, metaDescription: e.target.value})}
-                  placeholder="Mô tả ngắn gọn về bài viết cho SEO..."
-                />
-                <p className="text-xs text-gray-500 mt-1">Mô tả hiển thị trên Google (150-160 ký tự)</p>
+
+              {/* Section 1: Meta Title */}
+              <div className="border-l-4 border-yellow-500 pl-4">
+                <h4 className="text-lg font-bold text-gray-900 mb-4 flex items-center gap-2">
+                  <span>🔍</span> Meta Title (Tiêu đề SEO)
+                </h4>
+                <div>
+                  <label className="block text-sm font-semibold mb-2 text-gray-700">
+                    Tiêu đề hiển thị trên Google
+                  </label>
+                  <input
+                    type="text"
+                    className="w-full border-2 border-gray-300 rounded-lg px-4 py-2.5 focus:border-yellow-500 focus:ring-2 focus:ring-yellow-200 transition"
+                    value={editingItem.metaTitle || ''}
+                    onChange={(e) => setEditingItem({...editingItem, metaTitle: e.target.value})}
+                    placeholder="Top 10 Mẫu Ly Thủy Tinh In Logo 2024 - Xưởng In Đà Nẵng TGP"
+                    maxLength={60}
+                  />
+                  <div className="flex items-center justify-between mt-1.5">
+                    <p className="text-xs text-gray-500">
+                      💡 Độ dài tối ưu: 50-60 ký tự. Tiêu đề này sẽ hiển thị trên kết quả tìm kiếm Google
+                    </p>
+                    <span className="text-xs font-medium text-gray-600">
+                      {(editingItem.metaTitle || '').length}/60
+                    </span>
+                  </div>
+                </div>
               </div>
-              <div>
-                <label className="block text-sm font-medium mb-1">Keywords (phân cách bằng dấu phẩy)</label>
-                <input
-                  type="text"
-                  className="w-full border rounded px-3 py-2"
-                  value={editingItem.keywords || ''}
-                  onChange={(e) => setEditingItem({...editingItem, keywords: e.target.value})}
-                  placeholder="tin tức, xưởng in, quà tặng doanh nghiệp"
-                />
+
+              {/* Section 2: Meta Description */}
+              <div className="border-l-4 border-yellow-500 pl-4">
+                <h4 className="text-lg font-bold text-gray-900 mb-4 flex items-center gap-2">
+                  <span>📋</span> Meta Description (Mô tả SEO)
+                </h4>
+                <div>
+                  <label className="block text-sm font-semibold mb-2 text-gray-700">
+                    Mô tả hiển thị trên Google
+                  </label>
+                  <textarea
+                    className="w-full border-2 border-gray-300 rounded-lg px-4 py-2.5 focus:border-yellow-500 focus:ring-2 focus:ring-yellow-200 transition"
+                    rows={4}
+                    value={editingItem.metaDescription || ''}
+                    onChange={(e) => setEditingItem({...editingItem, metaDescription: e.target.value})}
+                    placeholder="Khám phá 10 mẫu ly thủy tinh in logo được yêu thích nhất năm 2024. Chất lượng cao, giá cả hợp lý, phù hợp làm quà tặng doanh nghiệp..."
+                    maxLength={160}
+                  />
+                  <div className="flex items-center justify-between mt-1.5">
+                    <p className="text-xs text-gray-500">
+                      💡 Độ dài tối ưu: 150-160 ký tự. Mô tả này sẽ hiển thị dưới tiêu đề trên Google
+                    </p>
+                    <span className="text-xs font-medium text-gray-600">
+                      {(editingItem.metaDescription || '').length}/160
+                    </span>
+                  </div>
+                </div>
+              </div>
+
+              {/* Section 3: Keywords */}
+              <div className="border-l-4 border-yellow-500 pl-4">
+                <h4 className="text-lg font-bold text-gray-900 mb-4 flex items-center gap-2">
+                  <span>🏷️</span> Keywords (Từ khóa)
+                </h4>
+                <div>
+                  <label className="block text-sm font-semibold mb-2 text-gray-700">
+                    Từ khóa tìm kiếm (phân cách bằng dấu phẩy)
+                  </label>
+                  <input
+                    type="text"
+                    className="w-full border-2 border-gray-300 rounded-lg px-4 py-2.5 focus:border-yellow-500 focus:ring-2 focus:ring-yellow-200 transition"
+                    value={editingItem.keywords || ''}
+                    onChange={(e) => setEditingItem({...editingItem, keywords: e.target.value})}
+                    placeholder="ly thủy tinh, in logo, quà tặng doanh nghiệp, tin tức"
+                  />
+                  <p className="text-xs text-gray-500 mt-1.5">
+                    💡 Nhập các từ khóa liên quan đến bài viết, phân cách bằng dấu phẩy. Ví dụ: "ly thủy tinh, in logo, tin tức"
+                  </p>
+                </div>
               </div>
             </div>
           )}

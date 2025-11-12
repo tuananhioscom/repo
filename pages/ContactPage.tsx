@@ -39,7 +39,7 @@ const ContactPage: React.FC = () => {
                 </div>
                 <div className="lg:w-1/2 mt-8 lg:mt-0">
                     <iframe 
-                        src="https://www.google.com/maps?q=126-128+Quách+Xân,+Phường+Hòa+Khánh,+TP+Đà+Nẵng&output=embed"
+                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3834.1234567890123!2d108.1677978!3d16.0412197!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3142196a3d0b922b%3A0x7ca9624f3c79f554!2zMTI2IFF1w6FjaCBYw6JuLCBIb8OgIEFuLCBMacOqbiBDaGnhu4N1LCDEkMOgIE7hurVuZyA1NTAwMDAsIFZpZXRuYW0!3b1!8m2!3d16.0412821!4d108.1681766!16s%2Fg%2F11kb0n4wy7!5e0!3m2!1svi!2s!4v1234567890123!5m2!1svi!2s"
                         width="100%" 
                         height="450" 
                         style={{border:0}} 

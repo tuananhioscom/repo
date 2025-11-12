@@ -45,9 +45,10 @@ const NewsSection: React.FC = () => {
                     href="#" 
                     onClick={(e) => {
                         e.preventDefault();
-                        window.location.href = '/#news';
+                        // Navigate to news list page
+                        window.location.href = '/?page=news';
                     }}
-                    className="text-sm font-semibold text-gray-600 hover:text-primary-blue flex items-center"
+                    className="text-sm font-semibold text-gray-600 hover:text-primary-blue flex items-center cursor-pointer"
                 >
                     Xem thêm <ChevronRightIcon />
                 </a>
