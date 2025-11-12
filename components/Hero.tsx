@@ -13,7 +13,7 @@ const Hero: React.FC = () => {
                 <p className="text-white mt-2 text-lg drop-shadow-md">GIẢM 5 TRIỆU</p>
                 <p className="text-white text-sm drop-shadow-md">HÀNG CHÍNH HÃNG - TRẢ GÓP 0%</p>
                 <button className="mt-4 bg-yellow-400 text-gray-900 font-bold py-2 px-6 rounded-full hover:bg-yellow-500 transition duration-300">
-                    MUA NGAY >
+                    MUA NGAY &gt;
                 </button>
             </div>
 
