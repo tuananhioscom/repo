@@ -12,7 +12,7 @@ const Breadcrumb: React.FC<BreadcrumbProps> = ({ items }) => {
                     <li key={index} className="flex items-center">
                         {index > 0 && <span className="mx-2">/</span>}
                         {/* The link is disabled for now, as we use state-based navigation */}
-                        <span className={index === items.length - 1 ? 'text-gray-800' : 'text-primary-red'}>{item.label}</span>
+                        <span className={index === items.length - 1 ? 'text-gray-800' : 'text-primary-blue'}>{item.label}</span>
                     </li>
                 ))}
             </ol>

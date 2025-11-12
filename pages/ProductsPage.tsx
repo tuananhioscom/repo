@@ -40,7 +40,7 @@ const ProductsPage: React.FC = () => {
 
              <div className="flex justify-center mt-8">
                 <nav className="flex space-x-2" aria-label="Pagination">
-                    <span aria-current="page" className="px-4 py-2 bg-primary-red text-white rounded cursor-default">1</span>
+                    <span aria-current="page" className="px-4 py-2 bg-primary-orange text-white rounded cursor-default">1</span>
                     <a href="#" className="px-4 py-2 bg-white border border-gray-300 rounded hover:bg-gray-100">2</a>
                     <a href="#" className="px-4 py-2 bg-white border border-gray-300 rounded hover:bg-gray-100">&raquo;</a>
                 </nav>
