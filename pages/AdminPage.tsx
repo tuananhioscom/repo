@@ -482,6 +482,108 @@ const AdminPage: React.FC<AdminPageProps> = ({ onLogout }) => {
     URL.revokeObjectURL(url);
   };
 
+  // Export ALL data from localStorage (including images as Base64)
+  const handleExportAllData = () => {
+    const allData = {
+      products: JSON.parse(localStorage.getItem('admin_products') || '[]'),
+      categories: JSON.parse(localStorage.getItem('admin_categories') || '[]'),
+      news: JSON.parse(localStorage.getItem('admin_news') || '[]'),
+      reviews: JSON.parse(localStorage.getItem('customer_reviews') || '[]'),
+      marqueeText: localStorage.getItem('marquee_banner_text') || '',
+      partnerLogos: JSON.parse(localStorage.getItem('partner_logos') || '[]'),
+      emailSubscriptions: JSON.parse(localStorage.getItem('email_subscriptions') || '[]'),
+      contactMessages: JSON.parse(localStorage.getItem('contact_messages') || '[]'),
+      exportDate: new Date().toISOString(),
+      note: 'Dữ liệu này bao gồm tất cả sản phẩm, danh mục, tin tức, đánh giá, logo đối tác, và hình ảnh (dưới dạng Base64). Import lại file này để restore dữ liệu.'
+    };
+
+    const blob = new Blob([JSON.stringify(allData, null, 2)], { type: 'application/json' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `backup_all_data_${new Date().toISOString().split('T')[0]}.json`;
+    a.click();
+    URL.revokeObjectURL(url);
+    alert('✅ Đã export tất cả dữ liệu! File này bao gồm cả hình ảnh (Base64). Lưu file này để backup và có thể import lại sau.');
+  };
+
+  // Import data from JSON file
+  const handleImportData = () => {
+    const input = document.createElement('input');
+    input.type = 'file';
+    input.accept = '.json';
+    
+    input.onchange = (e: any) => {
+      const file = e.target.files?.[0];
+      if (!file) return;
+
+      const reader = new FileReader();
+      reader.onload = (event) => {
+        try {
+          const importedData = JSON.parse(event.target?.result as string);
+          
+          if (!confirm('Bạn có chắc muốn import dữ liệu này? Dữ liệu hiện tại sẽ bị thay thế!')) {
+            return;
+          }
+
+          // Import data
+          if (importedData.products) {
+            localStorage.setItem('admin_products', JSON.stringify(importedData.products));
+            setProducts(importedData.products);
+            window.dispatchEvent(new CustomEvent('productsUpdated'));
+          }
+          
+          if (importedData.categories) {
+            localStorage.setItem('admin_categories', JSON.stringify(importedData.categories));
+            setCategories(importedData.categories);
+            window.dispatchEvent(new CustomEvent('categoriesUpdated'));
+          }
+          
+          if (importedData.news) {
+            localStorage.setItem('admin_news', JSON.stringify(importedData.news));
+            setNews(importedData.news);
+            window.dispatchEvent(new CustomEvent('newsUpdated'));
+          }
+          
+          if (importedData.reviews) {
+            localStorage.setItem('customer_reviews', JSON.stringify(importedData.reviews));
+            setReviews(importedData.reviews);
+            window.dispatchEvent(new CustomEvent('reviewsUpdated'));
+          }
+          
+          if (importedData.marqueeText !== undefined) {
+            localStorage.setItem('marquee_banner_text', importedData.marqueeText);
+            setMarqueeText(importedData.marqueeText);
+            window.dispatchEvent(new CustomEvent('marqueeUpdated'));
+          }
+          
+          if (importedData.partnerLogos) {
+            localStorage.setItem('partner_logos', JSON.stringify(importedData.partnerLogos));
+            setPartnerLogos(importedData.partnerLogos);
+            window.dispatchEvent(new CustomEvent('partnerLogosUpdated'));
+          }
+          
+          if (importedData.emailSubscriptions) {
+            localStorage.setItem('email_subscriptions', JSON.stringify(importedData.emailSubscriptions));
+          }
+          
+          if (importedData.contactMessages) {
+            localStorage.setItem('contact_messages', JSON.stringify(importedData.contactMessages));
+          }
+
+          alert('✅ Import dữ liệu thành công! Trang sẽ tự động reload để hiển thị dữ liệu mới.');
+          window.location.reload();
+        } catch (error) {
+          alert('❌ Lỗi: File JSON không hợp lệ hoặc định dạng sai!');
+          console.error('Import error:', error);
+        }
+      };
+      reader.readAsText(file);
+    };
+    
+    input.click();
+  };
+
   const renderForm = () => {
     if (!editingItem) return null;
 
@@ -2031,7 +2133,7 @@ const AdminPage: React.FC<AdminPageProps> = ({ onLogout }) => {
             </button>
           </div>
 
-          <div className="flex gap-2">
+          <div className="flex gap-2 flex-wrap">
             <button
               onClick={handleAdd}
               className="bg-primary-orange text-white px-6 py-2 rounded hover:bg-primary-orange-dark"
@@ -2042,7 +2144,21 @@ const AdminPage: React.FC<AdminPageProps> = ({ onLogout }) => {
               onClick={handleDownloadJSON}
               className="bg-green-600 text-white px-6 py-2 rounded hover:bg-green-700"
             >
-              📥 Tải JSON
+              📥 Tải JSON (Tab hiện tại)
+            </button>
+            <button
+              onClick={handleExportAllData}
+              className="bg-blue-600 text-white px-6 py-2 rounded hover:bg-blue-700"
+              title="Export tất cả dữ liệu bao gồm hình ảnh (Base64) để backup"
+            >
+              💾 Export Tất Cả Dữ Liệu
+            </button>
+            <button
+              onClick={handleImportData}
+              className="bg-purple-600 text-white px-6 py-2 rounded hover:bg-purple-700"
+              title="Import dữ liệu từ file JSON đã export trước đó"
+            >
+              📤 Import Dữ Liệu
             </button>
             <button
               onClick={handleReset}
@@ -2050,6 +2166,16 @@ const AdminPage: React.FC<AdminPageProps> = ({ onLogout }) => {
             >
               🔄 Reset về dữ liệu gốc
             </button>
+          </div>
+          
+          {/* Warning about localStorage and Git */}
+          <div className="mt-4 p-4 bg-yellow-50 border-l-4 border-yellow-400 rounded">
+            <p className="text-sm text-yellow-800">
+              <strong>⚠️ Lưu ý quan trọng:</strong> Dữ liệu trong localStorage (sản phẩm, tin tức, hình ảnh) 
+              <strong> KHÔNG tự động đi theo Git</strong> vì nó chỉ lưu trên trình duyệt. 
+              Để backup và đẩy lên Git, hãy sử dụng nút <strong>"💾 Export Tất Cả Dữ Liệu"</strong> 
+              để tải file JSON, sau đó commit file đó vào Git repository.
+            </p>
           </div>
         </div>
 
