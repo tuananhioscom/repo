@@ -13,7 +13,13 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
         <>
             <div className="bg-white border border-gray-200 rounded-lg overflow-hidden shadow-sm hover:shadow-lg hover:border-primary-blue transition-all duration-300 group relative">
                 <div className="relative">
-                    <img src={product.image} alt={product.name} className="w-full h-40 object-cover" />
+                    <img 
+                        src={product.image} 
+                        alt={`${product.name} - Quà tặng doanh nghiệp in logo tại Đà Nẵng`} 
+                        title={`${product.name} - Dịch vụ in logo chuyên nghiệp`}
+                        className="w-full h-40 object-cover" 
+                        loading="lazy"
+                    />
                     {product.discount && (
                         <span className="absolute top-2 left-2 bg-primary-orange text-white text-xs font-bold px-2 py-1 rounded-full">
                             -{product.discount}%

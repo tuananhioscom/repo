@@ -34,7 +34,9 @@ const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
                             Công ty TNHH Tam Giang Phát
                         </p>
                         <p className="text-sm mt-2">
-                            Chuyên thiết kế, sản xuất và cung ứng quà tặng quảng bá thương hiệu. Giúp doanh nghiệp tiếp thị một cách tinh tế, thương hiệu in sâu vào tâm trí khách hàng.
+                            Chuyên dịch vụ <strong>in ấn</strong>, <strong>in logo theo yêu cầu</strong> và cung ứng <strong>quà tặng quảng cáo</strong>, <strong>quà tặng doanh nghiệp</strong>. 
+                            Chúng tôi cung cấp <strong>quà tặng khách hàng</strong>, <strong>quà tặng nhân viên</strong>, <strong>quà tặng đối tác</strong>, <strong>quà tặng đại hội</strong>, <strong>quà tặng văn phòng</strong>. 
+                            Thiết kế miễn phí, freeship toàn quốc, giá tốt. Giúp doanh nghiệp tiếp thị một cách tinh tế, thương hiệu in sâu vào tâm trí khách hàng.
                         </p>
                         <p className="text-sm mt-4">📍 126-128 Quách Xân, Phường Hòa Khánh, TP Đà Nẵng</p>
                         <p className="text-sm mt-2">📞 Hotline: 0935.444.945</p>
@@ -45,12 +47,12 @@ const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
                     <div>
                         <h4 className="font-bold text-lg mb-4">CHÍNH SÁCH ĐỔI TRẢ</h4>
                         <ul className="space-y-2 text-sm">
-                            <li><a href="#" className="hover:text-primary-blue">Chính sách mua hàng</a></li>
-                            <li><a href="#" className="hover:text-primary-blue">Chính sách đổi trả</a></li>
-                            <li><a href="#" className="hover:text-primary-blue">Giao hàng</a></li>
-                            <li><a href="#" className="hover:text-primary-blue">Thanh toán</a></li>
-                            <li><a href="#" className="hover:text-primary-blue">Tài khoản</a></li>
-                            <li><a href="#" className="hover:text-primary-blue">Giới thiệu</a></li>
+                            <li><a href="/?page=policies" className="hover:text-primary-blue">Chính sách mua hàng</a></li>
+                            <li><a href="/?page=return" className="hover:text-primary-blue">Chính sách đổi trả</a></li>
+                            <li><a href="/?page=shipping" className="hover:text-primary-blue">Giao hàng</a></li>
+                            <li><a href="/?page=payment" className="hover:text-primary-blue">Thanh toán</a></li>
+                            <li><a href="/?page=account" className="hover:text-primary-blue">Tài khoản</a></li>
+                            <li><a href="/?page=about" className="hover:text-primary-blue">Giới thiệu</a></li>
                         </ul>
                     </div>
 
@@ -58,13 +60,13 @@ const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
                     <div>
                         <h4 className="font-bold text-lg mb-4">SẢN PHẨM</h4>
                          <ul className="space-y-2 text-sm">
-                            <li><a href="#" className="hover:text-primary-blue">Ly Thủy Tinh In Logo</a></li>
-                            <li><a href="#" className="hover:text-primary-blue">Bình Giữ Nhiệt</a></li>
-                            <li><a href="#" className="hover:text-primary-blue">Cốc Sứ & Ấm Chén</a></li>
-                            <li><a href="#" className="hover:text-primary-blue">Áo Mưa In Thương Hiệu</a></li>
-                            <li><a href="#" className="hover:text-primary-blue">Mũ Bảo Hiểm</a></li>
-                             <li><a href="#" className="hover:text-primary-blue">Ô Dù Cầm Tay</a></li>
-                             <li><a href="#" className="hover:text-primary-blue">Bộ Bình Nước</a></li>
+                            <li><a href="/?category=ly-thuy-tinh" className="hover:text-primary-blue">Ly Thủy Tinh In Logo</a></li>
+                            <li><a href="/?category=binh-giu-nhiet" className="hover:text-primary-blue">Bình Giữ Nhiệt</a></li>
+                            <li><a href="/?category=coc-su" className="hover:text-primary-blue">Cốc Sứ & Ấm Chén</a></li>
+                            <li><a href="/?category=ao-mua" className="hover:text-primary-blue">Áo Mưa In Thương Hiệu</a></li>
+                            <li><a href="/?category=mu-bao-hiem" className="hover:text-primary-blue">Mũ Bảo Hiểm</a></li>
+                             <li><a href="/?category=o-du" className="hover:text-primary-blue">Ô Dù Cầm Tay</a></li>
+                             <li><a href="/?category=binh-nuoc" className="hover:text-primary-blue">Bộ Bình Nước</a></li>
                         </ul>
                     </div>
 

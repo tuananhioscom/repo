@@ -119,17 +119,30 @@ const App: React.FC = () => {
     switch (currentPage) {
       case 'GIỚI THIỆU':
         return <StaticPage title="Giới thiệu">
-          <h3 className="text-xl font-bold mb-4 text-primary-blue">Xưởng In Đà Nẵng TGP - Công ty TNHH Tam Giang Phát</h3>
-          <p className="mb-4">Chúng tôi chuyên <strong>thiết kế, sản xuất và cung ứng quà tặng quảng bá thương hiệu</strong> cho doanh nghiệp. Với nhiều năm kinh nghiệm trong lĩnh vực in ấn và sản xuất quà tặng, chúng tôi tự hào mang đến cho khách hàng những sản phẩm chất lượng cao, giá cả cạnh tranh.</p>
-          <br/>
-          <h4 className="text-lg font-semibold mb-3">Dịch vụ của chúng tôi:</h4>
+          <h1 className="text-2xl font-bold mb-4 text-primary-blue">Xưởng In Đà Nẵng TGP - Công ty TNHH Tam Giang Phát</h1>
+          <p className="mb-4 text-lg">
+            Chúng tôi là đơn vị chuyên nghiệp trong lĩnh vực <strong>in ấn</strong>, <strong>in logo</strong> và cung ứng <strong>quà tặng doanh nghiệp</strong> tại Đà Nẵng. 
+            Với nhiều năm kinh nghiệm trong dịch vụ in ấn và sản xuất quà tặng, chúng tôi tự hào mang đến cho khách hàng những sản phẩm chất lượng cao, giá cả cạnh tranh.
+          </p>
+          <h2 className="text-xl font-bold mb-3 mt-6 text-gray-900">Dịch vụ in ấn và quà tặng quảng cáo của chúng tôi:</h2>
           <ul className="list-disc pl-6 space-y-2 mb-4">
-            <li>In logo lên ly thủy tinh, cốc sứ, bình giữ nhiệt</li>
-            <li>Sản xuất quà tặng doanh nghiệp: áo mưa, mũ bảo hiểm, ô dù</li>
-            <li>Thiết kế và in ấn theo yêu cầu</li>
-            <li>Tư vấn giải pháp quà tặng phù hợp với ngân sách</li>
+            <li><strong>In logo theo yêu cầu</strong> lên ly thủy tinh, cốc sứ, bình giữ nhiệt với công nghệ hiện đại</li>
+            <li>Sản xuất <strong>quà tặng quảng cáo</strong>, <strong>quà tặng doanh nghiệp</strong>: <strong>mũ bảo hiểm quảng cáo</strong>, <strong>áo mưa quà tặng</strong>, ô dù, túi canvas</li>
+            <li>Cung cấp <strong>quà tặng khách hàng</strong>, <strong>quà tặng nhân viên</strong>, <strong>quà tặng đối tác</strong>, <strong>quà tặng đại hội</strong>, <strong>quà tặng văn phòng</strong></li>
+            <li>Thiết kế miễn phí và <strong>in ấn</strong> theo yêu cầu riêng của doanh nghiệp</li>
+            <li>Tư vấn giải pháp quà tặng phù hợp với ngân sách và mục tiêu marketing</li>
+            <li>Dịch vụ <strong>in logo</strong> chuyên nghiệp, độ bền màu cao, đảm bảo chất lượng</li>
+            <li>Freeship toàn quốc, giá tận xưởng, không qua trung gian</li>
           </ul>
-          <p>Quà tặng không chỉ là món quà, mà còn là <strong>"sứ giả"</strong> truyền đạt giá trị thương hiệu của bạn, giúp <strong>thương hiệu in sâu vào tâm trí khách hàng</strong> một cách tinh tế và hiệu quả.</p>
+          <h2 className="text-xl font-bold mb-3 mt-6 text-gray-900">Tại sao chọn dịch vụ in ấn của chúng tôi?</h2>
+          <p className="mb-4">
+            Chúng tôi hiểu rằng <strong>quà tặng doanh nghiệp</strong> không chỉ là món quà, mà còn là <strong>"sứ giả"</strong> truyền đạt giá trị thương hiệu của bạn. 
+            Với dịch vụ <strong>in logo</strong> chuyên nghiệp, chúng tôi giúp <strong>thương hiệu in sâu vào tâm trí khách hàng</strong> một cách tinh tế và hiệu quả.
+          </p>
+          <p className="mb-4">
+            Tất cả sản phẩm của chúng tôi đều được <strong>in ấn</strong> với công nghệ hiện đại, đảm bảo độ bền màu và chất lượng cao. 
+            Chúng tôi cam kết mang đến cho khách hàng những sản phẩm <strong>quà tặng doanh nghiệp</strong> tốt nhất với giá cả cạnh tranh nhất thị trường.
+          </p>
         </StaticPage>;
       case 'SẢN PHẨM':
         return <ProductsPage />;

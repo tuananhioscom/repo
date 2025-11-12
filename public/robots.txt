@@ -1,0 +1,46 @@
+# robots.txt for Xưởng In Đà Nẵng TGP
+# Allow all search engines to crawl and index
+
+User-agent: *
+Allow: /
+
+# Disallow admin pages
+Disallow: /admin
+Disallow: /?page=admin
+Disallow: /?currentPage=ADMIN
+
+# Disallow login pages
+Disallow: /login
+
+# Allow all product and news pages
+Allow: /?page=products
+Allow: /?page=news
+Allow: /?product=*
+Allow: /?news=*
+Allow: /?category=*
+
+# Sitemap location
+Sitemap: https://xuongindanang.com/sitemap.xml
+
+# Crawl-delay (optional, can be removed if not needed)
+Crawl-delay: 1
+
+# Specific rules for major search engines
+User-agent: Googlebot
+Allow: /
+
+User-agent: Bingbot
+Allow: /
+
+User-agent: Slurp
+Allow: /
+
+User-agent: DuckDuckBot
+Allow: /
+
+User-agent: Baiduspider
+Allow: /
+
+User-agent: YandexBot
+Allow: /
+
