@@ -11,53 +11,62 @@ import type { Product } from '../types';
 const HomePage: React.FC = () => {
       const newProducts: Product[] = [
     {
-      name: 'Son Kem Lì HERA Sensual Powder Matte',
+      name: 'Ly Thủy Tinh In Logo Cao Cấp 350ml',
       image: 'https://picsum.photos/id/1080/200/200',
-      oldPrice: '420,000đ',
-      newPrice: '420,000đ',
-      discount: 11,
+      oldPrice: '45,000đ',
+      newPrice: '35,000đ',
+      discount: 22,
       isNew: true,
     },
     {
-      name: 'Gấu Bông Thú Nhồi Bông...',
-      image: 'https://i.imgur.com/vHZTmCE.png',
-      oldPrice: '250,000đ',
-      newPrice: '210,000đ',
-      discount: 11,
+      name: 'Bình Giữ Nhiệt In Logo 500ml',
+      image: 'https://picsum.photos/id/225/200/200',
+      oldPrice: '180,000đ',
+      newPrice: '150,000đ',
+      discount: 17,
       isNew: true,
     },
     {
-      name: 'Gấu Bông Thú Nhồi Bông...',
-      image: 'https://i.imgur.com/vHZTmCE.png',
-      newPrice: '210,000đ',
+      name: 'Cốc Sứ In Logo Doanh Nghiệp',
+      image: 'https://picsum.photos/id/431/200/200',
+      newPrice: '55,000đ',
+      isNew: true,
     },
     {
-      name: 'Gấu Bông Thú Nhồi Bông...',
-      image: 'https://i.imgur.com/vHZTmCE.png',
-      newPrice: '210,000đ',
+      name: 'Ấm Chén Sứ Cao Cấp',
+      image: 'https://picsum.photos/id/367/200/200',
+      newPrice: '280,000đ',
     },
     {
-      name: 'Gấu Bông Thú Nhồi Bông...',
-      image: 'https://i.imgur.com/vHZTmCE.png',
-      newPrice: '210,000đ',
+      name: 'Áo Mưa In Thương Hiệu',
+      image: 'https://picsum.photos/id/15/200/200',
+      oldPrice: '35,000đ',
+      newPrice: '28,000đ',
+      discount: 20,
     },
     {
-      name: 'Gấu Bông Thú Nhồi Bông...',
-      image: 'https://i.imgur.com/vHZTmCE.png',
-      newPrice: '210,000đ',
+      name: 'Mũ Bảo Hiểm In Logo',
+      image: 'https://picsum.photos/id/188/200/200',
+      newPrice: '95,000đ',
     },
   ];
 
-  const phoneProducts: Product[] = [
-    { name: 'Điện thoại iPhone 14', image: 'https://picsum.photos/id/86/200/200', oldPrice: '22,000,000đ', newPrice: '20,000,000đ', discount: 11 },
-    { name: 'Điện thoại iPhone 14 Pro', image: 'https://picsum.photos/id/87/200/200', newPrice: '29,000,000đ' },
-    { name: 'Điện thoại iPhone 14 Pro', image: 'https://picsum.photos/id/88/200/200', oldPrice: '32,000,000đ', newPrice: '29,000,000đ', discount: 11, isNew: true, },
-    { name: 'Điện thoại iPhone 14 Pro Max', image: 'https://picsum.photos/id/89/200/200', newPrice: '33,000,000đ' },
-    { name: 'Điện thoại iPhone 14 Pro Max', image: 'https://picsum.photos/id/90/200/200', newPrice: '31,000,000đ', discount: 11, isNew: true },
-    { name: 'Điện thoại iPhone 14 Pro', image: 'https://picsum.photos/id/91/200/200', newPrice: '29,000,000đ' },
+  const glassProducts: Product[] = [
+    { name: 'Ly Thủy Tinh In Logo 300ml', image: 'https://picsum.photos/id/1080/200/200', oldPrice: '40,000đ', newPrice: '32,000đ', discount: 20 },
+    { name: 'Tô Thủy Tinh In Logo', image: 'https://picsum.photos/id/225/200/200', newPrice: '45,000đ', isNew: true },
+    { name: 'Đĩa Thủy Tinh Cao Cấp', image: 'https://picsum.photos/id/431/200/200', oldPrice: '55,000đ', newPrice: '48,000đ', discount: 13 },
+    { name: 'Bộ Bình Nước Thủy Tinh', image: 'https://picsum.photos/id/367/200/200', newPrice: '280,000đ' },
+    { name: 'Ly Rượu Thủy Tinh In Logo', image: 'https://picsum.photos/id/225/200/200', newPrice: '38,000đ', isNew: true },
+    { name: 'Cốc Thủy Tinh Uống Nước', image: 'https://picsum.photos/id/1080/200/200', newPrice: '25,000đ' },
   ];
-  
-  const toyProducts: Product[] = newProducts.slice(1);
+
+  const giftProducts: Product[] = [
+    { name: 'Ô Dù Cầm Tay In Logo', image: 'https://picsum.photos/id/15/200/200', oldPrice: '85,000đ', newPrice: '68,000đ', discount: 20 },
+    { name: 'Túi Canvas In Thương Hiệu', image: 'https://picsum.photos/id/188/200/200', newPrice: '45,000đ', isNew: true },
+    { name: 'Móc Khóa Kim Loại In Logo', image: 'https://picsum.photos/id/367/200/200', newPrice: '18,000đ' },
+    { name: 'Sổ Tay Da In Logo', image: 'https://picsum.photos/id/431/200/200', newPrice: '65,000đ', isNew: true },
+    { name: 'Bình Nước Nhựa In Logo', image: 'https://picsum.photos/id/225/200/200', newPrice: '42,000đ' },
+  ];
 
     return (
         <>
@@ -72,9 +81,9 @@ const HomePage: React.FC = () => {
             <InfoBar />
             <div className="mt-6">
                 <ProductSection title="SẢN PHẨM MỚI" products={newProducts} />
-                <ProductSection title="ĐIỆN THOẠI & PHỤ KIỆN" products={phoneProducts} />
+                <ProductSection title="LY THỦY TINH IN LOGO" products={glassProducts} />
                 <PromoBanners />
-                <ProductSection title="ĐỒ CHƠI" products={toyProducts} />
+                <ProductSection title="QUÀ TẶNG DOANH NGHIỆP" products={giftProducts} />
                 <NewsSection />
             </div>
         </>

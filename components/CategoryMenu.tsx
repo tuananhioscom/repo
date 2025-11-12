@@ -2,19 +2,19 @@ import React from 'react';
 import { ChevronRightIcon } from '../constants';
 
 const categories = [
-    'Điện Thoại & Phụ Kiện',
-    'Đồ Chơi',
-    'Đồng Hồ',
-    'Thời Trang Nam',
-    'Thời Trang Nữ',
-    'Máy Ảnh & Máy Quay Phim',
-    'Máy Tính & Laptop',
-    'Mẹ & Bé',
-    'Nhà Cửa & Đời Sống',
-    'Ô tô & Xe Máy & Xe Đạp',
-    'Thể Thao & Du Lịch',
-    'Thiết Bị Điện Gia Dụng',
-    'Thực Bì Điện Tử'
+    'Ly Thủy Tinh In Logo',
+    'Tô Chén Thủy Tinh',
+    'Đĩa Thủy Tinh',
+    'Bộ Bình Nước Thủy Tinh',
+    'Bình Giữ Nhiệt',
+    'Cốc Sứ In Logo',
+    'Ấm Chén Sứ',
+    'Áo Mưa In Thương Hiệu',
+    'Mũ Bảo Hiểm In Logo',
+    'Ô Dù Cầm Tay',
+    'Túi Canvas In Logo',
+    'Móc Khóa Quà Tặng',
+    'Sổ Tay In Logo'
 ];
 
 const CategoryMenuItem: React.FC<{ category: string }> = ({ category }) => (

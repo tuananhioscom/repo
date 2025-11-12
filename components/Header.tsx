@@ -19,15 +19,15 @@ const Header: React.FC<HeaderProps> = ({ onNavigate }) => {
                 <div className="flex items-center space-x-4">
                     <div className="flex items-center space-x-1">
                         <PhoneIcon />
-                        <span>0123.456.789</span>
+                        <span>0935.444.945</span>
                     </div>
                     <div className="hidden sm:flex items-center space-x-1">
                         <MailIcon />
-                        <span>contact@demo.com</span>
+                        <span>xuongindanang09@gmail.com</span>
                     </div>
                     <div className="hidden md:flex items-center space-x-1">
                         <LocationIcon />
-                        <span>123 ABC Street, District 1, HCMC</span>
+                        <span>126-128 Quách Xân, Hòa Khánh, Đà Nẵng</span>
                     </div>
                 </div>
                 <div className="flex items-center space-x-4">
@@ -42,9 +42,9 @@ const Header: React.FC<HeaderProps> = ({ onNavigate }) => {
         <div className="bg-white py-4">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between">
                 <div className="flex items-center">
-                     <a href="#" onClick={(e) => handleNavClick(e, 'TRANG CHỦ')} className="text-4xl font-bold text-gray-800">
-                        <span className="text-primary-blue">C5</span>
-                        <span className="text-primary-orange">SHOP</span>
+                     <a href="#" onClick={(e) => handleNavClick(e, 'TRANG CHỦ')} className="text-3xl font-bold text-gray-800">
+                        <span className="text-primary-blue">XƯỞNG IN</span>
+                        <span className="text-primary-orange"> ĐÀ NẴNG</span>
                     </a>
                 </div>
 
@@ -90,7 +90,7 @@ const Header: React.FC<HeaderProps> = ({ onNavigate }) => {
     );
 
     const NavBar = () => {
-        const navItems = ['TRANG CHỦ', 'GIỚI THIỆU', 'SẢN PHẨM', 'KHUYẾN MÃI', 'TIN TỨC', 'LIÊN HỆ'];
+        const navItems = ['TRANG CHỦ', 'GIỚI THIỆU', 'SẢN PHẨM', 'IN THƯƠNG HIỆU', 'TIN TỨC', 'LIÊN HỆ'];
 
         return (
             <nav className="bg-white border-t border-b">
