@@ -51,7 +51,9 @@ interface AdminPageProps {
 }
 
 const AdminPage: React.FC<AdminPageProps> = ({ onLogout }) => {
-  const [activeTab, setActiveTab] = useState<'products' | 'categories' | 'news' | 'reviews'>('products');
+  const [activeTab, setActiveTab] = useState<'products' | 'categories' | 'news' | 'reviews' | 'messages'>('products');
+  const [emailSubscriptions, setEmailSubscriptions] = useState<any[]>([]);
+  const [contactMessages, setContactMessages] = useState<any[]>([]);
   const [products, setProducts] = useState<Product[]>([]);
   const [categories, setCategories] = useState<Category[]>(categoriesData.categories);
   const [news, setNews] = useState<NewsItem[]>(newsData.news);
@@ -1645,6 +1647,140 @@ const AdminPage: React.FC<AdminPageProps> = ({ onLogout }) => {
           </table>
         </div>
       );
+    } else if (activeTab === 'messages') {
+      return (
+        <div className="space-y-6">
+          {/* Email Subscriptions */}
+          <div className="bg-white p-6 rounded-lg shadow-md">
+            <h3 className="text-xl font-bold mb-4 text-primary-blue">
+              📧 Email Đăng Ký ({emailSubscriptions.length})
+            </h3>
+            {emailSubscriptions.length === 0 ? (
+              <p className="text-gray-500 text-center py-8">Chưa có email đăng ký nào</p>
+            ) : (
+              <div className="overflow-x-auto">
+                <table className="min-w-full bg-white rounded-lg">
+                  <thead className="bg-gray-100">
+                    <tr>
+                      <th className="px-4 py-3 text-left">STT</th>
+                      <th className="px-4 py-3 text-left">Email</th>
+                      <th className="px-4 py-3 text-left">Ngày đăng ký</th>
+                      <th className="px-4 py-3 text-left">Nguồn</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {emailSubscriptions.map((sub, index) => (
+                      <tr key={index} className="border-b hover:bg-gray-50">
+                        <td className="px-4 py-3">{index + 1}</td>
+                        <td className="px-4 py-3 font-semibold">{sub.email}</td>
+                        <td className="px-4 py-3 text-sm">
+                          {new Date(sub.date).toLocaleString('vi-VN')}
+                        </td>
+                        <td className="px-4 py-3 text-sm text-gray-600">{sub.source || 'footer'}</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            )}
+            {emailSubscriptions.length > 0 && (
+              <button
+                onClick={() => {
+                  const blob = new Blob([JSON.stringify(emailSubscriptions, null, 2)], { type: 'application/json' });
+                  const url = URL.createObjectURL(blob);
+                  const a = document.createElement('a');
+                  a.href = url;
+                  a.download = `email_subscriptions_${new Date().toISOString().split('T')[0]}.json`;
+                  a.click();
+                  URL.revokeObjectURL(url);
+                }}
+                className="mt-4 bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700 text-sm"
+              >
+                📥 Tải danh sách email
+              </button>
+            )}
+          </div>
+
+          {/* Contact Messages */}
+          <div className="bg-white p-6 rounded-lg shadow-md">
+            <h3 className="text-xl font-bold mb-4 text-primary-blue">
+              💬 Tin Nhắn Liên Hệ ({contactMessages.length})
+            </h3>
+            {contactMessages.length === 0 ? (
+              <p className="text-gray-500 text-center py-8">Chưa có tin nhắn liên hệ nào</p>
+            ) : (
+              <div className="space-y-4">
+                {contactMessages.map((msg, index) => (
+                  <div key={index} className="border border-gray-200 rounded-lg p-4 hover:shadow-md transition">
+                    <div className="flex justify-between items-start mb-2">
+                      <div>
+                        <h4 className="font-bold text-gray-900">{msg.name}</h4>
+                        <p className="text-sm text-gray-600">{msg.email}</p>
+                      </div>
+                      <div className="text-right">
+                        <p className="text-xs text-gray-500">
+                          {new Date(msg.date).toLocaleString('vi-VN')}
+                        </p>
+                        {msg.status === 'new' && (
+                          <span className="bg-green-100 text-green-700 text-xs font-semibold px-2 py-1 rounded mt-1 inline-block">
+                            Mới
+                          </span>
+                        )}
+                      </div>
+                    </div>
+                    {msg.subject && (
+                      <p className="font-semibold text-gray-800 mb-2">📌 {msg.subject}</p>
+                    )}
+                    <p className="text-sm text-gray-700 whitespace-pre-wrap">{msg.message}</p>
+                    <div className="mt-3 flex gap-2">
+                      <button
+                        onClick={() => {
+                          const updated = contactMessages.map((m, i) => 
+                            i === index ? { ...m, status: 'read' } : m
+                          );
+                          setContactMessages(updated);
+                          localStorage.setItem('contact_messages', JSON.stringify(updated));
+                        }}
+                        className="bg-blue-500 text-white px-3 py-1 rounded text-xs hover:bg-blue-600"
+                      >
+                        ✓ Đã đọc
+                      </button>
+                      <button
+                        onClick={() => {
+                          if (confirm('Bạn có chắc muốn xóa tin nhắn này?')) {
+                            const updated = contactMessages.filter((_, i) => i !== index);
+                            setContactMessages(updated);
+                            localStorage.setItem('contact_messages', JSON.stringify(updated));
+                          }
+                        }}
+                        className="bg-red-500 text-white px-3 py-1 rounded text-xs hover:bg-red-600"
+                      >
+                        ✕ Xóa
+                      </button>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            )}
+            {contactMessages.length > 0 && (
+              <button
+                onClick={() => {
+                  const blob = new Blob([JSON.stringify(contactMessages, null, 2)], { type: 'application/json' });
+                  const url = URL.createObjectURL(blob);
+                  const a = document.createElement('a');
+                  a.href = url;
+                  a.download = `contact_messages_${new Date().toISOString().split('T')[0]}.json`;
+                  a.click();
+                  URL.revokeObjectURL(url);
+                }}
+                className="mt-4 bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700 text-sm"
+              >
+                📥 Tải danh sách tin nhắn
+              </button>
+            )}
+          </div>
+        </div>
+      );
     }
     return null;
   };
@@ -1879,6 +2015,19 @@ const AdminPage: React.FC<AdminPageProps> = ({ onLogout }) => {
               className={`px-6 py-2 rounded ${activeTab === 'reviews' ? 'bg-primary-blue text-white' : 'bg-gray-200'}`}
             >
               Đánh Giá ({reviews.length})
+            </button>
+            <button
+              onClick={() => {
+                setActiveTab('messages');
+                // Reload messages when switching to this tab
+                const subscriptions = JSON.parse(localStorage.getItem('email_subscriptions') || '[]');
+                const contacts = JSON.parse(localStorage.getItem('contact_messages') || '[]');
+                setEmailSubscriptions(subscriptions);
+                setContactMessages(contacts);
+              }}
+              className={`px-6 py-2 rounded ${activeTab === 'messages' ? 'bg-primary-blue text-white' : 'bg-gray-200'}`}
+            >
+              Tin Nhắn ({contactMessages.length + emailSubscriptions.length})
             </button>
           </div>
 

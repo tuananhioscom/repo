@@ -1,10 +1,142 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import { emailConfig, isEmailJSConfigured } from '../utils/emailConfig';
+import { getAllProducts, Product } from '../utils/productLoader';
+
+// Declare EmailJS types
+declare global {
+    interface Window {
+        emailjs: {
+            send: (serviceId: string, templateId: string, templateParams: any) => Promise<any>;
+        };
+    }
+}
 
 interface FooterProps {
     onNavigate?: (page: string) => void;
 }
 
 const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
+    const [email, setEmail] = useState('');
+    const [isSubmitting, setIsSubmitting] = useState(false);
+    const [message, setMessage] = useState<{ type: 'success' | 'error'; text: string } | null>(null);
+    const [newProducts, setNewProducts] = useState<Product[]>([]);
+
+    useEffect(() => {
+        // Initialize EmailJS if configured
+        if (isEmailJSConfigured() && window.emailjs && emailConfig.publicKey) {
+            try {
+                window.emailjs.init(emailConfig.publicKey);
+            } catch (error) {
+                console.error('EmailJS initialization error:', error);
+            }
+        }
+
+        // Load new products
+        const loadNewProducts = () => {
+            const allProducts = getAllProducts();
+            const newProductsList = allProducts.filter(p => p.isNew);
+            
+            if (newProductsList.length === 0) {
+                setNewProducts([]);
+                return;
+            }
+            
+            // Shuffle and get 4-5 random products
+            const shuffled = [...newProductsList].sort(() => Math.random() - 0.5);
+            
+            // Show 4-5 products: if we have 4 or less, show all; if 5+, show 4-5 randomly
+            let count = 4; // Default to 4
+            if (shuffled.length >= 5) {
+                // Randomly choose between 4 and 5
+                count = Math.random() > 0.5 ? 5 : 4;
+            } else {
+                // Show all if less than 4
+                count = shuffled.length;
+            }
+            
+            setNewProducts(shuffled.slice(0, count));
+        };
+
+        loadNewProducts();
+
+        // Listen for product updates
+        const handleProductsUpdate = () => {
+            loadNewProducts();
+        };
+
+        window.addEventListener('productsUpdated', handleProductsUpdate);
+        window.addEventListener('storage', handleProductsUpdate);
+
+        return () => {
+            window.removeEventListener('productsUpdated', handleProductsUpdate);
+            window.removeEventListener('storage', handleProductsUpdate);
+        };
+    }, []);
+
+    const handleEmailSubmit = async (e: React.FormEvent) => {
+        e.preventDefault();
+        
+        // Validate email
+        if (!email || !email.includes('@')) {
+            setMessage({ type: 'error', text: 'Vui lòng nhập địa chỉ email hợp lệ!' });
+            setTimeout(() => setMessage(null), 3000);
+            return;
+        }
+
+        setIsSubmitting(true);
+        
+        try {
+            // Save to localStorage
+            const subscriptions = JSON.parse(localStorage.getItem('email_subscriptions') || '[]');
+            const newSubscription = {
+                email,
+                date: new Date().toISOString(),
+                source: 'footer'
+            };
+            
+            // Check if email already exists
+            if (subscriptions.some((sub: any) => sub.email === email)) {
+                setMessage({ type: 'error', text: 'Email này đã được đăng ký rồi!' });
+                setTimeout(() => setMessage(null), 3000);
+                setIsSubmitting(false);
+                return;
+            }
+            
+            subscriptions.push(newSubscription);
+            localStorage.setItem('email_subscriptions', JSON.stringify(subscriptions));
+            
+            // Send email via EmailJS if configured
+            if (isEmailJSConfigured() && window.emailjs) {
+                try {
+                    await window.emailjs.send(
+                        emailConfig.serviceId,
+                        emailConfig.templates.subscribe,
+                        {
+                            to_email: 'xuongindanang09@gmail.com', // Email nhận thông báo
+                            subscriber_email: email,
+                            date: new Date().toLocaleString('vi-VN'),
+                            message: `Email ${email} đã đăng ký nhận thông tin sản phẩm mới từ website.`
+                        }
+                    );
+                } catch (emailError) {
+                    console.error('EmailJS error:', emailError);
+                    // Continue even if email fails - data is saved in localStorage
+                }
+            }
+            
+            // Clear form
+            setEmail('');
+            setMessage({ type: 'success', text: 'Đăng ký thành công! Cảm ơn bạn đã quan tâm.' });
+            setTimeout(() => setMessage(null), 5000);
+            
+        } catch (error) {
+            setMessage({ type: 'error', text: 'Có lỗi xảy ra. Vui lòng thử lại sau!' });
+            setTimeout(() => setMessage(null), 3000);
+        } finally {
+            setIsSubmitting(false);
+        }
+    };
+
     return (
         <footer className="bg-gray-100 text-gray-700">
             {/* Newsletter Section */}
@@ -14,11 +146,32 @@ const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
                         <h3 className="font-bold text-lg">ĐĂNG KÝ NHẬN EMAIL</h3>
                         <p className="text-sm">Nhận thông tin sản phẩm mới</p>
                     </div>
-                    <div className="flex w-full max-w-md">
-                        <input type="email" placeholder="Nhập địa chỉ email" className="w-full px-4 py-2 text-gray-800 rounded-l-md focus:outline-none" />
-                        <button className="bg-primary-orange text-white font-bold px-6 py-2 rounded-r-md hover:bg-primary-orange-dark">GỬI</button>
-                    </div>
+                    <form onSubmit={handleEmailSubmit} className="flex w-full max-w-md">
+                        <input 
+                            type="email" 
+                            placeholder="Nhập địa chỉ email" 
+                            className="w-full px-4 py-2 text-gray-800 rounded-l-md focus:outline-none focus:ring-2 focus:ring-primary-orange" 
+                            value={email}
+                            onChange={(e) => setEmail(e.target.value)}
+                            required
+                            disabled={isSubmitting}
+                        />
+                        <button 
+                            type="submit"
+                            disabled={isSubmitting}
+                            className="bg-primary-orange text-white font-bold px-6 py-2 rounded-r-md hover:bg-primary-orange-dark disabled:opacity-50 disabled:cursor-not-allowed transition"
+                        >
+                            {isSubmitting ? 'Đang gửi...' : 'GỬI'}
+                        </button>
+                    </form>
                 </div>
+                {message && (
+                    <div className={`max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-2 text-center text-sm ${
+                        message.type === 'success' ? 'text-green-200' : 'text-red-200'
+                    }`}>
+                        {message.text}
+                    </div>
+                )}
             </div>
 
             {/* Main Footer */}
@@ -47,12 +200,78 @@ const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
                     <div>
                         <h4 className="font-bold text-lg mb-4">CHÍNH SÁCH ĐỔI TRẢ</h4>
                         <ul className="space-y-2 text-sm">
-                            <li><a href="/?page=policies" className="hover:text-primary-blue">Chính sách mua hàng</a></li>
-                            <li><a href="/?page=return" className="hover:text-primary-blue">Chính sách đổi trả</a></li>
-                            <li><a href="/?page=shipping" className="hover:text-primary-blue">Giao hàng</a></li>
-                            <li><a href="/?page=payment" className="hover:text-primary-blue">Thanh toán</a></li>
-                            <li><a href="/?page=account" className="hover:text-primary-blue">Tài khoản</a></li>
-                            <li><a href="/?page=about" className="hover:text-primary-blue">Giới thiệu</a></li>
+                            <li>
+                                <a 
+                                    href="/?page=policies" 
+                                    onClick={(e) => {
+                                        e.preventDefault();
+                                        window.location.href = '/?page=policies';
+                                    }}
+                                    className="hover:text-primary-blue"
+                                >
+                                    Chính sách mua hàng
+                                </a>
+                            </li>
+                            <li>
+                                <a 
+                                    href="/?page=return" 
+                                    onClick={(e) => {
+                                        e.preventDefault();
+                                        window.location.href = '/?page=return';
+                                    }}
+                                    className="hover:text-primary-blue"
+                                >
+                                    Chính sách đổi trả
+                                </a>
+                            </li>
+                            <li>
+                                <a 
+                                    href="/?page=shipping" 
+                                    onClick={(e) => {
+                                        e.preventDefault();
+                                        window.location.href = '/?page=shipping';
+                                    }}
+                                    className="hover:text-primary-blue"
+                                >
+                                    Giao hàng
+                                </a>
+                            </li>
+                            <li>
+                                <a 
+                                    href="/?page=payment" 
+                                    onClick={(e) => {
+                                        e.preventDefault();
+                                        window.location.href = '/?page=payment';
+                                    }}
+                                    className="hover:text-primary-blue"
+                                >
+                                    Thanh toán
+                                </a>
+                            </li>
+                            <li>
+                                <a 
+                                    href="/?page=account" 
+                                    onClick={(e) => {
+                                        e.preventDefault();
+                                        window.location.href = '/?page=account';
+                                    }}
+                                    className="hover:text-primary-blue"
+                                >
+                                    Tài khoản
+                                </a>
+                            </li>
+                            <li>
+                                <a 
+                                    href="/?page=about" 
+                                    onClick={(e) => {
+                                        e.preventDefault();
+                                        window.location.href = '/?page=about';
+                                    }}
+                                    className="hover:text-primary-blue"
+                                >
+                                    Giới thiệu
+                                </a>
+                            </li>
                         </ul>
                     </div>
 
@@ -73,22 +292,57 @@ const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
                     {/* New Products Section */}
                     <div>
                         <h4 className="font-bold text-lg mb-4">SẢN PHẨM MỚI</h4>
-                        <ul className="space-y-4 text-sm">
-                            <li className="flex items-center space-x-3">
-                                <img src="https://picsum.photos/id/1080/50/50" alt="New product 1" className="w-12 h-12 object-cover rounded"/>
-                                <div>
-                                    <a href="#" className="font-semibold hover:text-primary-blue">Son Kem Lì HERA...</a>
-                                    <p className="text-primary-orange font-bold">420,000đ</p>
-                                </div>
-                            </li>
-                             <li className="flex items-center space-x-3">
-                                <img src="https://i.imgur.com/vHZTmCE.png" alt="New product 2" className="w-12 h-12 object-cover rounded"/>
-                                <div>
-                                    <a href="#" className="font-semibold hover:text-primary-blue">Gấu Bông Thú Nhồi Bông...</a>
-                                    <p className="text-primary-orange font-bold">210,000đ</p>
-                                </div>
-                            </li>
-                        </ul>
+                        {newProducts.length === 0 ? (
+                            <p className="text-sm text-gray-500">Chưa có sản phẩm mới</p>
+                        ) : (
+                            <ul className="space-y-3 text-sm">
+                                {newProducts.map((product) => {
+                                    const productUrl = product.id 
+                                        ? `/?product=${product.id}` 
+                                        : product.slug 
+                                        ? `/?slug=${product.slug}`
+                                        : '#';
+                                    
+                                    const handleClick = (e: React.MouseEvent) => {
+                                        if (onNavigate && productUrl !== '#') {
+                                            e.preventDefault();
+                                            window.location.href = productUrl;
+                                        }
+                                    };
+
+                                    return (
+                                        <li key={product.id || product.name} className="flex items-center space-x-3 hover:bg-gray-50 p-2 rounded transition">
+                                            <img 
+                                                src={product.image} 
+                                                alt={product.name} 
+                                                className="w-14 h-14 object-cover rounded flex-shrink-0"
+                                                onError={(e) => {
+                                                    (e.target as HTMLImageElement).src = 'https://via.placeholder.com/56x56/cccccc/808080?text=No+Image';
+                                                }}
+                                            />
+                                            <div className="flex-1 min-w-0">
+                                                <a 
+                                                    href={productUrl}
+                                                    onClick={handleClick}
+                                                    className="font-semibold hover:text-primary-blue block truncate"
+                                                    title={product.name}
+                                                >
+                                                    {product.name.length > 30 ? `${product.name.substring(0, 30)}...` : product.name}
+                                                </a>
+                                                <div className="flex items-center gap-2 mt-1">
+                                                    {product.oldPrice && (
+                                                        <span className="line-through text-gray-400 text-xs">{product.oldPrice}</span>
+                                                    )}
+                                                    <p className="text-primary-orange font-bold text-sm">
+                                                        {product.newPrice}
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </li>
+                                    );
+                                })}
+                            </ul>
+                        )}
                     </div>
                 </div>
             </div>

@@ -9,6 +9,7 @@ export type Product = {
   discount?: number;
   isNew?: boolean;
   category?: string;
+  slug?: string;
 };
 
 // Load products from localStorage or fallback to JSON
