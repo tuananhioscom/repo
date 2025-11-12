@@ -12,12 +12,14 @@ const ProductsPage: React.FC = () => {
     const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
     const [categoryName, setCategoryName] = useState<string>('Tất cả sản phẩm');
     const [showNewOnly, setShowNewOnly] = useState<boolean>(false);
+    const [showGiftOnly, setShowGiftOnly] = useState<boolean>(false);
 
     const updateProducts = () => {
         // Get category and filter from URL
         const urlParams = new URLSearchParams(window.location.search);
         const categorySlug = urlParams.get('category');
         const filterNew = urlParams.get('new') === 'true';
+        const filterGift = urlParams.get('gift') === 'true';
 
         // Load products
         const products = getAllProducts();
@@ -41,6 +43,7 @@ const ProductsPage: React.FC = () => {
         if (categorySlug) {
             setSelectedCategory(categorySlug);
             setShowNewOnly(false);
+            setShowGiftOnly(false);
             
             // Find category name
             const category = categories.find((cat: any) => cat.slug === categorySlug);
@@ -48,9 +51,33 @@ const ProductsPage: React.FC = () => {
                 setCategoryName(category.name);
             }
 
-            // Filter products by category
-            const filtered = products.filter(p => p.category === categorySlug);
-            setFilteredProducts(filtered);
+            // Special handling for "Quà Tặng Doanh Nghiệp" category
+            // Check if category name or slug contains "quà tặng" or "qua-tang"
+            const isGiftCategory = category && (
+                category.name.toLowerCase().includes('quà tặng') || 
+                category.name.toLowerCase().includes('qua tang') ||
+                category.slug.toLowerCase().includes('qua-tang') ||
+                category.slug.toLowerCase().includes('gift')
+            );
+
+            if (isGiftCategory) {
+                // For "Quà Tặng Doanh Nghiệp" category, show ALL products (including thuy-tinh and su)
+                setFilteredProducts(products);
+            } else {
+                // Filter products by exact category match
+                let filtered = products.filter(p => p.category === categorySlug);
+                
+                // If no exact match, try to find child categories
+                if (filtered.length === 0) {
+                    const childCategories = categories.filter((cat: any) => cat.parent === category?.id);
+                    if (childCategories.length > 0) {
+                        const childSlugs = childCategories.map((cat: any) => cat.slug);
+                        filtered = products.filter(p => p.category && childSlugs.includes(p.category));
+                    }
+                }
+                
+                setFilteredProducts(filtered);
+            }
         } else if (filterNew) {
             // Filter by isNew tag
             setSelectedCategory(null);
@@ -60,9 +87,19 @@ const ProductsPage: React.FC = () => {
             // Filter products by isNew
             const filtered = products.filter(p => p.isNew);
             setFilteredProducts(filtered);
+        } else if (filterGift) {
+            // Filter by gift products (quà tặng doanh nghiệp) - show ALL products
+            setSelectedCategory(null);
+            setShowNewOnly(false);
+            setShowGiftOnly(true);
+            setCategoryName('Quà Tặng Doanh Nghiệp');
+            
+            // Show all products for "Quà Tặng Doanh Nghiệp" (including thuy-tinh and su)
+            setFilteredProducts(products);
         } else {
             setSelectedCategory(null);
             setShowNewOnly(false);
+            setShowGiftOnly(false);
             setCategoryName('Tất cả sản phẩm');
             setFilteredProducts(products);
         }
@@ -99,14 +136,15 @@ const ProductsPage: React.FC = () => {
     }, []);
 
     // Determine which products to display
-    const displayProducts = (selectedCategory || showNewOnly) ? filteredProducts : allProducts;
+    const hasFilter = selectedCategory || showNewOnly || showGiftOnly;
+    const displayProducts = hasFilter ? filteredProducts : allProducts;
 
     return (
         <div className="bg-white p-6 border border-gray-200">
             <Breadcrumb items={[
                 { label: 'Trang chủ' }, 
                 { label: 'Sản phẩm' },
-                ...((selectedCategory || showNewOnly) ? [{ label: categoryName }] : [])
+                ...(hasFilter ? [{ label: categoryName }] : [])
             ]} />
             
             <div className="lg:flex lg:space-x-6 mt-4">
@@ -121,10 +159,10 @@ const ProductsPage: React.FC = () => {
                         {categoryName}
                     </h1>
                     
-                    {(selectedCategory || showNewOnly) && filteredProducts.length === 0 && (
+                    {hasFilter && filteredProducts.length === 0 && (
                         <div className="text-center py-8">
                             <p className="text-gray-500">
-                                {showNewOnly ? 'Không có sản phẩm mới nào.' : 'Không có sản phẩm nào trong danh mục này.'}
+                                {showNewOnly ? 'Không có sản phẩm mới nào.' : showGiftOnly ? 'Không có sản phẩm quà tặng doanh nghiệp nào.' : 'Không có sản phẩm nào trong danh mục này.'}
                             </p>
                         </div>
                     )}

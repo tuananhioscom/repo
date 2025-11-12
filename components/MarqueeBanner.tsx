@@ -43,10 +43,10 @@ const MarqueeBanner: React.FC<MarqueeBannerProps> = ({
     const duplicatedText = `${marqueeText} • ${marqueeText} • ${marqueeText}`;
 
     return (
-        <div className="relative overflow-hidden bg-gradient-to-r from-primary-blue via-blue-600 to-primary-blue py-2.5 shadow-md mb-4 z-10">
+        <div className="relative overflow-hidden bg-gradient-to-r from-primary-blue via-blue-600 to-primary-blue py-2 md:py-2.5 shadow-md mb-4 z-10">
             <div className="flex items-center relative">
                 {/* Left gradient fade */}
-                <div className="absolute left-0 top-0 bottom-0 w-20 bg-gradient-to-r from-primary-blue to-transparent z-20 pointer-events-none"></div>
+                <div className="absolute left-0 top-0 bottom-0 w-8 md:w-20 bg-gradient-to-r from-primary-blue to-transparent z-20 pointer-events-none"></div>
                 
                 {/* Scrolling text */}
                 <div 
@@ -55,13 +55,13 @@ const MarqueeBanner: React.FC<MarqueeBannerProps> = ({
                         animation: `marquee ${speed}s linear infinite`
                     }}
                 >
-                    <span className="text-white font-semibold text-sm md:text-base px-4">
+                    <span className="text-white font-semibold text-xs sm:text-sm md:text-base px-2 md:px-4">
                         {duplicatedText}
                     </span>
                 </div>
                 
                 {/* Right gradient fade */}
-                <div className="absolute right-0 top-0 bottom-0 w-20 bg-gradient-to-l from-primary-blue to-transparent z-20 pointer-events-none"></div>
+                <div className="absolute right-0 top-0 bottom-0 w-8 md:w-20 bg-gradient-to-l from-primary-blue to-transparent z-20 pointer-events-none"></div>
             </div>
 
             <style>{`

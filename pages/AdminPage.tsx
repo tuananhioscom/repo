@@ -3,6 +3,7 @@ import productsData from '../data/products.json';
 import categoriesData from '../data/categories.json';
 import newsData from '../data/news.json';
 import { logout, getCurrentUser } from '../utils/auth';
+import { getAllOrders, updateOrderStatus, deleteOrder, type Order } from '../utils/orders';
 import ImageUpload from '../components/ImageUpload';
 
 type Product = {
@@ -51,13 +52,14 @@ interface AdminPageProps {
 }
 
 const AdminPage: React.FC<AdminPageProps> = ({ onLogout }) => {
-  const [activeTab, setActiveTab] = useState<'products' | 'categories' | 'news' | 'reviews' | 'messages'>('products');
+  const [activeTab, setActiveTab] = useState<'products' | 'categories' | 'news' | 'reviews' | 'messages' | 'orders'>('products');
   const [emailSubscriptions, setEmailSubscriptions] = useState<any[]>([]);
   const [contactMessages, setContactMessages] = useState<any[]>([]);
   const [products, setProducts] = useState<Product[]>([]);
   const [categories, setCategories] = useState<Category[]>(categoriesData.categories);
   const [news, setNews] = useState<NewsItem[]>(newsData.news);
   const [reviews, setReviews] = useState<Review[]>([]);
+  const [orders, setOrders] = useState<Order[]>([]);
 
   const [editingItem, setEditingItem] = useState<any>(null);
   const [isAdding, setIsAdding] = useState(false);
@@ -70,7 +72,30 @@ const AdminPage: React.FC<AdminPageProps> = ({ onLogout }) => {
   
   // Partner Logos state
   const [partnerLogos, setPartnerLogos] = useState<string[]>([]);
+  
+  // Hero Banners state
+  const [heroBanners, setHeroBanners] = useState({
+    mainBanner: 'https://picsum.photos/id/1018/800/600',
+    sideBanner: 'https://picsum.photos/id/1080/400/600',
+    bottomBanner1: 'https://picsum.photos/id/21/600/200',
+    bottomBanner2: 'https://picsum.photos/id/22/600/200',
+    bottomBanner3: 'https://picsum.photos/id/23/600/200'
+  });
+  const [isEditingHeroBanners, setIsEditingHeroBanners] = useState(false);
+  
+  // Promo Banners state
+  const [promoBanners, setPromoBanners] = useState<string[]>([]);
+  const [isEditingPromoBanners, setIsEditingPromoBanners] = useState(false);
   const [isEditingPartners, setIsEditingPartners] = useState(false);
+  
+  // Floating Contact Buttons state
+  const [floatingContact, setFloatingContact] = useState({
+    phone: '0935.444.945',
+    zalo: 'https://zalo.me/0935444945',
+    facebook: 'https://www.facebook.com/xuongindanang',
+    enabled: true
+  });
+  const [isEditingFloatingContact, setIsEditingFloatingContact] = useState(false);
   
   // Content builder state for news
   const [contentBlocks, setContentBlocks] = useState<Array<{
@@ -224,6 +249,61 @@ const AdminPage: React.FC<AdminPageProps> = ({ onLogout }) => {
         }
       ]);
     }
+
+    // Load orders
+    setOrders(getAllOrders());
+
+    // Load Hero Banners
+    const savedHeroBanners = localStorage.getItem('hero_banners');
+    if (savedHeroBanners) {
+      try {
+        setHeroBanners(JSON.parse(savedHeroBanners));
+      } catch (e) {
+        console.error('Error loading hero banners:', e);
+      }
+    }
+
+    // Load Promo Banners
+    const savedPromoBanners = localStorage.getItem('promo_banners');
+    if (savedPromoBanners) {
+      try {
+        const parsed = JSON.parse(savedPromoBanners);
+        if (Array.isArray(parsed) && parsed.length > 0) {
+          setPromoBanners(parsed);
+        } else {
+          setPromoBanners(['https://picsum.photos/seed/promo1/600/150', 'https://picsum.photos/seed/promo2/600/150']);
+        }
+      } catch (e) {
+        console.error('Error loading promo banners:', e);
+        setPromoBanners(['https://picsum.photos/seed/promo1/600/150', 'https://picsum.photos/seed/promo2/600/150']);
+      }
+    } else {
+      setPromoBanners(['https://picsum.photos/seed/promo1/600/150', 'https://picsum.photos/seed/promo2/600/150']);
+    }
+
+    // Load Floating Contact Buttons config
+    const savedFloatingContact = localStorage.getItem('floating_contact_config');
+    if (savedFloatingContact) {
+      try {
+        setFloatingContact(JSON.parse(savedFloatingContact));
+      } catch (e) {
+        console.error('Error loading floating contact config:', e);
+      }
+    }
+  }, []);
+
+  // Listen for order updates
+  useEffect(() => {
+    const handleOrderUpdate = () => {
+      setOrders(getAllOrders());
+    };
+
+    window.addEventListener('orderCreated', handleOrderUpdate);
+    window.addEventListener('orderUpdated', handleOrderUpdate);
+    return () => {
+      window.removeEventListener('orderCreated', handleOrderUpdate);
+      window.removeEventListener('orderUpdated', handleOrderUpdate);
+    };
   }, []);
 
   // Save to localStorage helper
@@ -492,6 +572,9 @@ const AdminPage: React.FC<AdminPageProps> = ({ onLogout }) => {
     const savedReviews = localStorage.getItem('customer_reviews');
     const savedMarquee = localStorage.getItem('marquee_banner_text');
     const savedLogos = localStorage.getItem('partner_logos');
+    const savedHeroBanners = localStorage.getItem('hero_banners');
+    const savedPromoBanners = localStorage.getItem('promo_banners');
+    const savedFloatingContact = localStorage.getItem('floating_contact_config');
     const savedEmails = localStorage.getItem('email_subscriptions');
     const savedMessages = localStorage.getItem('contact_messages');
 
@@ -502,6 +585,9 @@ const AdminPage: React.FC<AdminPageProps> = ({ onLogout }) => {
       reviews: savedReviews ? JSON.parse(savedReviews) : (reviews.length > 0 ? reviews : []),
       marqueeText: savedMarquee || marqueeText || '',
       partnerLogos: savedLogos ? JSON.parse(savedLogos) : (partnerLogos.length > 0 ? partnerLogos : []),
+      heroBanners: savedHeroBanners ? JSON.parse(savedHeroBanners) : heroBanners,
+      promoBanners: savedPromoBanners ? JSON.parse(savedPromoBanners) : (promoBanners.length > 0 ? promoBanners : []),
+      floatingContact: savedFloatingContact ? JSON.parse(savedFloatingContact) : floatingContact,
       emailSubscriptions: savedEmails ? JSON.parse(savedEmails) : (emailSubscriptions.length > 0 ? emailSubscriptions : []),
       contactMessages: savedMessages ? JSON.parse(savedMessages) : (contactMessages.length > 0 ? contactMessages : []),
       exportDate: new Date().toISOString(),
@@ -617,6 +703,24 @@ const AdminPage: React.FC<AdminPageProps> = ({ onLogout }) => {
             localStorage.setItem('partner_logos', JSON.stringify(logosToSave));
             setPartnerLogos(logosToSave);
             window.dispatchEvent(new CustomEvent('partnerLogosUpdated'));
+          }
+          
+          if (importedData.heroBanners) {
+            localStorage.setItem('hero_banners', JSON.stringify(importedData.heroBanners));
+            setHeroBanners(importedData.heroBanners);
+            window.dispatchEvent(new CustomEvent('heroBannersUpdated'));
+          }
+          
+          if (importedData.promoBanners) {
+            localStorage.setItem('promo_banners', JSON.stringify(importedData.promoBanners));
+            setPromoBanners(importedData.promoBanners);
+            window.dispatchEvent(new CustomEvent('promoBannersUpdated'));
+          }
+          
+          if (importedData.floatingContact) {
+            localStorage.setItem('floating_contact_config', JSON.stringify(importedData.floatingContact));
+            setFloatingContact(importedData.floatingContact);
+            window.dispatchEvent(new CustomEvent('floatingContactUpdated'));
           }
           
           // Email Subscriptions
@@ -1949,6 +2053,125 @@ const AdminPage: React.FC<AdminPageProps> = ({ onLogout }) => {
           </div>
         </div>
       );
+    } else if (activeTab === 'orders') {
+      const getStatusColor = (status: string) => {
+        switch (status) {
+          case 'pending': return 'bg-yellow-100 text-yellow-800';
+          case 'confirmed': return 'bg-blue-100 text-blue-800';
+          case 'processing': return 'bg-purple-100 text-purple-800';
+          case 'shipped': return 'bg-indigo-100 text-indigo-800';
+          case 'delivered': return 'bg-green-100 text-green-800';
+          case 'cancelled': return 'bg-red-100 text-red-800';
+          default: return 'bg-gray-100 text-gray-800';
+        }
+      };
+
+      const getStatusLabel = (status: string) => {
+        switch (status) {
+          case 'pending': return 'Chờ xử lý';
+          case 'confirmed': return 'Đã xác nhận';
+          case 'processing': return 'Đang xử lý';
+          case 'shipped': return 'Đã giao hàng';
+          case 'delivered': return 'Đã nhận hàng';
+          case 'cancelled': return 'Đã hủy';
+          default: return status;
+        }
+      };
+
+      return (
+        <div className="overflow-x-auto">
+          <table className="min-w-full bg-white rounded-lg shadow">
+            <thead className="bg-gray-100">
+              <tr>
+                <th className="px-6 py-3 text-left text-xs font-medium text-gray-700 uppercase tracking-wider">Mã đơn</th>
+                <th className="px-6 py-3 text-left text-xs font-medium text-gray-700 uppercase tracking-wider">Khách hàng</th>
+                <th className="px-6 py-3 text-left text-xs font-medium text-gray-700 uppercase tracking-wider">Sản phẩm</th>
+                <th className="px-6 py-3 text-left text-xs font-medium text-gray-700 uppercase tracking-wider">Tổng tiền</th>
+                <th className="px-6 py-3 text-left text-xs font-medium text-gray-700 uppercase tracking-wider">Trạng thái</th>
+                <th className="px-6 py-3 text-left text-xs font-medium text-gray-700 uppercase tracking-wider">Ngày đặt</th>
+                <th className="px-6 py-3 text-left text-xs font-medium text-gray-700 uppercase tracking-wider">Thao tác</th>
+              </tr>
+            </thead>
+            <tbody className="bg-white divide-y divide-gray-200">
+              {orders.length === 0 ? (
+                <tr>
+                  <td colSpan={7} className="px-6 py-8 text-center text-gray-500">
+                    Chưa có đơn hàng nào
+                  </td>
+                </tr>
+              ) : (
+                orders.sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()).map((order) => (
+                  <tr key={order.id} className="hover:bg-gray-50">
+                    <td className="px-6 py-4 whitespace-nowrap">
+                      <div className="text-sm font-semibold text-gray-900">{order.id}</div>
+                    </td>
+                    <td className="px-6 py-4">
+                      <div className="text-sm text-gray-900 font-medium">{order.customerName}</div>
+                      <div className="text-xs text-gray-500">{order.customerEmail}</div>
+                      <div className="text-xs text-gray-500">{order.customerPhone}</div>
+                    </td>
+                    <td className="px-6 py-4">
+                      <div className="text-sm text-gray-900">
+                        {order.items.length} sản phẩm
+                      </div>
+                      <div className="text-xs text-gray-500 max-w-xs truncate">
+                        {order.items.map(item => item.productName).join(', ')}
+                      </div>
+                    </td>
+                    <td className="px-6 py-4 whitespace-nowrap">
+                      <div className="text-sm font-semibold text-primary-orange">
+                        {new Intl.NumberFormat('vi-VN').format(order.total)}đ
+                      </div>
+                    </td>
+                    <td className="px-6 py-4 whitespace-nowrap">
+                      <span className={`px-2 py-1 text-xs font-semibold rounded-full ${getStatusColor(order.status)}`}>
+                        {getStatusLabel(order.status)}
+                      </span>
+                    </td>
+                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                      {new Date(order.createdAt).toLocaleDateString('vi-VN')}
+                    </td>
+                    <td className="px-6 py-4 whitespace-nowrap text-sm font-medium">
+                      <div className="flex flex-col gap-2">
+                        <select
+                          value={order.status}
+                          onChange={(e) => {
+                            if (updateOrderStatus(order.id, e.target.value as Order['status'])) {
+                              setOrders(getAllOrders());
+                              alert('✅ Đã cập nhật trạng thái đơn hàng!');
+                            }
+                          }}
+                          className="text-xs border rounded px-2 py-1"
+                        >
+                          <option value="pending">Chờ xử lý</option>
+                          <option value="confirmed">Đã xác nhận</option>
+                          <option value="processing">Đang xử lý</option>
+                          <option value="shipped">Đã giao hàng</option>
+                          <option value="delivered">Đã nhận hàng</option>
+                          <option value="cancelled">Đã hủy</option>
+                        </select>
+                        <button
+                          onClick={() => {
+                            if (confirm(`Bạn có chắc muốn xóa đơn hàng ${order.id}?`)) {
+                              if (deleteOrder(order.id)) {
+                                setOrders(getAllOrders());
+                                alert('✅ Đã xóa đơn hàng!');
+                              }
+                            }
+                          }}
+                          className="text-red-600 hover:text-red-900 text-xs"
+                        >
+                          ✕ Xóa
+                        </button>
+                      </div>
+                    </td>
+                  </tr>
+                ))
+              )}
+            </tbody>
+          </table>
+        </div>
+      );
     }
     return null;
   };
@@ -2038,6 +2261,364 @@ const AdminPage: React.FC<AdminPageProps> = ({ onLogout }) => {
                 <p className="text-base font-medium text-gray-800 bg-blue-50 p-2 rounded">
                   {marqueeText || '(Chưa có nội dung)'}
                 </p>
+              </div>
+            )}
+          </div>
+
+          {/* Hero Banners Management */}
+          <div className="bg-gradient-to-r from-green-50 to-teal-50 border-l-4 border-green-500 p-4 rounded-lg mb-6">
+            <div className="flex justify-between items-center mb-2">
+              <h3 className="text-lg font-bold text-gray-800 flex items-center">
+                <span className="mr-2">🖼️</span> Quản Lý Banner Trang Chủ (Hero Banners)
+              </h3>
+              <button
+                onClick={() => setIsEditingHeroBanners(!isEditingHeroBanners)}
+                className={`px-4 py-2 rounded text-sm font-semibold ${
+                  isEditingHeroBanners 
+                    ? 'bg-gray-600 text-white hover:bg-gray-700' 
+                    : 'bg-green-600 text-white hover:bg-green-700'
+                }`}
+              >
+                {isEditingHeroBanners ? '✕ Hủy' : '✏️ Chỉnh Sửa'}
+              </button>
+            </div>
+            
+            {isEditingHeroBanners ? (
+              <div className="space-y-4">
+                <div className="bg-white p-4 rounded-lg border border-gray-200">
+                  <p className="text-sm font-semibold text-gray-700 mb-3">
+                    Upload ảnh banner cho trang chủ:
+                  </p>
+                  <div className="space-y-4">
+                    <div>
+                      <ImageUpload
+                        label="Banner chính (lớn, bên trái)"
+                        value={heroBanners.mainBanner}
+                        onChange={(url) => setHeroBanners(prev => ({ ...prev, mainBanner: url }))}
+                        placeholder="URL hoặc upload ảnh banner chính"
+                        helpText="Kích thước khuyến nghị: 800x600px hoặc lớn hơn"
+                      />
+                    </div>
+                    <div>
+                      <ImageUpload
+                        label="Banner phụ (bên phải, desktop)"
+                        value={heroBanners.sideBanner}
+                        onChange={(url) => setHeroBanners(prev => ({ ...prev, sideBanner: url }))}
+                        placeholder="URL hoặc upload ảnh banner phụ"
+                        helpText="Kích thước khuyến nghị: 400x600px"
+                      />
+                    </div>
+                    <div>
+                      <ImageUpload
+                        label="Banner nhỏ 1 (dưới cùng)"
+                        value={heroBanners.bottomBanner1}
+                        onChange={(url) => setHeroBanners(prev => ({ ...prev, bottomBanner1: url }))}
+                        placeholder="URL hoặc upload ảnh banner nhỏ"
+                        helpText="Kích thước khuyến nghị: 600x200px"
+                      />
+                    </div>
+                    <div>
+                      <ImageUpload
+                        label="Banner nhỏ 2 (dưới cùng)"
+                        value={heroBanners.bottomBanner2}
+                        onChange={(url) => setHeroBanners(prev => ({ ...prev, bottomBanner2: url }))}
+                        placeholder="URL hoặc upload ảnh banner nhỏ"
+                        helpText="Kích thước khuyến nghị: 600x200px"
+                      />
+                    </div>
+                    <div>
+                      <ImageUpload
+                        label="Banner nhỏ 3 (dưới cùng, desktop)"
+                        value={heroBanners.bottomBanner3}
+                        onChange={(url) => setHeroBanners(prev => ({ ...prev, bottomBanner3: url }))}
+                        placeholder="URL hoặc upload ảnh banner nhỏ"
+                        helpText="Kích thước khuyến nghị: 600x200px"
+                      />
+                    </div>
+                  </div>
+                </div>
+                <div className="flex gap-2">
+                  <button
+                    onClick={() => {
+                      localStorage.setItem('hero_banners', JSON.stringify(heroBanners));
+                      window.dispatchEvent(new Event('heroBannersUpdated'));
+                      setIsEditingHeroBanners(false);
+                      alert('✅ Đã lưu banner trang chủ thành công!');
+                    }}
+                    className="bg-green-600 text-white px-6 py-2 rounded hover:bg-green-700 font-semibold"
+                  >
+                    💾 Lưu
+                  </button>
+                  <button
+                    onClick={() => {
+                      const defaultBanners = {
+                        mainBanner: 'https://picsum.photos/id/1018/800/600',
+                        sideBanner: 'https://picsum.photos/id/1080/400/600',
+                        bottomBanner1: 'https://picsum.photos/id/21/600/200',
+                        bottomBanner2: 'https://picsum.photos/id/22/600/200',
+                        bottomBanner3: 'https://picsum.photos/id/23/600/200'
+                      };
+                      setHeroBanners(defaultBanners);
+                    }}
+                    className="bg-gray-500 text-white px-6 py-2 rounded hover:bg-gray-600 font-semibold"
+                  >
+                    🔄 Đặt lại mặc định
+                  </button>
+                </div>
+              </div>
+            ) : (
+              <div className="bg-white p-3 rounded border border-gray-200">
+                <p className="text-sm text-gray-600 mb-2">Banner hiện tại đã được cấu hình</p>
+                <div className="grid grid-cols-2 gap-2 mt-2">
+                  <div className="text-xs text-gray-500">Banner chính: ✓</div>
+                  <div className="text-xs text-gray-500">Banner phụ: ✓</div>
+                  <div className="text-xs text-gray-500">Banner nhỏ 1: ✓</div>
+                  <div className="text-xs text-gray-500">Banner nhỏ 2: ✓</div>
+                  <div className="text-xs text-gray-500">Banner nhỏ 3: ✓</div>
+                </div>
+              </div>
+            )}
+          </div>
+
+          {/* Promo Banners Management */}
+          <div className="bg-gradient-to-r from-orange-50 to-red-50 border-l-4 border-orange-500 p-4 rounded-lg mb-6">
+            <div className="flex justify-between items-center mb-2">
+              <h3 className="text-lg font-bold text-gray-800 flex items-center">
+                <span className="mr-2">🎯</span> Quản Lý Banner Quảng Bá (Promo Banners)
+              </h3>
+              <button
+                onClick={() => setIsEditingPromoBanners(!isEditingPromoBanners)}
+                className={`px-4 py-2 rounded text-sm font-semibold ${
+                  isEditingPromoBanners 
+                    ? 'bg-gray-600 text-white hover:bg-gray-700' 
+                    : 'bg-orange-600 text-white hover:bg-orange-700'
+                }`}
+              >
+                {isEditingPromoBanners ? '✕ Hủy' : '✏️ Chỉnh Sửa'}
+              </button>
+            </div>
+            
+            {isEditingPromoBanners ? (
+              <div className="space-y-4">
+                <div className="bg-white p-4 rounded-lg border border-gray-200">
+                  <p className="text-sm font-semibold text-gray-700 mb-3">
+                    Upload ảnh banner quảng bá (hiển thị 2 banner ngang):
+                  </p>
+                  <div className="space-y-3">
+                    {promoBanners.map((banner, index) => (
+                      <div key={index} className="flex items-center gap-3 p-3 bg-gray-50 rounded-lg border border-gray-200">
+                        <div className="flex-1">
+                          <ImageUpload
+                            label={`Banner quảng bá ${index + 1}`}
+                            value={banner}
+                            onChange={(url) => {
+                              const newBanners = [...promoBanners];
+                              newBanners[index] = url;
+                              setPromoBanners(newBanners);
+                            }}
+                            placeholder="URL hoặc upload ảnh banner quảng bá"
+                            helpText="Kích thước khuyến nghị: 600x150px"
+                          />
+                        </div>
+                        <button
+                          type="button"
+                          onClick={() => {
+                            const newBanners = promoBanners.filter((_, i) => i !== index);
+                            setPromoBanners(newBanners);
+                          }}
+                          className="text-red-600 hover:text-red-700 text-xl font-bold"
+                          title="Xóa banner"
+                        >
+                          ×
+                        </button>
+                      </div>
+                    ))}
+                    {promoBanners.length < 4 && (
+                      <button
+                        type="button"
+                        onClick={() => {
+                          setPromoBanners([...promoBanners, '']);
+                        }}
+                        className="mt-3 bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700 font-semibold text-sm"
+                      >
+                        + Thêm Banner Mới
+                      </button>
+                    )}
+                  </div>
+                </div>
+                <div className="flex gap-2">
+                  <button
+                    onClick={() => {
+                      const validBanners = promoBanners.filter(banner => banner.trim() !== '');
+                      if (validBanners.length < 2) {
+                        alert('⚠️ Cần ít nhất 2 banner quảng bá!');
+                        return;
+                      }
+                      localStorage.setItem('promo_banners', JSON.stringify(validBanners));
+                      window.dispatchEvent(new Event('promoBannersUpdated'));
+                      setIsEditingPromoBanners(false);
+                      alert('✅ Đã lưu banner quảng bá thành công!');
+                    }}
+                    className="bg-green-600 text-white px-6 py-2 rounded hover:bg-green-700 font-semibold"
+                  >
+                    💾 Lưu
+                  </button>
+                  <button
+                    onClick={() => {
+                      setPromoBanners(['https://picsum.photos/seed/promo1/600/150', 'https://picsum.photos/seed/promo2/600/150']);
+                    }}
+                    className="bg-gray-500 text-white px-6 py-2 rounded hover:bg-gray-600 font-semibold"
+                  >
+                    🔄 Đặt lại mặc định
+                  </button>
+                </div>
+              </div>
+            ) : (
+              <div className="bg-white p-3 rounded border border-gray-200">
+                <p className="text-sm text-gray-600 mb-2">Số lượng banner quảng bá: <strong>{promoBanners.length}</strong></p>
+                <div className="flex flex-wrap gap-2 mt-2">
+                  {promoBanners.slice(0, 4).map((banner, index) => (
+                    <img 
+                      key={index} 
+                      src={banner} 
+                      alt={`Promo ${index + 1}`}
+                      className="h-16 object-cover border border-gray-200 rounded p-1 bg-white"
+                      onError={(e) => {
+                        (e.target as HTMLImageElement).style.display = 'none';
+                      }}
+                    />
+                  ))}
+                </div>
+              </div>
+            )}
+          </div>
+
+          {/* Floating Contact Buttons Management */}
+          <div className="bg-gradient-to-r from-teal-50 to-cyan-50 border-l-4 border-teal-500 p-4 rounded-lg mb-6">
+            <div className="flex justify-between items-center mb-2">
+              <h3 className="text-lg font-bold text-gray-800 flex items-center">
+                <span className="mr-2">📞</span> Quản Lý Nút Liên Hệ Nổi (Góc Phải Trang)
+              </h3>
+              <button
+                onClick={() => setIsEditingFloatingContact(!isEditingFloatingContact)}
+                className={`px-4 py-2 rounded text-sm font-semibold ${
+                  isEditingFloatingContact 
+                    ? 'bg-gray-600 text-white hover:bg-gray-700' 
+                    : 'bg-teal-600 text-white hover:bg-teal-700'
+                }`}
+              >
+                {isEditingFloatingContact ? '✕ Hủy' : '✏️ Chỉnh Sửa'}
+              </button>
+            </div>
+            
+            {isEditingFloatingContact ? (
+              <div className="space-y-4">
+                <div className="bg-white p-4 rounded-lg border border-gray-200">
+                  <p className="text-sm font-semibold text-gray-700 mb-3">
+                    Cấu hình nút liên hệ hiển thị ở góc phải trang:
+                  </p>
+                  <div className="space-y-4">
+                    <div>
+                      <label className="block text-sm font-semibold text-gray-700 mb-1">
+                        Số điện thoại *
+                      </label>
+                      <input
+                        type="text"
+                        value={floatingContact.phone}
+                        onChange={(e) => setFloatingContact(prev => ({ ...prev, phone: e.target.value }))}
+                        placeholder="0935.444.945"
+                        className="w-full border-2 border-gray-300 rounded-lg px-4 py-2 focus:border-primary-blue focus:ring-2 focus:ring-primary-blue/20"
+                      />
+                      <p className="text-xs text-gray-500 mt-1">
+                        💡 Số điện thoại sẽ tự động gọi khi click (tel:)
+                      </p>
+                    </div>
+                    <div>
+                      <label className="block text-sm font-semibold text-gray-700 mb-1">
+                        Link Zalo *
+                      </label>
+                      <input
+                        type="text"
+                        value={floatingContact.zalo}
+                        onChange={(e) => setFloatingContact(prev => ({ ...prev, zalo: e.target.value }))}
+                        placeholder="https://zalo.me/0935444945 hoặc chỉ nhập số: 0935444945"
+                        className="w-full border-2 border-gray-300 rounded-lg px-4 py-2 focus:border-primary-blue focus:ring-2 focus:ring-primary-blue/20"
+                      />
+                      <p className="text-xs text-gray-500 mt-1">
+                        💡 Có thể nhập full URL hoặc chỉ số điện thoại (sẽ tự động tạo link zalo.me)
+                      </p>
+                    </div>
+                    <div>
+                      <label className="block text-sm font-semibold text-gray-700 mb-1">
+                        Link Facebook *
+                      </label>
+                      <input
+                        type="text"
+                        value={floatingContact.facebook}
+                        onChange={(e) => setFloatingContact(prev => ({ ...prev, facebook: e.target.value }))}
+                        placeholder="https://www.facebook.com/xuongindanang hoặc chỉ username: xuongindanang"
+                        className="w-full border-2 border-gray-300 rounded-lg px-4 py-2 focus:border-primary-blue focus:ring-2 focus:ring-primary-blue/20"
+                      />
+                      <p className="text-xs text-gray-500 mt-1">
+                        💡 Có thể nhập full URL hoặc chỉ username Facebook
+                      </p>
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <input
+                        type="checkbox"
+                        id="enableFloatingContact"
+                        checked={floatingContact.enabled}
+                        onChange={(e) => setFloatingContact(prev => ({ ...prev, enabled: e.target.checked }))}
+                        className="w-4 h-4 text-primary-blue border-gray-300 rounded focus:ring-primary-blue"
+                      />
+                      <label htmlFor="enableFloatingContact" className="text-sm font-semibold text-gray-700">
+                        Hiển thị nút liên hệ trên website
+                      </label>
+                    </div>
+                  </div>
+                </div>
+                <div className="flex gap-2">
+                  <button
+                    onClick={() => {
+                      if (!floatingContact.phone || !floatingContact.zalo || !floatingContact.facebook) {
+                        alert('⚠️ Vui lòng điền đầy đủ thông tin!');
+                        return;
+                      }
+                      localStorage.setItem('floating_contact_config', JSON.stringify(floatingContact));
+                      window.dispatchEvent(new Event('floatingContactUpdated'));
+                      setIsEditingFloatingContact(false);
+                      alert('✅ Đã lưu cấu hình nút liên hệ thành công!');
+                    }}
+                    className="bg-green-600 text-white px-6 py-2 rounded hover:bg-green-700 font-semibold"
+                  >
+                    💾 Lưu
+                  </button>
+                  <button
+                    onClick={() => {
+                      const defaultConfig = {
+                        phone: '0935.444.945',
+                        zalo: 'https://zalo.me/0935444945',
+                        facebook: 'https://www.facebook.com/xuongindanang',
+                        enabled: true
+                      };
+                      setFloatingContact(defaultConfig);
+                    }}
+                    className="bg-gray-500 text-white px-6 py-2 rounded hover:bg-gray-600 font-semibold"
+                  >
+                    🔄 Đặt lại mặc định
+                  </button>
+                </div>
+              </div>
+            ) : (
+              <div className="bg-white p-3 rounded border border-gray-200">
+                <p className="text-sm text-gray-600 mb-2">
+                  Trạng thái: <strong>{floatingContact.enabled ? '✅ Đang hiển thị' : '❌ Đã tắt'}</strong>
+                </p>
+                <div className="grid grid-cols-3 gap-2 mt-2 text-xs">
+                  <div className="text-gray-500">📞 {floatingContact.phone || '(Chưa cấu hình)'}</div>
+                  <div className="text-gray-500">💬 Zalo: {floatingContact.zalo ? '✓' : '✗'}</div>
+                  <div className="text-gray-500">👤 Facebook: {floatingContact.facebook ? '✓' : '✗'}</div>
+                </div>
               </div>
             )}
           </div>
@@ -2183,6 +2764,12 @@ const AdminPage: React.FC<AdminPageProps> = ({ onLogout }) => {
               className={`px-6 py-2 rounded ${activeTab === 'reviews' ? 'bg-primary-blue text-white' : 'bg-gray-200'}`}
             >
               Đánh Giá ({reviews.length})
+            </button>
+            <button
+              onClick={() => setActiveTab('orders')}
+              className={`px-6 py-2 rounded ${activeTab === 'orders' ? 'bg-primary-blue text-white' : 'bg-gray-200'}`}
+            >
+              📦 Đơn Hàng ({orders.length})
             </button>
             <button
               onClick={() => {

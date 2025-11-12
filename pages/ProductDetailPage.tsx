@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Breadcrumb from '../components/Breadcrumb';
 import { getAllProducts } from '../utils/productLoader';
+import { addToCart } from '../utils/cart';
 import type { Product } from '../types';
 
 interface ProductDetailPageProps {
@@ -190,7 +191,17 @@ const ProductDetailPage: React.FC<ProductDetailPageProps> = ({ productId, produc
                 <div className="space-y-3">
                   <button
                     className="w-full bg-primary-orange text-white py-4 px-6 rounded-lg font-semibold text-lg hover:bg-primary-orange-dark transition-colors"
-                    onClick={() => alert('Đã thêm vào giỏ hàng!')}
+                    onClick={() => {
+                      addToCart({
+                        id: product.id || product.name.toLowerCase().replace(/\s+/g, '-'),
+                        name: product.name,
+                        image: product.images?.[0] || product.image,
+                        newPrice: product.newPrice,
+                        oldPrice: product.oldPrice,
+                        discount: product.discount
+                      });
+                      alert('✅ Đã thêm vào giỏ hàng!');
+                    }}
                   >
                     Thêm vào giỏ hàng
                   </button>

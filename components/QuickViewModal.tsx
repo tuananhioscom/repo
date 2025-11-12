@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import type { Product } from '../types';
+import { addToCart } from '../utils/cart';
 
 interface QuickViewModalProps {
   product: Product | null;
@@ -109,7 +110,15 @@ const QuickViewModal: React.FC<QuickViewModalProps> = ({ product, isOpen, onClos
                 <button
                   className="w-full bg-primary-orange text-white py-3 px-6 rounded-lg font-semibold hover:bg-primary-orange-dark transition-colors"
                   onClick={() => {
-                    alert('Đã thêm vào giỏ hàng!');
+                    addToCart({
+                      id: product.id || product.name.toLowerCase().replace(/\s+/g, '-'),
+                      name: product.name,
+                      image: product.image,
+                      newPrice: product.newPrice,
+                      oldPrice: product.oldPrice,
+                      discount: product.discount
+                    });
+                    alert('✅ Đã thêm vào giỏ hàng!');
                     onClose();
                   }}
                 >

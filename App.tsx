@@ -3,6 +3,8 @@ import Header from './components/Header';
 import PartnerLogos from './components/PartnerLogos';
 import ReviewsSection from './components/ReviewsSection';
 import Footer from './components/Footer';
+import FloatingContactButtons from './components/FloatingContactButtons';
+import BackToTop from './components/BackToTop';
 
 // Page Components
 import HomePage from './pages/HomePage';
@@ -15,6 +17,8 @@ import AdminPage from './pages/AdminPage';
 import LoginPage from './pages/LoginPage';
 import ProductDetailPage from './pages/ProductDetailPage';
 import NewsDetailPage from './pages/NewsDetailPage';
+import CartPage from './pages/CartPage';
+import UserAuthPage from './pages/UserAuthPage';
 import { isAuthenticated } from './utils/auth';
 
 const App: React.FC = () => {
@@ -80,7 +84,7 @@ const App: React.FC = () => {
     if (category) {
       setCurrentPage('SẢN PHẨM');
       // Don't reset detail states, just set page
-    } else if (page === 'products' || newFilter === 'true') {
+    } else if (page === 'products' || newFilter === 'true' || urlParams.get('gift') === 'true') {
       setCurrentPage('SẢN PHẨM');
     } else if (page === 'news') {
       setCurrentPage('TIN TỨC');
@@ -96,6 +100,10 @@ const App: React.FC = () => {
       setCurrentPage('TÀI KHOẢN');
     } else if (page === 'about') {
       setCurrentPage('GIỚI THIỆU');
+    } else if (page === 'cart' || page === 'CART') {
+      setCurrentPage('CART');
+    } else if (page === 'user_auth' || page === 'USER_AUTH' || page === 'login' || page === 'register') {
+      setCurrentPage('USER_AUTH');
     } else if (productId || productSlug) {
       setCurrentPage('PRODUCT_DETAIL');
       setSelectedProductId(productId);
@@ -169,6 +177,10 @@ const App: React.FC = () => {
         return <NewsListPage />;
       case 'LIÊN HỆ':
         return <ContactPage />;
+      case 'CART':
+        return <CartPage />;
+      case 'USER_AUTH':
+        return <UserAuthPage />;
       case 'ADMIN':
         // Check authentication before showing admin page
         if (!isLoggedIn) {
@@ -491,6 +503,8 @@ const App: React.FC = () => {
         </>
       )}
       {!isLoginPage && <Footer onNavigate={handleNavigate} />}
+      {!isLoginPage && <FloatingContactButtons />}
+      {!isLoginPage && <BackToTop />}
     </div>
   );
 };
