@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Header from './components/Header';
 import PartnerLogos from './components/PartnerLogos';
+import ReviewsSection from './components/ReviewsSection';
 import Footer from './components/Footer';
 
 // Page Components
@@ -185,7 +186,12 @@ const App: React.FC = () => {
       <main className={isLoginPage ? "" : "max-w-7xl mx-auto px-2 sm:px-4 lg:px-8 py-4"}>
         {renderPage()}
       </main>
-      {!isLoginPage && currentPage === 'TRANG CHỦ' && <PartnerLogos />}
+      {!isLoginPage && currentPage === 'TRANG CHỦ' && (
+        <>
+          <PartnerLogos />
+          <ReviewsSection />
+        </>
+      )}
       {!isLoginPage && <Footer onNavigate={handleNavigate} />}
     </div>
   );

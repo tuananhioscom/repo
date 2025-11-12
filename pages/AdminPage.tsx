@@ -3,6 +3,7 @@ import productsData from '../data/products.json';
 import categoriesData from '../data/categories.json';
 import newsData from '../data/news.json';
 import { logout, getCurrentUser } from '../utils/auth';
+import ImageUpload from '../components/ImageUpload';
 
 type Product = {
   id: string;
@@ -35,15 +36,26 @@ type NewsItem = {
   content: string;
 };
 
+type Review = {
+  id: string;
+  customerName: string;
+  rating: number; // 1-5
+  comment: string;
+  date: string;
+  product?: string;
+  verified?: boolean;
+};
+
 interface AdminPageProps {
   onLogout: () => void;
 }
 
 const AdminPage: React.FC<AdminPageProps> = ({ onLogout }) => {
-  const [activeTab, setActiveTab] = useState<'products' | 'categories' | 'news'>('products');
+  const [activeTab, setActiveTab] = useState<'products' | 'categories' | 'news' | 'reviews'>('products');
   const [products, setProducts] = useState<Product[]>([]);
   const [categories, setCategories] = useState<Category[]>(categoriesData.categories);
   const [news, setNews] = useState<NewsItem[]>(newsData.news);
+  const [reviews, setReviews] = useState<Review[]>([]);
 
   const [editingItem, setEditingItem] = useState<any>(null);
   const [isAdding, setIsAdding] = useState(false);
@@ -53,6 +65,10 @@ const AdminPage: React.FC<AdminPageProps> = ({ onLogout }) => {
   // Marquee Banner state
   const [marqueeText, setMarqueeText] = useState<string>('');
   const [isEditingMarquee, setIsEditingMarquee] = useState(false);
+  
+  // Partner Logos state
+  const [partnerLogos, setPartnerLogos] = useState<string[]>([]);
+  const [isEditingPartners, setIsEditingPartners] = useState(false);
   
   // Content builder state for news
   const [contentBlocks, setContentBlocks] = useState<Array<{
@@ -81,12 +97,43 @@ const AdminPage: React.FC<AdminPageProps> = ({ onLogout }) => {
     }
   }, []);
 
+  // Load Partner Logos
+  useEffect(() => {
+    const savedLogos = localStorage.getItem('partner_logos');
+    if (savedLogos) {
+      try {
+        setPartnerLogos(JSON.parse(savedLogos));
+      } catch (e) {
+        // Default logos
+        setPartnerLogos([
+          'https://via.placeholder.com/150x60/cccccc/808080?text=AT01FOOD',
+          'https://via.placeholder.com/150x60/cccccc/808080?text=BDS01',
+          'https://via.placeholder.com/150x60/cccccc/808080?text=BDS03',
+          'https://via.placeholder.com/150x60/cccccc/808080?text=BDS05',
+          'https://via.placeholder.com/150x60/cccccc/808080?text=C2SHOP',
+          'https://via.placeholder.com/150x60/cccccc/808080?text=C3SHOP',
+        ]);
+      }
+    } else {
+      // Default logos
+      setPartnerLogos([
+        'https://via.placeholder.com/150x60/cccccc/808080?text=AT01FOOD',
+        'https://via.placeholder.com/150x60/cccccc/808080?text=BDS01',
+        'https://via.placeholder.com/150x60/cccccc/808080?text=BDS03',
+        'https://via.placeholder.com/150x60/cccccc/808080?text=BDS05',
+        'https://via.placeholder.com/150x60/cccccc/808080?text=C2SHOP',
+        'https://via.placeholder.com/150x60/cccccc/808080?text=C3SHOP',
+      ]);
+    }
+  }, []);
+
   // Load data from localStorage or use default
   useEffect(() => {
     // Try to load from localStorage first
     const savedProducts = localStorage.getItem('admin_products');
     const savedCategories = localStorage.getItem('admin_categories');
     const savedNews = localStorage.getItem('admin_news');
+    const savedReviews = localStorage.getItem('customer_reviews');
 
     if (savedProducts) {
       try {
@@ -125,6 +172,56 @@ const AdminPage: React.FC<AdminPageProps> = ({ onLogout }) => {
         setNews(newsData.news);
       }
     }
+
+    if (savedReviews) {
+      try {
+        setReviews(JSON.parse(savedReviews));
+      } catch (e) {
+        // Default reviews
+        setReviews([
+          {
+            id: 'r1',
+            customerName: 'Nguyễn Văn A',
+            rating: 5,
+            comment: 'Sản phẩm chất lượng cao, in logo rất đẹp và bền màu. Dịch vụ tư vấn nhiệt tình, giao hàng nhanh. Rất hài lòng!',
+            date: '15/12/2024',
+            product: 'Ly thủy tinh in logo',
+            verified: true
+          },
+          {
+            id: 'r2',
+            customerName: 'Trần Thị B',
+            rating: 5,
+            comment: 'Đặt làm quà tặng cho nhân viên, sản phẩm đẹp, giá cả hợp lý. Logo in rõ nét, không bị phai màu sau nhiều lần sử dụng.',
+            date: '10/12/2024',
+            product: 'Bình giữ nhiệt in logo',
+            verified: true
+          }
+        ]);
+      }
+    } else {
+      // Default reviews
+      setReviews([
+        {
+          id: 'r1',
+          customerName: 'Nguyễn Văn A',
+          rating: 5,
+          comment: 'Sản phẩm chất lượng cao, in logo rất đẹp và bền màu. Dịch vụ tư vấn nhiệt tình, giao hàng nhanh. Rất hài lòng!',
+          date: '15/12/2024',
+          product: 'Ly thủy tinh in logo',
+          verified: true
+        },
+        {
+          id: 'r2',
+          customerName: 'Trần Thị B',
+          rating: 5,
+          comment: 'Đặt làm quà tặng cho nhân viên, sản phẩm đẹp, giá cả hợp lý. Logo in rõ nét, không bị phai màu sau nhiều lần sử dụng.',
+          date: '10/12/2024',
+          product: 'Bình giữ nhiệt in logo',
+          verified: true
+        }
+      ]);
+    }
   }, []);
 
   // Save to localStorage helper
@@ -158,6 +255,12 @@ const AdminPage: React.FC<AdminPageProps> = ({ onLogout }) => {
       saveToLocalStorage('admin_news', newNews);
       window.dispatchEvent(new CustomEvent('newsUpdated'));
       alert('Đã xóa và lưu thành công!');
+    } else if (activeTab === 'reviews') {
+      const newReviews = reviews.filter(r => r.id !== id);
+      setReviews(newReviews);
+      saveToLocalStorage('customer_reviews', newReviews);
+      window.dispatchEvent(new CustomEvent('reviewsUpdated'));
+      alert('Đã xóa và lưu thành công!');
     }
   };
 
@@ -189,7 +292,7 @@ const AdminPage: React.FC<AdminPageProps> = ({ onLogout }) => {
     Array.from(tempDiv.children).forEach((el: any) => {
       if (el.tagName === 'P') {
         blocks.push({ id: Date.now().toString() + Math.random(), type: 'paragraph', content: el.textContent || '' });
-      } else if (el.tagName === 'H2' || el.tagName === 'H3') {
+      } else if (el.tagName === 'H1' || el.tagName === 'H2' || el.tagName === 'H3') {
         blocks.push({ id: Date.now().toString() + Math.random(), type: 'heading', content: el.textContent || '', level: parseInt(el.tagName[1]) });
       } else if (el.tagName === 'UL') {
         const items = Array.from(el.querySelectorAll('li')).map((li: any) => li.textContent || '');
@@ -216,6 +319,7 @@ const AdminPage: React.FC<AdminPageProps> = ({ onLogout }) => {
         setContentBlocks([]);
       }
     }
+    // No special handling needed for reviews
   };
 
   const handleAdd = () => {
@@ -249,6 +353,16 @@ const AdminPage: React.FC<AdminPageProps> = ({ onLogout }) => {
         content: ''
       });
       setContentBlocks([]); // Reset content blocks when adding new
+    } else if (activeTab === 'reviews') {
+      setEditingItem({
+        id: `r${Date.now()}`,
+        customerName: '',
+        rating: 5,
+        comment: '',
+        date: new Date().toLocaleDateString('vi-VN'),
+        product: '',
+        verified: true
+      });
     }
   };
 
@@ -290,6 +404,17 @@ const AdminPage: React.FC<AdminPageProps> = ({ onLogout }) => {
       setNews(newNews);
       saveToLocalStorage('admin_news', newNews);
       window.dispatchEvent(new CustomEvent('newsUpdated'));
+      alert('Đã lưu thành công! Dữ liệu sẽ được giữ lại khi refresh trang.');
+    } else if (activeTab === 'reviews') {
+      let newReviews: Review[];
+      if (isAdding) {
+        newReviews = [...reviews, editingItem];
+      } else {
+        newReviews = reviews.map(r => r.id === editingItem.id ? editingItem : r);
+      }
+      setReviews(newReviews);
+      saveToLocalStorage('customer_reviews', newReviews);
+      window.dispatchEvent(new CustomEvent('reviewsUpdated'));
       alert('Đã lưu thành công! Dữ liệu sẽ được giữ lại khi refresh trang.');
     }
 
@@ -425,17 +550,13 @@ const AdminPage: React.FC<AdminPageProps> = ({ onLogout }) => {
                     <p className="text-xs text-gray-500 mt-1.5">Để trống sẽ tự động tạo từ tên sản phẩm. Dùng dấu gạch ngang (-) thay khoảng trắng</p>
                   </div>
                   <div className="md:col-span-2">
-                    <label className="block text-sm font-semibold mb-2 text-gray-700">
-                      URL hình ảnh chính <span className="text-red-500">*</span>
-                    </label>
-                    <input
-                      type="text"
-                      className="w-full border-2 border-gray-300 rounded-lg px-4 py-2.5 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition"
+                    <ImageUpload
+                      label="Hình ảnh chính sản phẩm"
                       value={editingItem.image || ''}
-                      onChange={(e) => setEditingItem({...editingItem, image: e.target.value})}
-                      placeholder="https://example.com/image.jpg"
+                      onChange={(url) => setEditingItem({...editingItem, image: url})}
+                      placeholder="Nhập URL hình ảnh hoặc upload từ máy tính"
+                      helpText="Hình ảnh sẽ hiển thị trên trang sản phẩm và danh sách sản phẩm"
                     />
-                    <p className="text-xs text-gray-500 mt-1.5">Dán link hình ảnh từ internet hoặc upload lên hosting</p>
                   </div>
                 </div>
               </div>
@@ -866,18 +987,14 @@ const AdminPage: React.FC<AdminPageProps> = ({ onLogout }) => {
                     />
                     <p className="text-xs text-gray-500 mt-1.5">Để trống sẽ tự động tạo từ tiêu đề. Dùng dấu gạch ngang (-) thay khoảng trắng</p>
                   </div>
-                  <div>
-                    <label className="block text-sm font-semibold mb-2 text-gray-700">
-                      URL hình ảnh đại diện <span className="text-red-500">*</span>
-                    </label>
-                    <input
-                      type="text"
-                      className="w-full border-2 border-gray-300 rounded-lg px-4 py-2.5 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition"
+                  <div className="md:col-span-2">
+                    <ImageUpload
+                      label="Hình ảnh đại diện bài viết"
                       value={editingItem.image || ''}
-                      onChange={(e) => setEditingItem({...editingItem, image: e.target.value})}
-                      placeholder="https://example.com/image.jpg"
+                      onChange={(url) => setEditingItem({...editingItem, image: url})}
+                      placeholder="Nhập URL hình ảnh hoặc upload từ máy tính"
+                      helpText="Hình ảnh sẽ hiển thị ở đầu bài viết và trong danh sách tin tức"
                     />
-                    <p className="text-xs text-gray-500 mt-1.5">Hình ảnh sẽ hiển thị ở đầu bài viết và trong danh sách tin tức</p>
                   </div>
                   <div>
                     <label className="block text-sm font-semibold mb-2 text-gray-700">
@@ -987,7 +1104,7 @@ const AdminPage: React.FC<AdminPageProps> = ({ onLogout }) => {
                         <div className="flex items-center justify-between mb-3">
                           <span className="text-xs font-semibold text-gray-600 bg-white px-2 py-1 rounded">
                             {block.type === 'paragraph' && '📄 Đoạn văn'}
-                            {block.type === 'heading' && `📌 Tiêu đề ${block.level === 2 ? 'lớn' : 'nhỏ'}`}
+                            {block.type === 'heading' && `📌 Tiêu đề ${block.level === 1 ? 'rất lớn (H1)' : block.level === 2 ? 'lớn (H2)' : 'nhỏ (H3)'}`}
                             {block.type === 'list' && '📋 Danh sách'}
                             {block.type === 'image' && '🖼️ Hình ảnh'}
                             {block.type === 'quote' && '💬 Trích dẫn'}
@@ -1038,6 +1155,7 @@ const AdminPage: React.FC<AdminPageProps> = ({ onLogout }) => {
                                   setContentBlocks(newBlocks);
                                 }}
                               >
+                                <option value={1}>Tiêu đề rất lớn (H1)</option>
                                 <option value={2}>Tiêu đề lớn (H2)</option>
                                 <option value={3}>Tiêu đề nhỏ (H3)</option>
                               </select>
@@ -1083,27 +1201,17 @@ const AdminPage: React.FC<AdminPageProps> = ({ onLogout }) => {
 
                         {block.type === 'image' && (
                           <div>
-                            <label className="block text-sm font-medium mb-2 text-gray-700">
-                              URL hình ảnh
-                            </label>
-                            <input
-                              type="text"
-                              className="w-full border-2 border-gray-300 rounded-lg px-4 py-2.5 focus:border-pink-500 focus:ring-2 focus:ring-pink-200 transition"
+                            <ImageUpload
+                              label="URL hình ảnh"
                               value={block.content}
-                              onChange={(e) => {
+                              onChange={(url) => {
                                 const newBlocks = [...contentBlocks];
-                                newBlocks[index].content = e.target.value;
+                                newBlocks[index].content = url;
                                 setContentBlocks(newBlocks);
                               }}
-                              placeholder="https://example.com/image.jpg"
+                              placeholder="Nhập URL hình ảnh hoặc upload từ máy tính"
+                              helpText="Hình ảnh sẽ hiển thị trong nội dung bài viết"
                             />
-                            {block.content && (
-                              <div className="mt-3">
-                                <img src={block.content} alt="Preview" className="max-w-full h-auto rounded-lg border border-gray-300" onError={(e) => {
-                                  (e.target as HTMLImageElement).style.display = 'none';
-                                }} />
-                              </div>
-                            )}
                           </div>
                         )}
                       </div>
@@ -1208,6 +1316,108 @@ const AdminPage: React.FC<AdminPageProps> = ({ onLogout }) => {
               </div>
             </div>
           )}
+
+          <div className="mt-6 flex gap-2">
+            <button onClick={handleSave} className="bg-primary-blue text-white px-6 py-2 rounded hover:bg-primary-blue-dark">
+              Lưu
+            </button>
+            <button onClick={handleCancel} className="bg-gray-300 text-gray-700 px-6 py-2 rounded hover:bg-gray-400">
+              Hủy
+            </button>
+          </div>
+        </div>
+      );
+    } else if (activeTab === 'reviews') {
+      return (
+        <div className="bg-white p-6 rounded-lg shadow-md mb-6">
+          <h3 className="text-xl font-bold mb-4 text-primary-blue">
+            {isAdding ? 'Thêm Đánh Giá' : 'Sửa Đánh Giá'}
+          </h3>
+          
+          <div className="space-y-6">
+            <div className="border-l-4 border-blue-500 pl-4">
+              <h4 className="text-lg font-bold text-gray-900 mb-4 flex items-center gap-2">
+                <span>⭐</span> Thông tin đánh giá
+              </h4>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div>
+                  <label className="block text-sm font-semibold mb-2 text-gray-700">
+                    Tên khách hàng <span className="text-red-500">*</span>
+                  </label>
+                  <input
+                    type="text"
+                    className="w-full border-2 border-gray-300 rounded-lg px-4 py-2.5 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition"
+                    value={editingItem.customerName || ''}
+                    onChange={(e) => setEditingItem({...editingItem, customerName: e.target.value})}
+                    placeholder="Ví dụ: Nguyễn Văn A"
+                  />
+                </div>
+                <div>
+                  <label className="block text-sm font-semibold mb-2 text-gray-700">
+                    Sản phẩm (không bắt buộc)
+                  </label>
+                  <input
+                    type="text"
+                    className="w-full border-2 border-gray-300 rounded-lg px-4 py-2.5 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition"
+                    value={editingItem.product || ''}
+                    onChange={(e) => setEditingItem({...editingItem, product: e.target.value})}
+                    placeholder="Ví dụ: Ly thủy tinh in logo"
+                  />
+                </div>
+                <div>
+                  <label className="block text-sm font-semibold mb-2 text-gray-700">
+                    Đánh giá (sao) <span className="text-red-500">*</span>
+                  </label>
+                  <select
+                    className="w-full border-2 border-gray-300 rounded-lg px-4 py-2.5 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition"
+                    value={editingItem.rating || 5}
+                    onChange={(e) => setEditingItem({...editingItem, rating: parseInt(e.target.value)})}
+                  >
+                    <option value={5}>5 sao ⭐⭐⭐⭐⭐</option>
+                    <option value={4}>4 sao ⭐⭐⭐⭐</option>
+                    <option value={3}>3 sao ⭐⭐⭐</option>
+                    <option value={2}>2 sao ⭐⭐</option>
+                    <option value={1}>1 sao ⭐</option>
+                  </select>
+                </div>
+                <div>
+                  <label className="block text-sm font-semibold mb-2 text-gray-700">
+                    Ngày đánh giá
+                  </label>
+                  <input
+                    type="text"
+                    className="w-full border-2 border-gray-300 rounded-lg px-4 py-2.5 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition"
+                    value={editingItem.date || ''}
+                    onChange={(e) => setEditingItem({...editingItem, date: e.target.value})}
+                    placeholder="15/12/2024"
+                  />
+                </div>
+                <div className="md:col-span-2">
+                  <label className="flex items-center gap-2 mb-2">
+                    <input
+                      type="checkbox"
+                      checked={editingItem.verified || false}
+                      onChange={(e) => setEditingItem({...editingItem, verified: e.target.checked})}
+                      className="w-4 h-4"
+                    />
+                    <span className="text-sm font-semibold text-gray-700">Đánh giá đã xác thực</span>
+                  </label>
+                </div>
+                <div className="md:col-span-2">
+                  <label className="block text-sm font-semibold mb-2 text-gray-700">
+                    Nội dung đánh giá <span className="text-red-500">*</span>
+                  </label>
+                  <textarea
+                    rows={4}
+                    className="w-full border-2 border-gray-300 rounded-lg px-4 py-2.5 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition"
+                    value={editingItem.comment || ''}
+                    onChange={(e) => setEditingItem({...editingItem, comment: e.target.value})}
+                    placeholder="Nhập nội dung đánh giá của khách hàng..."
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
 
           <div className="mt-6 flex gap-2">
             <button onClick={handleSave} className="bg-primary-blue text-white px-6 py-2 rounded hover:bg-primary-blue-dark">
@@ -1371,7 +1581,72 @@ const AdminPage: React.FC<AdminPageProps> = ({ onLogout }) => {
           </table>
         </div>
       );
+    } else if (activeTab === 'reviews') {
+      return (
+        <div className="overflow-x-auto">
+          <table className="min-w-full bg-white rounded-lg shadow">
+            <thead className="bg-gray-100">
+              <tr>
+                <th className="px-4 py-3 text-left">ID</th>
+                <th className="px-4 py-3 text-left">Khách hàng</th>
+                <th className="px-4 py-3 text-left">Sản phẩm</th>
+                <th className="px-4 py-3 text-left">Đánh giá</th>
+                <th className="px-4 py-3 text-left">Xác thực</th>
+                <th className="px-4 py-3 text-left">Ngày</th>
+                <th className="px-4 py-3 text-left">Thao tác</th>
+              </tr>
+            </thead>
+            <tbody>
+              {reviews.map((review) => (
+                <tr key={review.id} className="border-b hover:bg-gray-50">
+                  <td className="px-4 py-3">{review.id}</td>
+                  <td className="px-4 py-3 font-semibold">{review.customerName}</td>
+                  <td className="px-4 py-3 text-sm text-gray-600">{review.product || '-'}</td>
+                  <td className="px-4 py-3">
+                    <div className="flex items-center gap-1">
+                      {[1, 2, 3, 4, 5].map((star) => (
+                        <span
+                          key={star}
+                          className={`text-lg ${star <= review.rating ? 'text-yellow-400' : 'text-gray-300'}`}
+                        >
+                          ★
+                        </span>
+                      ))}
+                      <span className="ml-2 text-sm text-gray-600">({review.rating}/5)</span>
+                    </div>
+                  </td>
+                  <td className="px-4 py-3">
+                    {review.verified ? (
+                      <span className="bg-blue-100 text-blue-700 text-xs font-semibold px-2 py-1 rounded">
+                        ✓ Đã xác thực
+                      </span>
+                    ) : (
+                      <span className="text-gray-400 text-xs">-</span>
+                    )}
+                  </td>
+                  <td className="px-4 py-3 text-sm">{review.date}</td>
+                  <td className="px-4 py-3">
+                    <button
+                      onClick={() => handleEdit(review)}
+                      className="text-blue-600 hover:underline mr-3"
+                    >
+                      Sửa
+                    </button>
+                    <button
+                      onClick={() => handleDelete(review.id)}
+                      className="text-red-600 hover:underline"
+                    >
+                      Xóa
+                    </button>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      );
     }
+    return null;
   };
 
   return (
@@ -1463,6 +1738,123 @@ const AdminPage: React.FC<AdminPageProps> = ({ onLogout }) => {
             )}
           </div>
 
+          {/* Partner Logos Management */}
+          <div className="bg-gradient-to-r from-purple-50 to-pink-50 border-l-4 border-purple-500 p-4 rounded-lg mb-6">
+            <div className="flex justify-between items-center mb-2">
+              <h3 className="text-lg font-bold text-gray-800 flex items-center">
+                <span className="mr-2">🤝</span> Quản Lý Logo Đối Tác
+              </h3>
+              <button
+                onClick={() => setIsEditingPartners(!isEditingPartners)}
+                className={`px-4 py-2 rounded text-sm font-semibold ${
+                  isEditingPartners 
+                    ? 'bg-gray-600 text-white hover:bg-gray-700' 
+                    : 'bg-purple-600 text-white hover:bg-purple-700'
+                }`}
+              >
+                {isEditingPartners ? '✕ Hủy' : '✏️ Chỉnh Sửa'}
+              </button>
+            </div>
+            
+            {isEditingPartners ? (
+              <div className="space-y-4">
+                <div className="bg-white p-4 rounded-lg border border-gray-200">
+                  <p className="text-sm font-semibold text-gray-700 mb-3">
+                    Danh sách logo đối tác (tối đa 12 logo):
+                  </p>
+                  <div className="space-y-3">
+                    {partnerLogos.map((logo, index) => (
+                      <div key={index} className="flex items-center gap-3 p-3 bg-gray-50 rounded-lg border border-gray-200">
+                        <div className="flex-1">
+                          <ImageUpload
+                            label={`Logo ${index + 1}`}
+                            value={logo}
+                            onChange={(url) => {
+                              const newLogos = [...partnerLogos];
+                              newLogos[index] = url;
+                              setPartnerLogos(newLogos);
+                            }}
+                            placeholder="Nhập URL logo hoặc upload từ máy tính"
+                          />
+                        </div>
+                        <button
+                          type="button"
+                          onClick={() => {
+                            const newLogos = partnerLogos.filter((_, i) => i !== index);
+                            setPartnerLogos(newLogos);
+                          }}
+                          className="bg-red-500 text-white px-3 py-2 rounded hover:bg-red-600 text-sm font-semibold"
+                        >
+                          ✕ Xóa
+                        </button>
+                      </div>
+                    ))}
+                  </div>
+                  {partnerLogos.length < 12 && (
+                    <button
+                      type="button"
+                      onClick={() => {
+                        setPartnerLogos([...partnerLogos, '']);
+                      }}
+                      className="mt-3 bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700 font-semibold text-sm"
+                    >
+                      + Thêm Logo Mới
+                    </button>
+                  )}
+                </div>
+                <div className="flex gap-2">
+                  <button
+                    onClick={() => {
+                      const validLogos = partnerLogos.filter(logo => logo.trim() !== '');
+                      localStorage.setItem('partner_logos', JSON.stringify(validLogos));
+                      window.dispatchEvent(new Event('partnerLogosUpdated'));
+                      setIsEditingPartners(false);
+                      alert('✅ Đã lưu logo đối tác thành công!');
+                    }}
+                    className="bg-green-600 text-white px-6 py-2 rounded hover:bg-green-700 font-semibold"
+                  >
+                    💾 Lưu
+                  </button>
+                  <button
+                    onClick={() => {
+                      setPartnerLogos([
+                        'https://via.placeholder.com/150x60/cccccc/808080?text=AT01FOOD',
+                        'https://via.placeholder.com/150x60/cccccc/808080?text=BDS01',
+                        'https://via.placeholder.com/150x60/cccccc/808080?text=BDS03',
+                        'https://via.placeholder.com/150x60/cccccc/808080?text=BDS05',
+                        'https://via.placeholder.com/150x60/cccccc/808080?text=C2SHOP',
+                        'https://via.placeholder.com/150x60/cccccc/808080?text=C3SHOP',
+                      ]);
+                    }}
+                    className="bg-gray-500 text-white px-6 py-2 rounded hover:bg-gray-600 font-semibold"
+                  >
+                    🔄 Đặt lại mặc định
+                  </button>
+                </div>
+              </div>
+            ) : (
+              <div className="bg-white p-3 rounded border border-gray-200">
+                <p className="text-sm text-gray-600 mb-2">Số lượng logo hiện tại: <strong>{partnerLogos.length}</strong></p>
+                <div className="flex flex-wrap gap-3">
+                  {partnerLogos.slice(0, 6).map((logo, index) => (
+                    <img 
+                      key={index} 
+                      src={logo} 
+                      alt={`Partner ${index + 1}`}
+                      className="h-10 object-contain border border-gray-200 rounded p-1 bg-white"
+                      onError={(e) => {
+                        (e.target as HTMLImageElement).style.display = 'none';
+                      }}
+                    />
+                  ))}
+                  {partnerLogos.length > 6 && (
+                    <span className="text-gray-500 text-sm">+{partnerLogos.length - 6} logo khác</span>
+                  )}
+                </div>
+              </div>
+            )}
+          </div>
+
           <div className="flex gap-2 mb-4">
             <button
               onClick={() => setActiveTab('products')}
@@ -1481,6 +1873,12 @@ const AdminPage: React.FC<AdminPageProps> = ({ onLogout }) => {
               className={`px-6 py-2 rounded ${activeTab === 'news' ? 'bg-primary-blue text-white' : 'bg-gray-200'}`}
             >
               Tin Tức ({news.length})
+            </button>
+            <button
+              onClick={() => setActiveTab('reviews')}
+              className={`px-6 py-2 rounded ${activeTab === 'reviews' ? 'bg-primary-blue text-white' : 'bg-gray-200'}`}
+            >
+              Đánh Giá ({reviews.length})
             </button>
           </div>
 
