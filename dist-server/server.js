@@ -26,15 +26,15 @@ const Header = ({ onNavigate }) => {
     /* @__PURE__ */ jsxs("div", { className: "flex items-center space-x-4", children: [
       /* @__PURE__ */ jsxs("div", { className: "flex items-center space-x-1", children: [
         /* @__PURE__ */ jsx(PhoneIcon, {}),
-        /* @__PURE__ */ jsx("span", { children: "0123.456.789" })
+        /* @__PURE__ */ jsx("span", { children: "0935.444.945" })
       ] }),
       /* @__PURE__ */ jsxs("div", { className: "hidden sm:flex items-center space-x-1", children: [
         /* @__PURE__ */ jsx(MailIcon, {}),
-        /* @__PURE__ */ jsx("span", { children: "contact@demo.com" })
+        /* @__PURE__ */ jsx("span", { children: "xuongindanang09@gmail.com" })
       ] }),
       /* @__PURE__ */ jsxs("div", { className: "hidden md:flex items-center space-x-1", children: [
         /* @__PURE__ */ jsx(LocationIcon, {}),
-        /* @__PURE__ */ jsx("span", { children: "123 ABC Street, District 1, HCMC" })
+        /* @__PURE__ */ jsx("span", { children: "126-128 Quách Xân, Hòa Khánh, Đà Nẵng" })
       ] })
     ] }),
     /* @__PURE__ */ jsxs("div", { className: "flex items-center space-x-4", children: [
@@ -43,9 +43,9 @@ const Header = ({ onNavigate }) => {
     ] })
   ] }) });
   const MainHeader = () => /* @__PURE__ */ jsx("div", { className: "bg-white py-4", children: /* @__PURE__ */ jsxs("div", { className: "max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between", children: [
-    /* @__PURE__ */ jsx("div", { className: "flex items-center", children: /* @__PURE__ */ jsxs("a", { href: "#", onClick: (e) => handleNavClick(e, "TRANG CHỦ"), className: "text-4xl font-bold text-gray-800", children: [
-      /* @__PURE__ */ jsx("span", { className: "text-primary-blue", children: "C5" }),
-      /* @__PURE__ */ jsx("span", { className: "text-primary-orange", children: "SHOP" })
+    /* @__PURE__ */ jsx("div", { className: "flex items-center", children: /* @__PURE__ */ jsxs("a", { href: "#", onClick: (e) => handleNavClick(e, "TRANG CHỦ"), className: "text-3xl font-bold text-gray-800", children: [
+      /* @__PURE__ */ jsx("span", { className: "text-primary-blue", children: "XƯỞNG IN" }),
+      /* @__PURE__ */ jsx("span", { className: "text-primary-orange", children: " ĐÀ NẴNG" })
     ] }) }),
     /* @__PURE__ */ jsx("div", { className: "hidden lg:flex flex-grow max-w-xl mx-8", children: /* @__PURE__ */ jsxs("div", { className: "relative w-full", children: [
       /* @__PURE__ */ jsx(
@@ -82,7 +82,7 @@ const Header = ({ onNavigate }) => {
     /* @__PURE__ */ jsx("div", { className: "lg:hidden", children: /* @__PURE__ */ jsx("button", { onClick: () => setMobileMenuOpen(!mobileMenuOpen), children: /* @__PURE__ */ jsx(MenuIcon, {}) }) })
   ] }) });
   const NavBar = () => {
-    const navItems = ["TRANG CHỦ", "GIỚI THIỆU", "SẢN PHẨM", "KHUYẾN MÃI", "TIN TỨC", "LIÊN HỆ"];
+    const navItems = ["TRANG CHỦ", "GIỚI THIỆU", "SẢN PHẨM", "IN THƯƠNG HIỆU", "TIN TỨC", "LIÊN HỆ"];
     return /* @__PURE__ */ jsx("nav", { className: "bg-white border-t border-b", children: /* @__PURE__ */ jsx("div", { className: "max-w-7xl mx-auto px-4 sm:px-6 lg:px-8", children: /* @__PURE__ */ jsxs("div", { className: "hidden lg:flex items-center", children: [
       /* @__PURE__ */ jsxs("div", { className: "bg-primary-blue text-white px-6 py-3 font-bold flex items-center", children: [
         /* @__PURE__ */ jsx(MenuIcon, {}),
@@ -122,14 +122,15 @@ const Footer = () => {
     ] }) }),
     /* @__PURE__ */ jsx("div", { className: "max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10", children: /* @__PURE__ */ jsxs("div", { className: "grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8", children: [
       /* @__PURE__ */ jsxs("div", { children: [
-        /* @__PURE__ */ jsxs("a", { href: "/", className: "text-4xl font-bold text-gray-800", children: [
-          /* @__PURE__ */ jsx("span", { className: "text-primary-blue", children: "C5" }),
-          /* @__PURE__ */ jsx("span", { className: "text-primary-orange", children: "SHOP" })
+        /* @__PURE__ */ jsxs("a", { href: "/", className: "text-3xl font-bold text-gray-800", children: [
+          /* @__PURE__ */ jsx("span", { className: "text-primary-blue", children: "XƯỞNG IN" }),
+          /* @__PURE__ */ jsx("span", { className: "text-primary-orange", children: " ĐÀ NẴNG" })
         ] }),
-        /* @__PURE__ */ jsx("p", { className: "text-sm mt-4", children: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua." }),
-        /* @__PURE__ */ jsx("p", { className: "text-sm mt-4", children: "📍 123 Đường Phan Chu Trinh, Quận 10, TPHCM" }),
-        /* @__PURE__ */ jsx("p", { className: "text-sm mt-2", children: "📞 Điện thoại: 0123.456.789" }),
-        /* @__PURE__ */ jsx("p", { className: "text-sm mt-2", children: "✉️ Email: contact@demo.com" })
+        /* @__PURE__ */ jsx("p", { className: "text-sm mt-4 font-semibold", children: "Công ty TNHH Tam Giang Phát" }),
+        /* @__PURE__ */ jsx("p", { className: "text-sm mt-2", children: "Chuyên thiết kế, sản xuất và cung ứng quà tặng quảng bá thương hiệu. Giúp doanh nghiệp tiếp thị một cách tinh tế, thương hiệu in sâu vào tâm trí khách hàng." }),
+        /* @__PURE__ */ jsx("p", { className: "text-sm mt-4", children: "📍 126-128 Quách Xân, Phường Hòa Khánh, TP Đà Nẵng" }),
+        /* @__PURE__ */ jsx("p", { className: "text-sm mt-2", children: "📞 Hotline: 0935.444.945" }),
+        /* @__PURE__ */ jsx("p", { className: "text-sm mt-2", children: "✉️ Email: xuongindanang09@gmail.com" })
       ] }),
       /* @__PURE__ */ jsxs("div", { children: [
         /* @__PURE__ */ jsx("h4", { className: "font-bold text-lg mb-4", children: "CHÍNH SÁCH ĐỔI TRẢ" }),
@@ -145,13 +146,13 @@ const Footer = () => {
       /* @__PURE__ */ jsxs("div", { children: [
         /* @__PURE__ */ jsx("h4", { className: "font-bold text-lg mb-4", children: "SẢN PHẨM" }),
         /* @__PURE__ */ jsxs("ul", { className: "space-y-2 text-sm", children: [
-          /* @__PURE__ */ jsx("li", { children: /* @__PURE__ */ jsx("a", { href: "#", className: "hover:text-primary-blue", children: "Điện Thoại & Phụ Kiện" }) }),
-          /* @__PURE__ */ jsx("li", { children: /* @__PURE__ */ jsx("a", { href: "#", className: "hover:text-primary-blue", children: "Đồ Chơi" }) }),
-          /* @__PURE__ */ jsx("li", { children: /* @__PURE__ */ jsx("a", { href: "#", className: "hover:text-primary-blue", children: "Đồng Hồ" }) }),
-          /* @__PURE__ */ jsx("li", { children: /* @__PURE__ */ jsx("a", { href: "#", className: "hover:text-primary-blue", children: "Giày Dép Nam" }) }),
-          /* @__PURE__ */ jsx("li", { children: /* @__PURE__ */ jsx("a", { href: "#", className: "hover:text-primary-blue", children: "Giày Dép Nữ" }) }),
-          /* @__PURE__ */ jsx("li", { children: /* @__PURE__ */ jsx("a", { href: "#", className: "hover:text-primary-blue", children: "Làm Đẹp" }) }),
-          /* @__PURE__ */ jsx("li", { children: /* @__PURE__ */ jsx("a", { href: "#", className: "hover:text-primary-blue", children: "Máy Ảnh & Máy Quay Phim" }) })
+          /* @__PURE__ */ jsx("li", { children: /* @__PURE__ */ jsx("a", { href: "#", className: "hover:text-primary-blue", children: "Ly Thủy Tinh In Logo" }) }),
+          /* @__PURE__ */ jsx("li", { children: /* @__PURE__ */ jsx("a", { href: "#", className: "hover:text-primary-blue", children: "Bình Giữ Nhiệt" }) }),
+          /* @__PURE__ */ jsx("li", { children: /* @__PURE__ */ jsx("a", { href: "#", className: "hover:text-primary-blue", children: "Cốc Sứ & Ấm Chén" }) }),
+          /* @__PURE__ */ jsx("li", { children: /* @__PURE__ */ jsx("a", { href: "#", className: "hover:text-primary-blue", children: "Áo Mưa In Thương Hiệu" }) }),
+          /* @__PURE__ */ jsx("li", { children: /* @__PURE__ */ jsx("a", { href: "#", className: "hover:text-primary-blue", children: "Mũ Bảo Hiểm" }) }),
+          /* @__PURE__ */ jsx("li", { children: /* @__PURE__ */ jsx("a", { href: "#", className: "hover:text-primary-blue", children: "Ô Dù Cầm Tay" }) }),
+          /* @__PURE__ */ jsx("li", { children: /* @__PURE__ */ jsx("a", { href: "#", className: "hover:text-primary-blue", children: "Bộ Bình Nước" }) })
         ] })
       ] }),
       /* @__PURE__ */ jsxs("div", { children: [
@@ -174,23 +175,23 @@ const Footer = () => {
         ] })
       ] })
     ] }) }),
-    /* @__PURE__ */ jsx("div", { className: "border-t border-gray-200 py-4", children: /* @__PURE__ */ jsx("p", { className: "text-center text-sm", children: "Copyright © 2023 C5 SHOP" }) })
+    /* @__PURE__ */ jsx("div", { className: "border-t border-gray-200 py-4", children: /* @__PURE__ */ jsx("p", { className: "text-center text-sm", children: "Copyright © 2024 Xưởng In Đà Nẵng TGP - Công ty TNHH Tam Giang Phát" }) })
   ] });
 };
 const categories = [
-  "Điện Thoại & Phụ Kiện",
-  "Đồ Chơi",
-  "Đồng Hồ",
-  "Thời Trang Nam",
-  "Thời Trang Nữ",
-  "Máy Ảnh & Máy Quay Phim",
-  "Máy Tính & Laptop",
-  "Mẹ & Bé",
-  "Nhà Cửa & Đời Sống",
-  "Ô tô & Xe Máy & Xe Đạp",
-  "Thể Thao & Du Lịch",
-  "Thiết Bị Điện Gia Dụng",
-  "Thực Bì Điện Tử"
+  "Ly Thủy Tinh In Logo",
+  "Tô Chén Thủy Tinh",
+  "Đĩa Thủy Tinh",
+  "Bộ Bình Nước Thủy Tinh",
+  "Bình Giữ Nhiệt",
+  "Cốc Sứ In Logo",
+  "Ấm Chén Sứ",
+  "Áo Mưa In Thương Hiệu",
+  "Mũ Bảo Hiểm In Logo",
+  "Ô Dù Cầm Tay",
+  "Túi Canvas In Logo",
+  "Móc Khóa Quà Tặng",
+  "Sổ Tay In Logo"
 ];
 const CategoryMenuItem = ({ category }) => /* @__PURE__ */ jsx("li", { className: "border-b border-gray-200 last:border-b-0", children: /* @__PURE__ */ jsxs("a", { href: "#", className: "flex justify-between items-center px-4 py-3 text-sm text-gray-700 hover:bg-gray-50 hover:text-primary-blue", children: [
   /* @__PURE__ */ jsx("span", { children: category }),
@@ -363,51 +364,60 @@ const NewsSection = () => {
 const HomePage = () => {
   const newProducts = [
     {
-      name: "Son Kem Lì HERA Sensual Powder Matte",
+      name: "Ly Thủy Tinh In Logo Cao Cấp 350ml",
       image: "https://picsum.photos/id/1080/200/200",
-      oldPrice: "420,000đ",
-      newPrice: "420,000đ",
-      discount: 11,
+      oldPrice: "45,000đ",
+      newPrice: "35,000đ",
+      discount: 22,
       isNew: true
     },
     {
-      name: "Gấu Bông Thú Nhồi Bông...",
-      image: "https://i.imgur.com/vHZTmCE.png",
-      oldPrice: "250,000đ",
-      newPrice: "210,000đ",
-      discount: 11,
+      name: "Bình Giữ Nhiệt In Logo 500ml",
+      image: "https://picsum.photos/id/225/200/200",
+      oldPrice: "180,000đ",
+      newPrice: "150,000đ",
+      discount: 17,
       isNew: true
     },
     {
-      name: "Gấu Bông Thú Nhồi Bông...",
-      image: "https://i.imgur.com/vHZTmCE.png",
-      newPrice: "210,000đ"
+      name: "Cốc Sứ In Logo Doanh Nghiệp",
+      image: "https://picsum.photos/id/431/200/200",
+      newPrice: "55,000đ",
+      isNew: true
     },
     {
-      name: "Gấu Bông Thú Nhồi Bông...",
-      image: "https://i.imgur.com/vHZTmCE.png",
-      newPrice: "210,000đ"
+      name: "Ấm Chén Sứ Cao Cấp",
+      image: "https://picsum.photos/id/367/200/200",
+      newPrice: "280,000đ"
     },
     {
-      name: "Gấu Bông Thú Nhồi Bông...",
-      image: "https://i.imgur.com/vHZTmCE.png",
-      newPrice: "210,000đ"
+      name: "Áo Mưa In Thương Hiệu",
+      image: "https://picsum.photos/id/15/200/200",
+      oldPrice: "35,000đ",
+      newPrice: "28,000đ",
+      discount: 20
     },
     {
-      name: "Gấu Bông Thú Nhồi Bông...",
-      image: "https://i.imgur.com/vHZTmCE.png",
-      newPrice: "210,000đ"
+      name: "Mũ Bảo Hiểm In Logo",
+      image: "https://picsum.photos/id/188/200/200",
+      newPrice: "95,000đ"
     }
   ];
-  const phoneProducts = [
-    { name: "Điện thoại iPhone 14", image: "https://picsum.photos/id/86/200/200", oldPrice: "22,000,000đ", newPrice: "20,000,000đ", discount: 11 },
-    { name: "Điện thoại iPhone 14 Pro", image: "https://picsum.photos/id/87/200/200", newPrice: "29,000,000đ" },
-    { name: "Điện thoại iPhone 14 Pro", image: "https://picsum.photos/id/88/200/200", oldPrice: "32,000,000đ", newPrice: "29,000,000đ", discount: 11, isNew: true },
-    { name: "Điện thoại iPhone 14 Pro Max", image: "https://picsum.photos/id/89/200/200", newPrice: "33,000,000đ" },
-    { name: "Điện thoại iPhone 14 Pro Max", image: "https://picsum.photos/id/90/200/200", newPrice: "31,000,000đ", discount: 11, isNew: true },
-    { name: "Điện thoại iPhone 14 Pro", image: "https://picsum.photos/id/91/200/200", newPrice: "29,000,000đ" }
+  const glassProducts = [
+    { name: "Ly Thủy Tinh In Logo 300ml", image: "https://picsum.photos/id/1080/200/200", oldPrice: "40,000đ", newPrice: "32,000đ", discount: 20 },
+    { name: "Tô Thủy Tinh In Logo", image: "https://picsum.photos/id/225/200/200", newPrice: "45,000đ", isNew: true },
+    { name: "Đĩa Thủy Tinh Cao Cấp", image: "https://picsum.photos/id/431/200/200", oldPrice: "55,000đ", newPrice: "48,000đ", discount: 13 },
+    { name: "Bộ Bình Nước Thủy Tinh", image: "https://picsum.photos/id/367/200/200", newPrice: "280,000đ" },
+    { name: "Ly Rượu Thủy Tinh In Logo", image: "https://picsum.photos/id/225/200/200", newPrice: "38,000đ", isNew: true },
+    { name: "Cốc Thủy Tinh Uống Nước", image: "https://picsum.photos/id/1080/200/200", newPrice: "25,000đ" }
   ];
-  const toyProducts = newProducts.slice(1);
+  const giftProducts = [
+    { name: "Ô Dù Cầm Tay In Logo", image: "https://picsum.photos/id/15/200/200", oldPrice: "85,000đ", newPrice: "68,000đ", discount: 20 },
+    { name: "Túi Canvas In Thương Hiệu", image: "https://picsum.photos/id/188/200/200", newPrice: "45,000đ", isNew: true },
+    { name: "Móc Khóa Kim Loại In Logo", image: "https://picsum.photos/id/367/200/200", newPrice: "18,000đ" },
+    { name: "Sổ Tay Da In Logo", image: "https://picsum.photos/id/431/200/200", newPrice: "65,000đ", isNew: true },
+    { name: "Bình Nước Nhựa In Logo", image: "https://picsum.photos/id/225/200/200", newPrice: "42,000đ" }
+  ];
   return /* @__PURE__ */ jsxs(Fragment, { children: [
     /* @__PURE__ */ jsxs("div", { className: "lg:flex lg:space-x-6", children: [
       /* @__PURE__ */ jsx("div", { className: "hidden lg:block lg:w-1/4", children: /* @__PURE__ */ jsx(CategoryMenu, {}) }),
@@ -416,9 +426,9 @@ const HomePage = () => {
     /* @__PURE__ */ jsx(InfoBar, {}),
     /* @__PURE__ */ jsxs("div", { className: "mt-6", children: [
       /* @__PURE__ */ jsx(ProductSection, { title: "SẢN PHẨM MỚI", products: newProducts }),
-      /* @__PURE__ */ jsx(ProductSection, { title: "ĐIỆN THOẠI & PHỤ KIỆN", products: phoneProducts }),
+      /* @__PURE__ */ jsx(ProductSection, { title: "LY THỦY TINH IN LOGO", products: glassProducts }),
       /* @__PURE__ */ jsx(PromoBanners, {}),
-      /* @__PURE__ */ jsx(ProductSection, { title: "ĐỒ CHƠI", products: toyProducts }),
+      /* @__PURE__ */ jsx(ProductSection, { title: "QUÀ TẶNG DOANH NGHIỆP", products: giftProducts }),
       /* @__PURE__ */ jsx(NewsSection, {})
     ] })
   ] });
@@ -603,13 +613,31 @@ const App = () => {
     switch (currentPage) {
       case "GIỚI THIỆU":
         return /* @__PURE__ */ jsxs(StaticPage, { title: "Giới thiệu", children: [
-          /* @__PURE__ */ jsx("p", { children: "Đây là Giới thiệu — toàn soạn có thể thay đổi, rút gọn giản dị một đoạn văn bản giả, được dùng vào việc trình bày và dàn trang phục vụ cho các ấn phẩm. Lorem Ipsum đã được sử dụng như một văn bản chuẩn cho ngành công nghiệp in ấn từ những năm 1500, khi một họa sĩ vô danh ghép nhiều đoạn văn bản với nhau để tạo thành một bản mẫu văn bản." }),
+          /* @__PURE__ */ jsx("h3", { className: "text-xl font-bold mb-4 text-primary-blue", children: "Xưởng In Đà Nẵng TGP - Công ty TNHH Tam Giang Phát" }),
+          /* @__PURE__ */ jsxs("p", { className: "mb-4", children: [
+            "Chúng tôi chuyên ",
+            /* @__PURE__ */ jsx("strong", { children: "thiết kế, sản xuất và cung ứng quà tặng quảng bá thương hiệu" }),
+            " cho doanh nghiệp. Với nhiều năm kinh nghiệm trong lĩnh vực in ấn và sản xuất quà tặng, chúng tôi tự hào mang đến cho khách hàng những sản phẩm chất lượng cao, giá cả cạnh tranh."
+          ] }),
           /* @__PURE__ */ jsx("br", {}),
-          /* @__PURE__ */ jsx("p", { children: "Đoạn văn bản này không những đã tồn tại năm thế kỉ, mà còn được dùng khi các văn bản A-Z được thiết kế trình bày, nội dung của nó vẫn không hề thay đổi. Nó đã được phổ biến trong những năm 1960 với việc bán những bản giấy Letraset in những đoạn Lorem Ipsum, và gần đây hơn, được sử dụng trong các ứng dụng dàn trang, như Aldus PageMaker." })
+          /* @__PURE__ */ jsx("h4", { className: "text-lg font-semibold mb-3", children: "Dịch vụ của chúng tôi:" }),
+          /* @__PURE__ */ jsxs("ul", { className: "list-disc pl-6 space-y-2 mb-4", children: [
+            /* @__PURE__ */ jsx("li", { children: "In logo lên ly thủy tinh, cốc sứ, bình giữ nhiệt" }),
+            /* @__PURE__ */ jsx("li", { children: "Sản xuất quà tặng doanh nghiệp: áo mưa, mũ bảo hiểm, ô dù" }),
+            /* @__PURE__ */ jsx("li", { children: "Thiết kế và in ấn theo yêu cầu" }),
+            /* @__PURE__ */ jsx("li", { children: "Tư vấn giải pháp quà tặng phù hợp với ngân sách" })
+          ] }),
+          /* @__PURE__ */ jsxs("p", { children: [
+            "Quà tặng không chỉ là món quà, mà còn là ",
+            /* @__PURE__ */ jsx("strong", { children: '"sứ giả"' }),
+            " truyền đạt giá trị thương hiệu của bạn, giúp ",
+            /* @__PURE__ */ jsx("strong", { children: "thương hiệu in sâu vào tâm trí khách hàng" }),
+            " một cách tinh tế và hiệu quả."
+          ] })
         ] });
       case "SẢN PHẨM":
         return /* @__PURE__ */ jsx(ProductsPage, {});
-      case "KHUYẾN MÃI":
+      case "IN THƯƠNG HIỆU":
         return /* @__PURE__ */ jsx(PromotionsPage, {});
       case "TIN TỨC":
         return /* @__PURE__ */ jsx(NewsListPage, {});

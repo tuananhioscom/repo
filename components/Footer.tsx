@@ -22,16 +22,19 @@ const Footer: React.FC = () => {
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
                     {/* About Section */}
                     <div>
-                        <a href="/" className="text-4xl font-bold text-gray-800">
-                            <span className="text-primary-blue">C5</span>
-                            <span className="text-primary-orange">SHOP</span>
+                        <a href="/" className="text-3xl font-bold text-gray-800">
+                            <span className="text-primary-blue">XƯỞNG IN</span>
+                            <span className="text-primary-orange"> ĐÀ NẴNG</span>
                         </a>
-                        <p className="text-sm mt-4">
-                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                        <p className="text-sm mt-4 font-semibold">
+                            Công ty TNHH Tam Giang Phát
                         </p>
-                        <p className="text-sm mt-4">📍 123 Đường Phan Chu Trinh, Quận 10, TPHCM</p>
-                        <p className="text-sm mt-2">📞 Điện thoại: 0123.456.789</p>
-                        <p className="text-sm mt-2">✉️ Email: contact@demo.com</p>
+                        <p className="text-sm mt-2">
+                            Chuyên thiết kế, sản xuất và cung ứng quà tặng quảng bá thương hiệu. Giúp doanh nghiệp tiếp thị một cách tinh tế, thương hiệu in sâu vào tâm trí khách hàng.
+                        </p>
+                        <p className="text-sm mt-4">📍 126-128 Quách Xân, Phường Hòa Khánh, TP Đà Nẵng</p>
+                        <p className="text-sm mt-2">📞 Hotline: 0935.444.945</p>
+                        <p className="text-sm mt-2">✉️ Email: xuongindanang09@gmail.com</p>
                     </div>
 
                     {/* Links Section 1 */}
@@ -51,13 +54,13 @@ const Footer: React.FC = () => {
                     <div>
                         <h4 className="font-bold text-lg mb-4">SẢN PHẨM</h4>
                          <ul className="space-y-2 text-sm">
-                            <li><a href="#" className="hover:text-primary-blue">Điện Thoại & Phụ Kiện</a></li>
-                            <li><a href="#" className="hover:text-primary-blue">Đồ Chơi</a></li>
-                            <li><a href="#" className="hover:text-primary-blue">Đồng Hồ</a></li>
-                            <li><a href="#" className="hover:text-primary-blue">Giày Dép Nam</a></li>
-                            <li><a href="#" className="hover:text-primary-blue">Giày Dép Nữ</a></li>
-                             <li><a href="#" className="hover:text-primary-blue">Làm Đẹp</a></li>
-                             <li><a href="#" className="hover:text-primary-blue">Máy Ảnh & Máy Quay Phim</a></li>
+                            <li><a href="#" className="hover:text-primary-blue">Ly Thủy Tinh In Logo</a></li>
+                            <li><a href="#" className="hover:text-primary-blue">Bình Giữ Nhiệt</a></li>
+                            <li><a href="#" className="hover:text-primary-blue">Cốc Sứ & Ấm Chén</a></li>
+                            <li><a href="#" className="hover:text-primary-blue">Áo Mưa In Thương Hiệu</a></li>
+                            <li><a href="#" className="hover:text-primary-blue">Mũ Bảo Hiểm</a></li>
+                             <li><a href="#" className="hover:text-primary-blue">Ô Dù Cầm Tay</a></li>
+                             <li><a href="#" className="hover:text-primary-blue">Bộ Bình Nước</a></li>
                         </ul>
                     </div>
 
@@ -86,7 +89,7 @@ const Footer: React.FC = () => {
             
             {/* Copyright */}
             <div className="border-t border-gray-200 py-4">
-                 <p className="text-center text-sm">Copyright © 2023 C5 SHOP</p>
+                 <p className="text-center text-sm">Copyright © 2024 Xưởng In Đà Nẵng TGP - Công ty TNHH Tam Giang Phát</p>
             </div>
         </footer>
     );
