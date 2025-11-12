@@ -116,7 +116,7 @@ const NewsDetailPage: React.FC<NewsDetailPageProps> = ({ newsId, newsSlug }) => 
                     </time>
                   </div>
                   
-                  {/* Title */}
+                  {/* Title - H1 for SEO */}
                   <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 leading-tight mb-4">
                     {article.title}
                   </h1>
@@ -150,6 +150,7 @@ const NewsDetailPage: React.FC<NewsDetailPageProps> = ({ newsId, newsSlug }) => 
                   <div 
                     className="prose prose-lg max-w-none text-gray-700 leading-relaxed
                       prose-headings:font-bold prose-headings:text-gray-900
+                      prose-h1:text-3xl prose-h1:mt-8 prose-h1:mb-6 prose-h1:font-extrabold prose-h1:text-gray-900
                       prose-h2:text-2xl prose-h2:mt-8 prose-h2:mb-4
                       prose-h3:text-xl prose-h3:mt-6 prose-h3:mb-3
                       prose-p:mb-4 prose-p:text-base prose-p:leading-7
