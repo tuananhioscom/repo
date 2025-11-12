@@ -17,14 +17,26 @@ const NewsCard: React.FC<NewsCardProps> = ({ article }) => {
                 </span>
             </div>
             <div className="p-4">
-                <h3 className="text-sm font-semibold text-gray-800 h-10 overflow-hidden mb-2">
+                <h3 
+                    className="text-sm font-semibold text-gray-800 h-10 overflow-hidden mb-2 cursor-pointer hover:text-primary-blue"
+                    onClick={() => {
+                        const newsId = article.id || article.slug || article.title.toLowerCase().replace(/\s+/g, '-');
+                        window.location.href = `/?news=${newsId}`;
+                    }}
+                >
                     {article.title}
                 </h3>
                 <div className="flex justify-between items-center text-xs text-gray-500">
                     <span>📅 {article.date}</span>
-                    <a href="#" className="bg-primary-orange text-white px-3 py-1 rounded-full text-xs flex items-center hover:bg-primary-orange-dark">
+                    <button
+                        onClick={() => {
+                            const newsId = article.id || article.slug || article.title.toLowerCase().replace(/\s+/g, '-');
+                            window.location.href = `/?news=${newsId}`;
+                        }}
+                        className="bg-primary-orange text-white px-3 py-1 rounded-full text-xs flex items-center hover:bg-primary-orange-dark"
+                    >
                         Chi tiết <ChevronRightIcon />
-                    </a>
+                    </button>
                 </div>
             </div>
         </div>
